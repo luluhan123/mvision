@@ -46,8 +46,8 @@ class MSAWorkSpace(QFrame):
         if i in self.removed_sequence:
             return
 
-        # get part image according to the predefined radius
-        patch = self.controller.get_part_image_by_size(img, self.possible_points[i], self.global_tacking_area_radius*2 + 1)
+        # get part image according to the predefined radius, if in
+        self.possible_points[i], patch = self.controller.get_part_image_by_size(img, self.possible_points[i], self.global_tacking_area_radius*2 + 1)
 
         # ridge point extraction based on tube filter
         ridge_pts = self.controller.san_ban_fu(patch)
@@ -57,7 +57,8 @@ class MSAWorkSpace(QFrame):
         for pt in ridge_pts:
             if self.maximumLikelyhoodTrackingArea[i][int(pt[0])][int(pt[1])] > 0:
                 ridge_pts_filtered.append((pt[0], pt[1]))
-        #ridge_pts_filtered.sort()
+
+        #TODO eliminate points which are so far from the gudewire tip structure in last frame
 
         if len(ridge_pts_filtered) == 0:
             self.removed_sequence.append(i)
@@ -79,17 +80,22 @@ class MSAWorkSpace(QFrame):
         # if self.ctSequenceViewer.display_count > self.predict_threshold or self.initial_possibility-len(self.removed_sequence) == 1:
         # get the color of the current possibility
         color = QColor(self.color[i])
-        # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
+        self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         #self.ctSequenceViewer.tuple_points_display(ridge_pts_filtered, self.possible_points[i], (color.red() - 10, color.green() - 10, color.blue() - 10), 80)
-        self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
-        #self.ctSequenceViewer.draw_a_single_point(end_point, self.possible_points[i], (color.red(),color.green(), color.blue()), self.global_tacking_area_radius)
+        #self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
+        #self.ctSequenceViewer.draw_a_single_point(self.possible_sequences[i], self.possible_points[i], (color.red(),color.green(), color.blue()), self.global_tacking_area_radius)
         #self.ctSequenceViewer.curve_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
         # self.ctSequenceViewer.generate_box_and_display(self.possible_points[i], self.global_tacking_area_radius*2, self.global_tacking_area_radius*2, (255, 255, 255))
         # print (i, time.time())
         # self.save_random_points(self.mask_contour[i], self.possible_points[i],  self.ctSequenceViewer.display_count)
 
         #self.save_guidewire_tip_ground_truth(ridge_pts_new, self.possible_points[i], self.ctSequenceViewer.display_count, i)
+
+        for h in self.possible_sequences[i]:
+            self.ctSequenceViewer.draw_a_single_point(h, self.possible_points[i],
+                                                      (color.red(), color.green(), color.blue()),
+                                                      self.global_tacking_area_radius)
 
         self.guidewire_tip_sequence[i] = self.possible_sequences[i]
 

@@ -220,7 +220,7 @@ class CTSAProcessingFactory:
             y2 = l
 
         output_img = img[y1:y2, x1:x2]
-        return output_img
+        return ((x1+x2)/2, (y1+y2)/2), output_img
 
     def convertt(self, numpy_image):  # convert numpy to vtk
         (row, col) = numpy_image.shape

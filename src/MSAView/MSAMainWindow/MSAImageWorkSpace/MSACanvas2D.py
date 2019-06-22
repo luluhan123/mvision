@@ -799,7 +799,7 @@ class MSACanvas2D(QFrame):
         polygonSource = vtk.vtkRegularPolygonSource()
         #polygonSource.GeneratePolygonOff()
         polygonSource.SetNumberOfSides(50)
-        polygonSource.SetRadius(8)
+        polygonSource.SetRadius(2)
         polygonSource.SetCenter((pt.get_x() - radius+centre[0])*self.magnifyFactorWidth, (pt.get_y() + centre[1]-radius)*self.magnifyFactorHeight, 0)
 
         mapper = vtk.vtkPolyDataMapper2D()
@@ -810,6 +810,32 @@ class MSACanvas2D(QFrame):
         actor.SetMapper(mapper)
         actor.GetProperty().SetColor(color[0] * 1.0 / 255, color[1] * 1.0 / 255, color[2] * 1.0 / 255)
         actor.GetProperty().SetPointSize(1.5 * self.ihm_factor)
+        self.renderer.AddActor2D(actor)
+
+    def contour_key_points_display(self, pts, centre, color, radius):
+        points = vtk.vtkPoints()
+        x = []
+        y = []
+
+        for point in pts:
+            points.InsertNextPoint((point[0] - radius+centre[0])*self.magnifyFactorWidth, (point[1] + centre[1]-radius)*self.magnifyFactorHeight, 0)
+
+        polydata = vtk.vtkPolyData()
+        polydata.SetPoints(points)
+
+        glyph_filter = vtk.vtkVertexGlyphFilter()
+        glyph_filter.SetInputData(polydata)
+        glyph_filter.Update()
+
+        mapper = vtk.vtkPolyDataMapper2D()
+        mapper.SetInputConnection(glyph_filter.GetOutputPort())
+        mapper.Update()
+
+        actor = vtk.vtkActor2D()
+        actor.SetMapper(mapper)
+        actor.GetProperty().SetColor(color[0]*1.0/255, color[1]*1.0/255, color[2]*1.0/255)
+        actor.GetProperty().SetPointSize(1.5*self.ihm_factor)
+
         self.renderer.AddActor2D(actor)
 
     def key_points_display(self, pts, centre, color, radius):
