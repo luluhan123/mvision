@@ -40,6 +40,21 @@ class MSAWorkSpace(QFrame):
     vesselSegmentationWindow = pyqtSignal()
     parameterWindowSetting = pyqtSignal()
 
+    def distance(self, pt0, pt1):
+        return math.sqrt((pt1.get_x() - pt0[0]) ** 2 + (pt1.get_y() - pt0[1]) ** 2)
+
+    def find_nearest_distance(self, pt, pts):
+        distances = []
+        for p in pts:
+            distances.append(self.distance(pt, p))
+        length = len(distances)
+        temp = min(distances)
+        temp_index = distances.index(temp)
+        if (temp_index == 0 and temp > 20) or (temp_index == length-1 and temp > 20):
+            return False
+        else:
+            return True
+
     # [1] patch area tracking
     def do_track_guidewire(self, img, i):
         # ignore the tracking gravity points which has been removed
@@ -47,7 +62,7 @@ class MSAWorkSpace(QFrame):
             return
 
         # get part image according to the predefined radius, if in
-        self.possible_points[i], patch = self.controller.get_part_image_by_size(img, self.possible_points[i], self.global_tacking_area_radius*2 + 1)
+        self.possiblely_gravity_points[i], patch = self.controller.get_part_image_by_size(img, self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1)
 
         # ridge point extraction based on tube filter
         ridge_pts = self.controller.san_ban_fu(patch)
@@ -58,31 +73,31 @@ class MSAWorkSpace(QFrame):
             if self.maximumLikelyhoodTrackingArea[i][int(pt[0])][int(pt[1])] > 0:
                 ridge_pts_filtered.append((pt[0], pt[1]))
 
-        #TODO eliminate points which are so far from the gudewire tip structure in last frame
+        # TODO eliminate points which are so far from the gudewire tip structure in last frame
+        ridge_pts_calibrated = []
+        if len(self.possiblely_guidewire_tip_structure[i]) > 3:
+            for pt in ridge_pts_filtered:
+                    if self.find_nearest_distance(pt,self.possiblely_guidewire_tip_structure[i]):
+                        ridge_pts_calibrated.append(pt)
+        else:
+            ridge_pts_calibrated = ridge_pts_filtered
 
-        if len(ridge_pts_filtered) == 0:
+        if len(ridge_pts_calibrated) == 0:
             self.removed_sequence.append(i)
             return
 
-        # TODO to be upgraded
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_filtered, 5, self.global_tacking_area_radius*2 + 1, self.global_tacking_area_radius*2 + 1, 10)
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 8, self.global_tacking_area_radius*2 + 1, self.global_tacking_area_radius*2 + 1, 10)
         if ridge_pts_new is not None:
-
-            # TODO: to be developped
             ridge_pts_new.sort()
-            self.possible_sequences[i] = ridge_pts_new.interpolation(10)
-
+            self.possiblely_guidewire_tip_structure[i] = ridge_pts_new.interpolation(10)
         else:
             self.removed_sequence.append(i)
             return
 
-        # print(self.possible_sequences[i])
-        # if self.ctSequenceViewer.display_count > self.predict_threshold or self.initial_possibility-len(self.removed_sequence) == 1:
-        # get the color of the current possibility
         color = QColor(self.color[i])
-        self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
+        self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
-        #self.ctSequenceViewer.tuple_points_display(ridge_pts_filtered, self.possible_points[i], (color.red() - 10, color.green() - 10, color.blue() - 10), 80)
+        # self.ctSequenceViewer.tuple_points_display(ridge_pts_calibrated, self.possiblely_gravity_points[i], (color.red() - 20, color.green() - 20, color.blue() - 20), 80)
         #self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         #self.ctSequenceViewer.draw_a_single_point(self.possible_sequences[i], self.possible_points[i], (color.red(),color.green(), color.blue()), self.global_tacking_area_radius)
         #self.ctSequenceViewer.curve_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
@@ -92,27 +107,26 @@ class MSAWorkSpace(QFrame):
 
         #self.save_guidewire_tip_ground_truth(ridge_pts_new, self.possible_points[i], self.ctSequenceViewer.display_count, i)
 
-        for h in self.possible_sequences[i]:
-            self.ctSequenceViewer.draw_a_single_point(h, self.possible_points[i],
-                                                      (color.red(), color.green(), color.blue()),
-                                                      self.global_tacking_area_radius)
+        for h in self.possiblely_guidewire_tip_structure[i]:
+            self.ctSequenceViewer.draw_a_single_point(h, self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
 
-        self.guidewire_tip_sequence[i] = self.possible_sequences[i]
+        self.guidewire_tip_sequence[i] = self.possiblely_guidewire_tip_structure[i]
 
         # mov = self.predict_movement(ridge_pts_filtered, 80)
-        mov = self.predict_movement(self.possible_sequences[i], self.global_tacking_area_radius)
+        mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i], self.global_tacking_area_radius)
 
-        self.maximumLikelyhoodTrackingArea[i], self.maximumLikelyhoodTrackingAreaMask[i] = self.compute_convex_hull(self.possible_sequences[i], 30, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1)
+        self.maximumLikelyhoodTrackingArea[i], self.maximumLikelyhoodTrackingAreaMask[i] = self.compute_convex_hull(self.possiblely_guidewire_tip_structure[i], 30, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1)
 
-        self.possible_points[i] = (int(self.possible_points[i][0] + mov[0]), int(self.possible_points[i][1] + mov[1]))
+        self.possiblely_gravity_points[i] = (int(self.possiblely_gravity_points[i][0] + mov[0]), int(self.possiblely_gravity_points[i][1] + mov[1]))
 
-        self.predict_sequence[i].append(self.possible_points[i])
+        self.predict_sequence[i].append(self.possiblely_gravity_points[i])
 
-        if (self.possible_points[i][0] > self.abscissa) or (self.possible_points[i][0] < 0) or (self.possible_points[i][1] > self.ordinate) or (self.possible_points[i][1] < 0):
+        if (self.possiblely_gravity_points[i][0] > self.abscissa) or (self.possiblely_gravity_points[i][0] < 0) or (self.possiblely_gravity_points[i][1] > self.ordinate) or (self.possiblely_gravity_points[i][1] < 0):
             self.removed_sequence.append(i)
             return
 
-        if len(self.predict_sequence[i]) > 3 and self.compute_distance(self.predict_sequence[i][-1],self.predict_sequence[i][-2]) > 30:
+        if len(self.predict_sequence[i]) > 3 and self.compute_distance(self.predict_sequence[i][-1],self.predict_sequence[i][-2]) > 63:
+            print ("err value", self.compute_distance(self.predict_sequence[i][-1],self.predict_sequence[i][-2]))
             self.removed_sequence.append(i)
             return
 
@@ -125,7 +139,7 @@ class MSAWorkSpace(QFrame):
                             return
 
         if self.ctSequenceViewer.display_count > 1:
-            distance = float(math.sqrt((self.possible_points[i][0] - self.predict_sequence[i][1][0]) ** 2 + (self.possible_points[i][1] - self.predict_sequence[i][1][1]) ** 2))
+            distance = float(math.sqrt((self.possiblely_gravity_points[i][0] - self.predict_sequence[i][1][0]) ** 2 + (self.possiblely_gravity_points[i][1] - self.predict_sequence[i][1][1]) ** 2))
             self.predict_sequence_movements[i].append(distance)
 
         if self.ctSequenceViewer.display_count == self.predict_threshold:
@@ -133,7 +147,7 @@ class MSAWorkSpace(QFrame):
 
     def execute(self):
         self.ctSequenceAnalyseArea.clear()
-
+        print(self.ctSequenceViewer.display_count, "---------------------------------------------------------")
         # convert image from vtk to numpy
         total_img = self.controller.set_image_to_numpyy(self.ctSequenceViewer.current_x_ray_image.get_values())
 
@@ -142,12 +156,12 @@ class MSAWorkSpace(QFrame):
 
             global_ridge_pts = self.controller.san_ban_fu(total_img)
             self.ctSequenceViewer.global_key_points_display(global_ridge_pts, (80, 80), [255.0, 120.0, 0.0], 80)
-            self.possible_points = self.controller.do_predict_possible_points(global_ridge_pts)
+            self.possiblely_gravity_points = self.controller.do_predict_possible_points(global_ridge_pts)
 
-            self.initial_possibility = len(self.possible_points)
-            self.ctSequenceViewer.points_display(self.possible_points, [0, 0, 255], 10)
+            self.initial_possibility = len(self.possiblely_gravity_points)
+            self.ctSequenceViewer.points_display(self.possiblely_gravity_points, [0, 0, 255], 10)
             for x in range(self.initial_possibility):
-                self.possible_sequences.append([])
+                self.possiblely_guidewire_tip_structure.append([])
                 self.predict_sequence.append([])
                 self.predict_sequence_movements.append([])
                 self.maximumLikelyhoodTrackingArea.append(np.ones((self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1)))
@@ -726,8 +740,8 @@ class MSAWorkSpace(QFrame):
         self.convert_image = np.zeros((512, 512))
         self.converted_image = np.zeros((512 * 512, 1))
 
-        self.possible_points = list()
-        self.possible_sequences = list()
+        self.possiblely_gravity_points = list()
+        self.possiblely_guidewire_tip_structure = list()
 
         self.predict_sequence = []
         self.predict_sequence_movements = []
