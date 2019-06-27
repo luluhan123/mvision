@@ -65,8 +65,8 @@ class ProcessWindow(QFrame):
         self.display_count = 0
         self.file_number = 0
 
-        self.xRayImageWidth = 192
-        self.xRayImageHeight = 192
+        self.xRayImageWidth = 161
+        self.xRayImageHeight = 161
 
         self.globalBoxRadius = 96
         self.globalBoxRadius1 = 0.01
@@ -464,7 +464,7 @@ class ProcessWindow(QFrame):
         range_value = maximal_grayscale-minimal_grayscale
 
         cpt = 0
-        for i in xrange(int(range_value)):
+        for i in range(int(range_value)):
             if cpt == 0:
                 cpt += 1
                 continue
@@ -477,6 +477,7 @@ class ProcessWindow(QFrame):
 
         actor = self.adjust_image_to_window()
         self.display_image(actor)
+        self.mise_a_jour()
 
     def displayy(self, input):
         self.imageToBeDisplayed = self.convert(input)

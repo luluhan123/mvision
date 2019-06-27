@@ -388,6 +388,9 @@ class ResultViewer(QWidget):
         output = self.ctSequenceViewer.fetch_guide_wire()
         self.display(output)
 
+    def display_numpy_image(self, input):
+        self.imageProcessingViewer.display(input)
+
     def display_frangi(self, input):
         self.imageProcessingViewer.display_vtk_image(input)
 
