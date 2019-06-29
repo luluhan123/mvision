@@ -48,7 +48,9 @@ class MSAWorkSpace(QFrame):
 
         # get part image according to the predefined radius, if in
         self.possiblely_gravity_points[i], patch = self.controller.get_part_image_by_size(img, self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1)
-        self.ctSequenceAnalyseArea.display_numpy_image(self.controller.frangi_img(patch))
+        #pt, patch_for_display = self.controller.get_part_image_by_size_by_vtk(self.ctSequenceViewer.current_x_ray_image.get_values(), self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 512, 512)
+        #self.ctSequenceAnalyseArea.display_numpy_image(self.controller.frangi_img(patch))
+        #self.ctSequenceAnalyseArea.display_frangi(patch_for_display)
         # ridge point extraction based on tube filter
         ridge_pts = self.controller.san_ban_fu(patch)
 
@@ -62,7 +64,7 @@ class MSAWorkSpace(QFrame):
             if self.maximumLikelyhoodTrackingArea[i][int(pt[0])][int(pt[1])] > 0:
                 ridge_pts_filtered.append((pt[0], pt[1]))
 
-        # TODO eliminate points which are so far from the gudewire tip structure in last frame
+        # TODO eliminate points which are too far from the gudewire tip structure in last frame
         ridge_pts_calibrated = []
         if len(self.possiblely_guidewire_tip_structure[i]) > 3:
             for pt in ridge_pts_filtered:
@@ -88,28 +90,28 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.tuple_points_display(ridge_pts_calibrated, self.possiblely_gravity_points[i], (color.red() - 20, color.green() - 20, color.blue() - 20), 80)
         # self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.draw_a_single_point(self.possible_sequences[i], self.possible_points[i], (color.red(),color.green(), color.blue()), self.global_tacking_area_radius)
-        # self.ctSequenceViewer.curve_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
+        # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
         # print (i, time.time())
         # self.save_random_points(self.mask_contour[i], self.possible_points[i],  self.ctSequenceViewer.display_count)
         # self.save_guidewire_tip_ground_truth(ridge_pts_new, self.possible_points[i], self.ctSequenceViewer.display_count, i)
         #
         # --------------------------------------------------------visualization work-------------------------------------------------------------------------------------------------
         # [1]
-        self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts, self.possiblely_gravity_points[i], (255, 165, 0), 80)
+        #self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts, self.possiblely_gravity_points[i], (255, 165, 0), 80)
 
         # [2]
-        self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
+        #self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
 
         # [3]
-        self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
+        #self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
 
         # [4]
-        self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
+        #self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
         # [5]
-        self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius)
-
-        self.guidewire_tip_sequence[i] = self.possiblely_guidewire_tip_structure[i]
+        #self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius)
+        self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()))
+        #self.guidewire_tip_sequence[i] = self.possiblely_guidewire_tip_structure[i]
 
         # mov = self.predict_movement(ridge_pts_filtered, 80)
         mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i], self.global_tacking_area_radius)
