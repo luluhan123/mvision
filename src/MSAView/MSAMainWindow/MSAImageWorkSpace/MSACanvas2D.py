@@ -823,8 +823,8 @@ class MSACanvas2D(QFrame):
     def draw_a_single_point(self, pt, centre, color, radius):
         polygonSource = vtk.vtkRegularPolygonSource()
         #polygonSource.GeneratePolygonOff()
-        polygonSource.SetNumberOfSides(50)
-        polygonSource.SetRadius(2)
+        polygonSource.SetNumberOfSides(20)
+        polygonSource.SetRadius(1)
         polygonSource.SetCenter((pt.get_x() - radius+centre[0])*self.magnifyFactorWidth, (pt.get_y() + centre[1]-radius)*self.magnifyFactorHeight, 0)
 
         mapper = vtk.vtkPolyDataMapper2D()

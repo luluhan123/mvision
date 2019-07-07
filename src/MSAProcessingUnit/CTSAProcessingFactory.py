@@ -82,7 +82,7 @@ class CTSAProcessingFactory:
         # configure parameters
         pts_clustering.set_point_set(pts)
         pts_clustering.set_minimum_point_number_per_cluster(20)
-        pts_clustering.set_tolerant_area(30)
+        pts_clustering.set_tolerant_area(20)
         # pts_clustering.set_curve_fit(False)
         # execute algorithm
         pts_clustering.execute()

@@ -13,6 +13,7 @@ from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtWidgets import QFrame, QSlider, QHBoxLayout, QPushButton, QLineEdit, QLabel, QVBoxLayout
 from PyQt5.QtCore import pyqtSignal, QSize, Qt
 
+from src.MSAModel.MSAStructure.MSAPoint import MSAPoint
 from src.MSAView.MSAMainWindow.MSAImageWorkSpace.MSACanvas2D import MSACanvas2D
 from src.MSAView.MSAMainWindow.IHMTool.MSAPlottingBoard import MSAPlottingBoard
 from src.MSAView.MSAMainWindow.MSAImageWorkSpace.ResultViewer import ResultViewer
@@ -40,6 +41,42 @@ class MSAWorkSpace(QFrame):
     vesselSegmentationWindow = pyqtSignal()
     parameterWindowSetting = pyqtSignal()
 
+    def interpolation(self, pts, resolution):
+
+        points = vtk.vtkPoints()
+
+        x_spline = vtk.vtkSCurveSpline()
+        y_spline = vtk.vtkSCurveSpline()
+        z_spline = vtk.vtkSCurveSpline()
+
+        spline = vtk.vtkParametricSpline()
+        spline_source = vtk.vtkParametricFunctionSource()
+
+        number_of_points = pts.get_length()
+        for i in range(number_of_points):
+            points.InsertNextPoint(pts.get_point_at(i).get_x(), pts.get_point_at(i).get_y(), 0)
+
+        spline.SetXSpline(x_spline)
+        spline.SetYSpline(y_spline)
+        spline.SetZSpline(z_spline)
+        spline.SetPoints(points)
+        spline_source.SetParametricFunction(spline)
+        spline_source.SetUResolution(resolution)
+        spline_source.SetVResolution(resolution)
+        spline_source.SetWResolution(resolution)
+        spline_source.Update()
+
+        pts_nbr = spline_source.GetOutput().GetNumberOfPoints()
+        pts_in_polydata = spline_source.GetOutput()
+
+        ret = []
+
+        for i in range(pts_nbr):
+            pt = MSAPoint(0, pts_in_polydata.GetPoint(i)[0], pts_in_polydata.GetPoint(i)[1])
+            ret.append(pt)
+
+        return ret
+
     # [1] patch area tracking
     def do_track_guidewire(self, img, i):
         # ignore the tracking gravity points which has been removed
@@ -48,13 +85,13 @@ class MSAWorkSpace(QFrame):
 
         # get part image according to the predefined radius, if in
         self.possiblely_gravity_points[i], patch = self.controller.get_part_image_by_size(img, self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1)
-        #pt, patch_for_display = self.controller.get_part_image_by_size_by_vtk(self.ctSequenceViewer.current_x_ray_image.get_values(), self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 512, 512)
-        #self.ctSequenceAnalyseArea.display_numpy_image(self.controller.frangi_img(patch))
-        #self.ctSequenceAnalyseArea.display_frangi(patch_for_display)
+        pt, patch_for_display = self.controller.get_part_image_by_size_by_vtk(self.ctSequenceViewer.current_x_ray_image.get_values(), self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 512, 512)
+        self.ctSequenceAnalyseArea.display_numpy_image(self.controller.frangi_img(patch))
+        self.ctSequenceAnalyseArea.display_frangi(patch_for_display)
         # ridge point extraction based on tube filter
         ridge_pts = self.controller.san_ban_fu(patch)
 
-        if (len(ridge_pts)/self.global_patch_size) > 0.009:
+        if (len(ridge_pts) / self.global_patch_size) > 0.009:
             self.removed_sequence.append(i)
             return
 
@@ -64,12 +101,12 @@ class MSAWorkSpace(QFrame):
             if self.maximumLikelyhoodTrackingArea[i][int(pt[0])][int(pt[1])] > 0:
                 ridge_pts_filtered.append((pt[0], pt[1]))
 
-        # TODO eliminate points which are too far from the gudewire tip structure in last frame
+        # eliminate points which are too far from the guidewire tip structure in last frame
         ridge_pts_calibrated = []
         if len(self.possiblely_guidewire_tip_structure[i]) > 3:
             for pt in ridge_pts_filtered:
-                    if self.find_nearest_distance(pt,self.possiblely_guidewire_tip_structure[i]):
-                        ridge_pts_calibrated.append(pt)
+                if self.find_nearest_distance(pt, self.possiblely_guidewire_tip_structure[i]):
+                    ridge_pts_calibrated.append(pt)
         else:
             ridge_pts_calibrated = ridge_pts_filtered
 
@@ -77,41 +114,52 @@ class MSAWorkSpace(QFrame):
             self.removed_sequence.append(i)
             return
 
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 8, self.global_tacking_area_radius*2 + 1, self.global_tacking_area_radius*2 + 1, 10)
+        temp = []
+        for pt in ridge_pts_calibrated:
+            temp.append(img[pt[0]][pt[1]])
+        interval = max(temp) - min(temp)
+        grayscale_threshold = min(temp) + interval*0.1
+        ridge_pts_sorted = []
+        for pt in ridge_pts_calibrated:
+            if img[pt[0]][pt[1]] > grayscale_threshold:
+                ridge_pts_sorted.append(pt)
+
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 8, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
         if ridge_pts_new is not None:
             ridge_pts_new.sort()
             self.possiblely_guidewire_tip_structure[i] = ridge_pts_new.interpolation(10)
+            #self.possiblely_guidewire_tip_structure[i] = self.interpolation(ridge_pts_new, 10)
         else:
             self.removed_sequence.append(i)
             return
 
         color = QColor(self.color[i])
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
-        # self.ctSequenceViewer.tuple_points_display(ridge_pts_calibrated, self.possiblely_gravity_points[i], (color.red() - 20, color.green() - 20, color.blue() - 20), 80)
+        self.ctSequenceViewer.tuple_points_display(ridge_pts, self.possiblely_gravity_points[i], (color.red() - 20, color.green() - 20, color.blue() - 20), 80)
         # self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.draw_a_single_point(self.possible_sequences[i], self.possible_points[i], (color.red(),color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
         # print (i, time.time())
         # self.save_random_points(self.mask_contour[i], self.possible_points[i],  self.ctSequenceViewer.display_count)
-        # self.save_guidewire_tip_ground_truth(ridge_pts_new, self.possible_points[i], self.ctSequenceViewer.display_count, i)
+        # self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
         #
         # --------------------------------------------------------visualization work-------------------------------------------------------------------------------------------------
         # [1]
-        #self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts, self.possiblely_gravity_points[i], (255, 165, 0), 80)
+        # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts, self.possiblely_gravity_points[i], (255, 165, 0), 80)
 
         # [2]
-        #self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
+        # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
 
         # [3]
-        #self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
+        # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
 
         # [4]
-        #self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
+        # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
         # [5]
-        #self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius)
-        self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()))
-        #self.guidewire_tip_sequence[i] = self.possiblely_guidewire_tip_structure[i]
+        # self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius)
+        # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()))
+        # self.guidewire_tip_sequence[i] = self.possiblely_guidewire_tip_structure[i]
 
         # mov = self.predict_movement(ridge_pts_filtered, 80)
         mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i], self.global_tacking_area_radius)
@@ -121,12 +169,12 @@ class MSAWorkSpace(QFrame):
         self.possiblely_gravity_points[i] = (int(self.possiblely_gravity_points[i][0] + mov[0]), int(self.possiblely_gravity_points[i][1] + mov[1]))
 
         self.predict_sequence[i].append(self.possiblely_gravity_points[i])
-
+        # print ("image:", self.ctSequenceViewer.display_count, "possiblity:",i,  "gravities:", self.predict_sequence[i])
         if (self.possiblely_gravity_points[i][0] > self.abscissa) or (self.possiblely_gravity_points[i][0] < 0) or (self.possiblely_gravity_points[i][1] > self.ordinate) or (self.possiblely_gravity_points[i][1] < 0):
             self.removed_sequence.append(i)
             return
 
-        if len(self.predict_sequence[i]) > 3 and self.compute_distance(self.predict_sequence[i][-1],self.predict_sequence[i][-2]) > 63:
+        if len(self.predict_sequence[i]) > 3 and self.compute_distance(self.predict_sequence[i][-1], self.predict_sequence[i][-2]) > 63:
             # print ("err value", self.compute_distance(self.predict_sequence[i][-1],self.predict_sequence[i][-2]))
             self.removed_sequence.append(i)
             return
@@ -178,7 +226,7 @@ class MSAWorkSpace(QFrame):
             # print(self.predict_sequence_deviation)
             for pair in self.predict_sequence_deviation:
                 deviation_seq.append(pair[0])
-            print ("maximum Deviation", max(deviation_seq))
+            print("maximum Deviation", max(deviation_seq), "all", deviation_seq)
             index = deviation_seq.index(max(deviation_seq))
             for i in range(len(deviation_seq)):
                 if i != index:
@@ -198,7 +246,7 @@ class MSAWorkSpace(QFrame):
         length = len(distances)
         temp = min(distances)
         temp_index = distances.index(temp)
-        if (temp_index == 0 and temp > 20) or (temp_index == length-1 and temp > 20):
+        if (temp_index == 0 and temp > 20) or (temp_index == length - 1 and temp > 20):
             return False
         else:
             return True
@@ -259,14 +307,14 @@ class MSAWorkSpace(QFrame):
             print(centre)
         with open(filename, 'w') as fileobject:
             for pt in pts:
-                fileobject.write(str((pt[0]+centre[0]-80))+";" + str((pt[1]+centre[1]-80)) + "\n")
+                fileobject.write(str((pt[0] + centre[0] - 80)) + ";" + str((pt[1] + centre[1] - 80)) + "\n")
         fileobject.close()
 
     def save_guidewire_tip_ground_truth(self, pts, centre, index, i):
-        file_name = "/home/cheng/Desktop/6/" + self.global_sequence_name + "_" + str(10000+index) + "_" + str(i) + ".csv"
+        file_name = "/home/cheng/Desktop/9/" + self.global_sequence_name + "_" + str(10000 + index) + "_" + str(i) + ".csv"
         with open(file_name, 'w') as fileobject:
-            for c in range(pts.get_length()):
-                fileobject.write(str((pts.get_point_at(c).get_x()+centre[0]-80))+";" + str((pts.get_point_at(c).get_y()+centre[1]-80)) + "\n")
+            for c in range(len(pts)):
+                fileobject.write(str((pts[c].get_x() + centre[0] - 80)) + ";" + str((pts[c].get_y() + centre[1] - 80)) + "\n")
         fileobject.close()
 
     def calculate_min_distance(self, pts):
@@ -278,11 +326,11 @@ class MSAWorkSpace(QFrame):
 
     def insert(self, pts):
         new_pts = []
-        for index in range(len(pts)-1):
+        for index in range(len(pts) - 1):
             new_pts.append(pts[index])
-            distance = float(math.sqrt((pts[index][0] - pts[index+1][0]) ** 2 + (pts[index][1] - pts[index+1][1]) ** 2))
+            distance = float(math.sqrt((pts[index][0] - pts[index + 1][0]) ** 2 + (pts[index][1] - pts[index + 1][1]) ** 2))
             if distance > 0.15:
-                new_pts.append(((pts[index][0] - pts[index+1][0])/2, (pts[index][1] - pts[index+1][1])/2))
+                new_pts.append(((pts[index][0] - pts[index + 1][0]) / 2, (pts[index][1] - pts[index + 1][1]) / 2))
         return new_pts
 
     def compute_distance(self, pt0, pt1):
@@ -856,8 +904,8 @@ class MSAWorkSpace(QFrame):
         self.controlBarLayout.addWidget(self.targetImageChoosingBackButton)
         self.controlBarLayout.addWidget(self.processSliderIndicationLabel)
         self.controlBarLayout.addWidget(self.targetImageChoosingButton)
-        #self.controlBarLayout.addWidget(self.clearPointButton)
-        #self.controlBarLayout.addWidget(self.clearPointfileButton)
+        # self.controlBarLayout.addWidget(self.clearPointButton)
+        # self.controlBarLayout.addWidget(self.clearPointfileButton)
         self.controlBarLayout.setSpacing(1)
         self.controlBarLayout.setContentsMargins(0, 0, 0, 0)
 
@@ -894,7 +942,7 @@ class MSAWorkSpace(QFrame):
         self.global_sequence_name = ""
         self.current_image_index = 0
         self.global_tacking_area_radius = 80
-        self.global_patch_size = (self.global_tacking_area_radius*2)**2
+        self.global_patch_size = (self.global_tacking_area_radius * 2) ** 2
         self.curve_sequence_historical = []
 
         # -------------------------------------------------------------------------------------------------------------------

@@ -42,8 +42,8 @@ class MSAPlottingBoard(QFrame):
         self.windowSecondPointEnable = False
 
         self.setFixedSize(self.width, self.height)
-        self.setStyleSheet("background-color:" + self.globalBackgroundColor + "; color:" + self.globalFontColor + ";")
-
+        #self.setStyleSheet("background-color:" + self.globalBackgroundColor + "; color:" + self.globalFontColor + ";")
+        self.setStyleSheet("background-color:white; color:black;")
         # a figure instance to plot on
         self.figure = plt.figure()
         self.figure.patch.set_alpha(0.0)
@@ -120,17 +120,22 @@ class MSAPlottingBoard(QFrame):
 
         self.clear()
 
-        histo_plot = self.figure.add_axes([0, 0, 1, 1])
-        histo_plot.set_axis_on()
-        histo_plot.set_xlabel('frequency', color='#EDEDED')
-        histo_plot.set_ylabel('grayscale', color='#EDEDED')
+        histo_plot = self.figure.subplots()
+        # histo_plot.set_axis_on()
+        # histo_plot.set_xlabel('frame index', color='#000000')
+        # histo_plot.set_ylabel('distance', color='#000000')
         if self.ihm_factor == 2:
             histo_plot.patch.set_facecolor('#434343')
         elif self.ihm_factor == 1:
-            histo_plot.patch.set_facecolor('#2F2F2F')
+            histo_plot.patch.set_facecolor('#FFFFFF')
 
         for x in range(len(sequences)):
-            histo_plot.plot(abssisa[x], sequences[x], self.color[x])
+            histo_plot.plot(abssisa[x], sequences[x], self.color[x], ms=3)
+
+        histo_plot.vlines(36, 0, 300, color="red")
+        plt.grid(axis="y")
+        histo_plot.set_yticks([30, 60, 90, 120, 150, 180])
+        histo_plot.set_ylim([0, 210])
 
         self.update()
 
