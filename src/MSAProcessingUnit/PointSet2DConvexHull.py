@@ -7,7 +7,7 @@ class PointSet2DConvexHull:
     def __init__(self):
         self.linesPointsSet = MSAPointSet()
         self.valueMatrix = []
-        self.exploreArea = 20
+        self.exploreArea = 5
         self.limit_x = 512
         self.limit_y = 512
         self.hullEdgePoints = []

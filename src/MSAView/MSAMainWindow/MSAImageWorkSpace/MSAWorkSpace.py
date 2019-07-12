@@ -20,6 +20,7 @@ from src.MSAView.MSAMainWindow.MSAImageWorkSpace.ResultViewer import ResultViewe
 from src.MSAView.MSAMainWindow.MSAImageWorkSpace.MSAInformationArea import MSAInformationArea
 
 import vtk
+import matplotlib
 import time
 import os
 import numpy as np
@@ -85,9 +86,11 @@ class MSAWorkSpace(QFrame):
 
         # get part image according to the predefined radius, if in
         self.possiblely_gravity_points[i], patch = self.controller.get_part_image_by_size(img, self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1)
-        pt, patch_for_display = self.controller.get_part_image_by_size_by_vtk(self.ctSequenceViewer.current_x_ray_image.get_values(), self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 512, 512)
-        self.ctSequenceAnalyseArea.display_numpy_image(self.controller.frangi_img(patch))
-        self.ctSequenceAnalyseArea.display_frangi(patch_for_display)
+        # pt, patch_for_display = self.controller.get_part_image_by_size_by_vtk(self.ctSequenceViewer.current_x_ray_image.get_values(), self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 512, 512)
+        # self.ctSequenceAnalyseArea.display_numpy_image(self.controller.frangi_img(patch))
+        # matplotlib.image.imsave('/home/cheng/Desktop/hehe/' + str(self.ctSequenceViewer.display_count) + '.png', self.controller.frangi_img(patch), cmap=matplotlib.cm.gray)
+
+        # self.ctSequenceAnalyseArea.display_frangi(patch_for_display)
         # ridge point extraction based on tube filter
         ridge_pts = self.controller.san_ban_fu(patch)
 
@@ -105,7 +108,7 @@ class MSAWorkSpace(QFrame):
         ridge_pts_calibrated = []
         if len(self.possiblely_guidewire_tip_structure[i]) > 3:
             for pt in ridge_pts_filtered:
-                if self.find_nearest_distance(pt, self.possiblely_guidewire_tip_structure[i]):
+                if self.find_nearest_distance(pt, self.possiblely_guidewire_tip_structure[i][-1]):
                     ridge_pts_calibrated.append(pt)
         else:
             ridge_pts_calibrated = ridge_pts_filtered
@@ -124,18 +127,18 @@ class MSAWorkSpace(QFrame):
             if img[pt[0]][pt[1]] > grayscale_threshold:
                 ridge_pts_sorted.append(pt)
 
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 8, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 8, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 8)
         if ridge_pts_new is not None:
             ridge_pts_new.sort()
-            self.possiblely_guidewire_tip_structure[i] = ridge_pts_new.interpolation(10)
-            #self.possiblely_guidewire_tip_structure[i] = self.interpolation(ridge_pts_new, 10)
+            #self.possiblely_guidewire_tip_structure[i] = ridge_pts_new.interpolation(10)
+            self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new, 10))
         else:
             self.removed_sequence.append(i)
             return
 
         color = QColor(self.color[i])
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
-        self.ctSequenceViewer.tuple_points_display(ridge_pts, self.possiblely_gravity_points[i], (color.red() - 20, color.green() - 20, color.blue() - 20), 80)
+        # self.ctSequenceViewer.tuple_points_display(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 0, 0), 80)
         # self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.draw_a_single_point(self.possible_sequences[i], self.possible_points[i], (color.red(),color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
@@ -154,17 +157,22 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
 
         # [4]
-        # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
+        self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
         # [5]
-        # self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius)
-        # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()))
-        # self.guidewire_tip_sequence[i] = self.possiblely_guidewire_tip_structure[i]
+        if len(self.possiblely_guidewire_tip_structure[i]) > 2:
+            if self.ctSequenceViewer.display_count < 36:
+                #self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-2], self.possiblely_gravity_points[i], QColor(153, 255, 255), self.global_tacking_area_radius)
+                self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius)
+            else:
+                #self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-2], self.possiblely_gravity_points[i], QColor(107, 227, 207), self.global_tacking_area_radius)
+                self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], QColor(239, 188, 64), self.global_tacking_area_radius)
+                #self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], (239, 188, 64))
 
         # mov = self.predict_movement(ridge_pts_filtered, 80)
-        mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i], self.global_tacking_area_radius)
+        mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i][-1], self.global_tacking_area_radius)
 
-        self.maximumLikelyhoodTrackingArea[i], self.maximumLikelyhoodTrackingAreaMask[i] = self.compute_convex_hull(self.possiblely_guidewire_tip_structure[i], 30, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1)
+        self.maximumLikelyhoodTrackingArea[i], self.maximumLikelyhoodTrackingAreaMask[i] = self.compute_convex_hull(self.possiblely_guidewire_tip_structure[i][-1], 30, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1)
 
         self.possiblely_gravity_points[i] = (int(self.possiblely_gravity_points[i][0] + mov[0]), int(self.possiblely_gravity_points[i][1] + mov[1]))
 
@@ -199,6 +207,8 @@ class MSAWorkSpace(QFrame):
 
         # convert image from vtk to numpy
         total_img = self.controller.set_image_to_numpyy(self.ctSequenceViewer.current_x_ray_image.get_values())
+        #self.ctSequenceAnalyseArea.display_numpy_image(self.controller.frangi_img(total_img))
+        #matplotlib.image.imsave('/home/cheng/Desktop/hehe/' + str(self.ctSequenceViewer.display_count) + '.png', self.controller.frangi_img(total_img), cmap=matplotlib.cm.gray)
 
         self.abscissa, self.ordinate = np.shape(total_img)
         if self.ctSequenceViewer.display_count == 0:

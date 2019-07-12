@@ -667,8 +667,36 @@ class MSACanvas2D(QFrame):
     #     actor.SetMapper(mapper)
     #     self.renderer.AddActor2D(actor)
 
+    '''
+    points = vtk.vtkPoints()
+
+        x_spline = vtk.vtkSCurveSpline()
+        y_spline = vtk.vtkSCurveSpline()
+        z_spline = vtk.vtkSCurveSpline()
+
+        spline = vtk.vtkParametricSpline()
+        spline_source = vtk.vtkParametricFunctionSource()
+
+        number_of_points = pts.get_length()
+        for i in range(number_of_points):
+            points.InsertNextPoint(pts.get_point_at(i).get_x(), pts.get_point_at(i).get_y(), 0)
+
+        spline.SetXSpline(x_spline)
+        spline.SetYSpline(y_spline)
+        spline.SetZSpline(z_spline)
+        spline.SetPoints(points)
+        spline_source.SetParametricFunction(spline)
+        spline_source.SetUResolution(resolution)
+        spline_source.SetVResolution(resolution)
+        spline_source.SetWResolution(resolution)
+        spline_source.Update()
+    '''
+
     def curve_display(self, pts, centre, color):
         points = vtk.vtkPoints()
+        x_spline = vtk.vtkSCurveSpline()
+        y_spline = vtk.vtkSCurveSpline()
+        z_spline = vtk.vtkSCurveSpline()
         spline = vtk.vtkParametricSpline()
         spline_source = vtk.vtkParametricFunctionSource()
         spline_mapper = vtk.vtkPolyDataMapper2D()
@@ -679,16 +707,20 @@ class MSACanvas2D(QFrame):
         for point in pts:
             points.InsertNextPoint((point.get_x()+centre[0]-80) * self.magnifyFactorWidth, (point.get_y()+centre[1]-80)* self.magnifyFactorHeight, 0)
 
+        spline.SetXSpline(x_spline)
+        spline.SetYSpline(y_spline)
+        spline.SetZSpline(z_spline)
         spline.SetPoints(points)
-        spline.ClosedOff()
         spline_source.SetParametricFunction(spline)
-        # spline_source.SetUResolution(20)
-        # spline_source.SetVResolution(20)
-        # spline_source.SetWResolution(20)
+        spline_source.SetUResolution(200)
+        spline_source.SetVResolution(200)
+        spline_source.SetWResolution(200)
+        spline_source.Update()
 
         spline_mapper.SetInputConnection(spline_source.GetOutputPort())
         actor.SetMapper(spline_mapper)
         actor.GetProperty().SetColor(color[0]/255, color[1]/255, color[2]/255)
+        #actor.GetProperty().SetOpacity(0.6)
         # self.pts_actors.append(actor)
         #
         # for act in self.pts_actors:
@@ -791,7 +823,7 @@ class MSACanvas2D(QFrame):
         actor = vtk.vtkActor2D()
         actor.SetMapper(mapper)
         actor.GetProperty().SetColor(color[0]*1.0/255, color[1]*1.0/255, color[2]*1.0/255)
-        actor.GetProperty().SetPointSize(3)
+        actor.GetProperty().SetPointSize(1.5)
 
         self.renderer.AddActor2D(actor)
 
