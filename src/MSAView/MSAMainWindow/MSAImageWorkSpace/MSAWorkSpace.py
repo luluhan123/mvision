@@ -130,7 +130,7 @@ class MSAWorkSpace(QFrame):
         ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 8, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 8)
         if ridge_pts_new is not None:
             ridge_pts_new.sort()
-            #self.possiblely_guidewire_tip_structure[i] = ridge_pts_new.interpolation(10)
+            # self.possiblely_guidewire_tip_structure[i] = ridge_pts_new.interpolation(10)
             self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new, 10))
         else:
             self.removed_sequence.append(i)
@@ -236,13 +236,13 @@ class MSAWorkSpace(QFrame):
             # print(self.predict_sequence_deviation)
             for pair in self.predict_sequence_deviation:
                 deviation_seq.append(pair[0])
-            print("maximum Deviation", max(deviation_seq), "all", deviation_seq)
+            # print("maximum Deviation", max(deviation_seq), "all", deviation_seq)
             index = deviation_seq.index(max(deviation_seq))
             for i in range(len(deviation_seq)):
                 if i != index:
                     self.removed_sequence.append(self.predict_sequence_deviation[i][1])
 
-        self.imageVisualizationConfigurationArea.do_plot_distance_flow(self.predict_sequence_movements)
+        self.imageVisualizationConfigurationArea.do_plot_distance_flow(self.controller.get_current_sequence_count(), self.predict_sequence_movements)
 
         self.ctSequenceAnalyseArea.update_all()
 

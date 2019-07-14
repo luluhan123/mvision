@@ -31,9 +31,13 @@ class MSAPlottingBoard(QFrame):
         self.setAcceptDrops(True)
 
         self.font1 = {'family': 'Times New Roman',
-                      'color': 'purple',
+                      'color': 'red',
                       'weight': 'normal',
-                      'size': 16, }
+                      'size': 6, }
+
+        self.font2 = {'family': 'Times New Roman',
+                      'weight': 'normal',
+                      'size': 4, }
 
         self.pos_x = 0
         self.pos_y = 0
@@ -42,13 +46,12 @@ class MSAPlottingBoard(QFrame):
         self.windowSecondPointEnable = False
 
         self.setFixedSize(self.width, self.height)
-        #self.setStyleSheet("background-color:" + self.globalBackgroundColor + "; color:" + self.globalFontColor + ";")
-        self.setStyleSheet("background-color:white; color:black;")
         # a figure instance to plot on
         self.figure = plt.figure()
-        self.figure.patch.set_alpha(0.0)
-        self.canvas = FigureCanvas(self.figure)
 
+        self.figure.patch.set_facecolor('#333333')
+
+        self.canvas = FigureCanvas(self.figure)
         image_processing_bar = QLabel()
         image_processing_bar.setFixedHeight(self.height * 0.1)
 
@@ -63,8 +66,8 @@ class MSAPlottingBoard(QFrame):
         self.mouseLeftButtonPressed = False
         self.mouseLeftButtonDoubleClicked = False
 
-        self.color = ['ro:', 'yo:', 'bo:', 'go:', 'wo:', 'mo:']
-        #self.color = ['red', 'yellow', 'blue', 'green', 'white', 'magenta']
+        self.color = ['r-', 'y-', 'b-', 'g-', 'w-', 'm-']
+        # self.color = ['red', 'yellow', 'blue', 'green', 'white', 'magenta']
 
         self.enterEvent = self.figure.canvas.mpl_connect('figure_enter_event',     self.enter_figure)
         self.leaveEvent = self.figure.canvas.mpl_connect('figure_leave_event',     self.leave_figure)
@@ -113,7 +116,7 @@ class MSAPlottingBoard(QFrame):
         self.canvas.mpl_disconnect(self.motionEvent)
         self.canvas.mpl_disconnect(self.scrollEvent)
 
-    def do_plot_distance_flow(self, sequences):
+    def do_plot_distance_flow(self, count, sequences):
         abssisa = []
         for sequence in sequences:
             abssisa.append([n for n in range(1, len(sequence) + 1)])
@@ -121,21 +124,54 @@ class MSAPlottingBoard(QFrame):
         self.clear()
 
         histo_plot = self.figure.subplots()
-        # histo_plot.set_axis_on()
-        # histo_plot.set_xlabel('frame index', color='#000000')
-        # histo_plot.set_ylabel('distance', color='#000000')
+        #histo_plot.set_axis_on()
+
         if self.ihm_factor == 2:
             histo_plot.patch.set_facecolor('#434343')
         elif self.ihm_factor == 1:
-            histo_plot.patch.set_facecolor('#FFFFFF')
+            histo_plot.patch.set_facecolor('#333333')
 
+        compteur = 0
+        plots = []
+        max_y = 0
         for x in range(len(sequences)):
-            histo_plot.plot(abssisa[x], sequences[x], self.color[x], ms=3)
+            temp, = histo_plot.plot(abssisa[x], sequences[x], self.color[x], label="candi." + str(compteur), linewidth=0.5, ms=1)
+            if len(sequences[x]) > 1:
+                if max(sequences[x]) > max_y:
+                    max_y = max(sequences[x])
 
-        histo_plot.vlines(36, 0, 300, color="red")
-        plt.grid(axis="y")
-        histo_plot.set_yticks([30, 60, 90, 120, 150, 180])
-        histo_plot.set_ylim([0, 210])
+            plots.append(temp)
+            compteur += 1
+
+        legend = plt.legend(handles=plots, prop=self.font2)
+        # 设置坐标刻度值的大小以及刻度值的字体
+        plt.tick_params(labelsize=3)
+        labels = histo_plot.get_xticklabels() + histo_plot.get_yticklabels()
+        [label.set_fontname('Times New Roman') for label in labels]
+        [label.set_fontsize(6) for label in labels]
+
+        plt.xlabel('frame index', fontdict=self.font1)
+        plt.ylabel('distance', fontdict=self.font1)
+        histo_plot.spines['bottom'].set_linewidth(0.5)
+        histo_plot.spines['bottom'].set_color("#0C6D56")
+        histo_plot.spines['left'].set_linewidth(0.5)
+        histo_plot.spines['left'].set_color("#0C6D56")
+        histo_plot.spines['top'].set_linewidth(0.5)
+        histo_plot.spines['top'].set_color("#0C6D56")
+        histo_plot.spines['right'].set_linewidth(0.5)
+        histo_plot.spines['right'].set_color("#0C6D56")
+        histo_plot.tick_params(axis='y', width=0.5, colors='#ECDEDE')
+        histo_plot.tick_params(axis='x', width=0.5, colors='#ECDEDE')
+
+        plt.grid(axis="y", linestyle='-')
+
+        if max_y > 60:
+            histo_plot.set_yticks(np.arange(int(max_y*0.2), max_y, 30))
+            histo_plot.vlines(36, 0, max_y, color="red")
+        else:
+            histo_plot.set_yticks(np.arange(20, 60, 20))
+            histo_plot.vlines(36, 0, 60, color="red")
+        histo_plot.set_xticks(np.arange(0, count, 10))
 
         self.update()
 
@@ -247,15 +283,15 @@ class MSAPlottingBoard(QFrame):
 
         histo_plot = self.figure.add_subplot(111, axisbg=(50.0 / 255, 50.0 / 255, 50.0 / 255))
         histo_plot.plot(x, y)
-        histo_plot.spines['right'].set_color('none')
-        histo_plot.spines['top'].set_color('none')
-        histo_plot.xaxis.set_ticks_position('bottom')
-        histo_plot.set_xticks([60, 120])
-        histo_plot.set_xlim([0, 160])
+        # histo_plot.spines['right'].set_color('none')
+        # histo_plot.spines['top'].set_color('none')
+        # histo_plot.xaxis.set_ticks_position('bottom')
+        # histo_plot.set_xticks([60, 120])
+        # histo_plot.set_xlim([0, 160])
         # histo_plot.set_xticklabels(['Level\n', 'Window\n'])
 
-        histo_plot.set_yticks([60, 120])
-        histo_plot.set_ylim([0, 160])
+        # histo_plot.set_yticks([60, 120])
+        # histo_plot.set_ylim([0, 160])
         # histo_plot.set_yticklabels(['Threshold\n', 'balabala\n'])
 
         # for tick in histo_plot.xaxis.get_major_ticks():

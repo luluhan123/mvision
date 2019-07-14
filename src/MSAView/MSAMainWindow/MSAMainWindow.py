@@ -90,7 +90,7 @@ class MSAMainWindow(QWidget):
 
             if width <= 2000:
                 self.ihm_factor = 1
-                self.globalBackgroundColor = "rgb(47, 47, 47)"
+                self.globalBackgroundColor = "rgb(51, 51, 51)"
             else:
                 self.ihm_factor = 2
 
