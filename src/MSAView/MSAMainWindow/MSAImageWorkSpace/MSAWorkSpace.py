@@ -78,6 +78,13 @@ class MSAWorkSpace(QFrame):
 
         return ret
 
+    def save_guidewire_tip_ground_truth(self, pts, centre, index, i):
+        file_name = "C:\\Users\\cheng\\Desktop\\4\\navi" + str(10000 + index) + "_" + str(i) + ".txt"
+        with open(file_name, 'w') as fileobject:
+            for c in range(len(pts)):
+                fileobject.write(str((pts[c].get_x() + centre[0] - 80)) + ";" + str((pts[c].get_y() + centre[1] - 80)) + "\n")
+        fileobject.close()
+
     # [1] patch area tracking
     def do_track_guidewire(self, img, i):
         # ignore the tracking gravity points which has been removed
@@ -127,7 +134,7 @@ class MSAWorkSpace(QFrame):
             if img[pt[0]][pt[1]] > grayscale_threshold:
                 ridge_pts_sorted.append(pt)
 
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 8, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 8)
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 8)
         if ridge_pts_new is not None:
             ridge_pts_new.sort()
             # self.possiblely_guidewire_tip_structure[i] = ridge_pts_new.interpolation(10)
@@ -135,6 +142,8 @@ class MSAWorkSpace(QFrame):
         else:
             self.removed_sequence.append(i)
             return
+
+        #self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
 
         color = QColor(self.color[i])
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
@@ -157,7 +166,7 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
 
         # [4]
-        self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
+        # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
         # [5]
         if len(self.possiblely_guidewire_tip_structure[i]) > 2:
@@ -318,13 +327,6 @@ class MSAWorkSpace(QFrame):
         with open(filename, 'w') as fileobject:
             for pt in pts:
                 fileobject.write(str((pt[0] + centre[0] - 80)) + ";" + str((pt[1] + centre[1] - 80)) + "\n")
-        fileobject.close()
-
-    def save_guidewire_tip_ground_truth(self, pts, centre, index, i):
-        file_name = "/home/cheng/Desktop/9/" + self.global_sequence_name + "_" + str(10000 + index) + "_" + str(i) + ".csv"
-        with open(file_name, 'w') as fileobject:
-            for c in range(len(pts)):
-                fileobject.write(str((pts[c].get_x() + centre[0] - 80)) + ";" + str((pts[c].get_y() + centre[1] - 80)) + "\n")
         fileobject.close()
 
     def calculate_min_distance(self, pts):
