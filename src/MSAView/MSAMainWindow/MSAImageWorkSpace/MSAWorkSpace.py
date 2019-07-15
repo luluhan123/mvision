@@ -79,7 +79,7 @@ class MSAWorkSpace(QFrame):
         return ret
 
     def save_guidewire_tip_ground_truth(self, pts, centre, index, i):
-        file_name = "C:\\Users\\cheng\\Desktop\\4\\navi" + str(10000 + index) + "_" + str(i) + ".txt"
+        file_name = "/home/cheng/Desktop/evaluation/13/" + str(10000 + index) + "_" + str(i) + ".txt"
         with open(file_name, 'w') as fileobject:
             for c in range(len(pts)):
                 fileobject.write(str((pts[c].get_x() + centre[0] - 80)) + ";" + str((pts[c].get_y() + centre[1] - 80)) + "\n")
@@ -143,11 +143,11 @@ class MSAWorkSpace(QFrame):
             self.removed_sequence.append(i)
             return
 
-        #self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
+        # self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
 
         color = QColor(self.color[i])
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
-        self.ctSequenceViewer.tuple_points_display(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 0, 0), 80)
+        # self.ctSequenceViewer.tuple_points_display(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 0, 0), 80)
         # self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.draw_a_single_point(self.possible_sequences[i], self.possible_points[i], (color.red(),color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
