@@ -306,6 +306,7 @@
     <file alias="3Dvision-grey.png">../../img/3Dvision-grey.png</file>
     <file alias="1file-grey.png">../../img/1file-grey.png</file>
     <file alias="addpoint-grey.png">../../img/addpoint-grey.png</file>
+    <file alias="subpoint-grey.png">../../img/subpoint-grey.png</file>
     <file alias="pause-grey.png">../../img/pause-grey.png</file>
     <file alias="start-grey.png">../../img/start-grey.png</file>
     <file alias="subtract-grey.png">../../img/subtract-grey.png</file>

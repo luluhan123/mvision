@@ -4,8 +4,8 @@ from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QGridLayout, QHBoxLayout
 from PyQt5.QtCore import pyqtSignal, Qt, QSize
 from PyQt5.QtGui import QIcon, QColor
 
-from MSAView.MSAMainWindow.IHMTool.ObjectEvent import ObjectEvent
-from MSAView.MSAMainWindow.MSAToolBar.MSASessionChooseList import SessionChooseList
+from src.MSAView.MSAMainWindow.IHMTool.ObjectEvent import ObjectEvent
+from src.MSAView.MSAMainWindow.MSAToolBar.MSASessionChooseList import SessionChooseList
 
 
 class MSAInformationArea(QWidget):
@@ -50,7 +50,7 @@ class MSAInformationArea(QWidget):
         self.pointtopointButtonClicked = False
         self.paraSetButtonClicked = False
 
-        self.barWidth = 32*self.ihm_factor
+        self.barWidth = 35*self.ihm_factor
 
         self.width = width - self.barWidth - 10*self.ihm_factor
         self.height = height

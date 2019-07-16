@@ -6,7 +6,7 @@ Last updated on 07/01/2015
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QWidget, QLineEdit,QVBoxLayout, QFrame, QListWidgetItem
-from MSAView.MSAMainWindow.MSAToolBar.MSASessionListWidget import SessionListWidget
+from src.MSAView.MSAMainWindow.MSAToolBar.MSASessionListWidget import SessionListWidget
 
 
 class SessionChooseList(QWidget):

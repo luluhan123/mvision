@@ -59,10 +59,10 @@ class MSAMainWindow(QWidget):
         self.ihm_factor = 1
 
         self.globalBackgroundColor = "rgb(67, 67, 67)"
-        self.globalFontColor = "rgb(12, 109, 86)"
+        self.globalFontColor = "rgb(211, 211, 211)"
 
         if sys.platform == 'darwin':
-            self.globalFont = QFont("System", 11, QFont.AnyStyle, True)
+            self.globalFont = QFont("System", 11, QFont.Light, True)
         else:
             self.globalFont = QFont("Monospace", 9, QFont.AnyStyle, True)
 

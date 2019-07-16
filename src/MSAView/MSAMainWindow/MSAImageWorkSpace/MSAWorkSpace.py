@@ -53,9 +53,9 @@ class MSAWorkSpace(QFrame):
         spline = vtk.vtkParametricSpline()
         spline_source = vtk.vtkParametricFunctionSource()
 
-        number_of_points = pts.get_length()
+        number_of_points = len(pts)#.get_length()
         for i in range(number_of_points):
-            points.InsertNextPoint(pts.get_point_at(i).get_x(), pts.get_point_at(i).get_y(), 0)
+            points.InsertNextPoint(pts[i].get_x(), pts[i].get_y(), 0)
 
         spline.SetXSpline(x_spline)
         spline.SetYSpline(y_spline)
@@ -124,21 +124,11 @@ class MSAWorkSpace(QFrame):
             self.removed_sequence.append(i)
             return
 
-        temp = []
-        for pt in ridge_pts_calibrated:
-            temp.append(img[pt[0]][pt[1]])
-        interval = max(temp) - min(temp)
-        grayscale_threshold = min(temp) + interval*0.1
-        ridge_pts_sorted = []
-        for pt in ridge_pts_calibrated:
-            if img[pt[0]][pt[1]] > grayscale_threshold:
-                ridge_pts_sorted.append(pt)
-
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
         if ridge_pts_new is not None:
             ridge_pts_new.sort()
-            # self.possiblely_guidewire_tip_structure[i] = ridge_pts_new.interpolation(10)
-            self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new, 10))
+            #self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.interpolation(ridge_pts_new.get_length()//3))
+            self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation(ridge_pts_new.get_length()//4), 15))
         else:
             self.removed_sequence.append(i)
             return
@@ -862,24 +852,24 @@ class MSAWorkSpace(QFrame):
         self.displayButton.setStyleSheet("background: " + self.globalBackgroundColor)
         self.displayButton.setIcon(QIcon(":/beforeplay.png"))
         self.displayButton.setMouseTracking(True)
-        self.displayButton.setFixedSize(QSize(20 * self.ihm_factor, 20 * self.ihm_factor))
-        self.displayButton.setIconSize(QSize(20 * self.ihm_factor, 20 * self.ihm_factor))
+        self.displayButton.setFixedSize(QSize(15 * self.ihm_factor, 15 * self.ihm_factor))
+        self.displayButton.setIconSize(QSize(15 * self.ihm_factor, 15 * self.ihm_factor))
         self.displayButton.setFlat(True)
 
         self.clearPointButton = QPushButton()
         self.clearPointButton.setStyleSheet("background: " + self.globalBackgroundColor)
         self.clearPointButton.setIcon(QIcon(":/beforeplay.png"))
         self.clearPointButton.setMouseTracking(True)
-        self.clearPointButton.setFixedSize(QSize(20 * self.ihm_factor, 20 * self.ihm_factor))
-        self.clearPointButton.setIconSize(QSize(20 * self.ihm_factor, 20 * self.ihm_factor))
+        self.clearPointButton.setFixedSize(QSize(18 * self.ihm_factor, 18 * self.ihm_factor))
+        self.clearPointButton.setIconSize(QSize(18 * self.ihm_factor, 18 * self.ihm_factor))
         self.clearPointButton.setFlat(True)
 
         self.clearPointfileButton = QPushButton()
         self.clearPointfileButton.setStyleSheet("background: " + self.globalBackgroundColor)
         self.clearPointfileButton.setIcon(QIcon(":/close.png"))
         self.clearPointfileButton.setMouseTracking(True)
-        self.clearPointfileButton.setFixedSize(QSize(20 * self.ihm_factor, 20 * self.ihm_factor))
-        self.clearPointfileButton.setIconSize(QSize(20 * self.ihm_factor, 20 * self.ihm_factor))
+        self.clearPointfileButton.setFixedSize(QSize(18 * self.ihm_factor, 18 * self.ihm_factor))
+        self.clearPointfileButton.setIconSize(QSize(18 * self.ihm_factor, 18 * self.ihm_factor))
         self.clearPointfileButton.setFlat(True)
 
         self.processSlider = QSlider(Qt.Horizontal)
@@ -890,7 +880,7 @@ class MSAWorkSpace(QFrame):
                                          "QSlider::handle:Horizontal{height: 30px; width:8px; border-image: url(:/images/ic_music_thumb.png); margin: -8 0px; }")
 
         self.targetImageChoosingBackButton = QPushButton()
-        self.targetImageChoosingBackButton.setIcon(QIcon(":/subpoint.png"))
+        self.targetImageChoosingBackButton.setIcon(QIcon(":/subpoint-grey.png"))
         self.targetImageChoosingBackButton.setFixedSize(18 * self.ihm_factor, 18 * self.ihm_factor)
         self.targetImageChoosingBackButton.setIconSize(QSize(18 * self.ihm_factor, 18 * self.ihm_factor))
         self.targetImageChoosingBackButton.setFlat(True)
@@ -898,11 +888,11 @@ class MSAWorkSpace(QFrame):
         self.processSliderIndicationLabel = QLineEdit("0")
         self.processSliderIndicationLabel.setFixedSize(25 * self.ihm_factor, 18 * self.ihm_factor)
         self.processSliderIndicationLabel.setFont(self.globalFont)
-        self.processSliderIndicationLabel.setStyleSheet("border:0px solid orange; color: " + self.globalFontColor)
+        self.processSliderIndicationLabel.setStyleSheet("border:0px solid orange; color: lightgrey;")
         self.processSliderIndicationLabel.setAlignment(Qt.AlignCenter)
 
         self.targetImageChoosingButton = QPushButton()
-        self.targetImageChoosingButton.setIcon(QIcon(":/addpoint.png"))
+        self.targetImageChoosingButton.setIcon(QIcon(":/addpoint-grey.png"))
         self.targetImageChoosingButton.setFixedSize(18 * self.ihm_factor, 18 * self.ihm_factor)
         self.targetImageChoosingButton.setIconSize(QSize(18 * self.ihm_factor, 18 * self.ihm_factor))
         self.targetImageChoosingButton.setFlat(True)
