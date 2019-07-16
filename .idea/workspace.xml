@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9ceaeb4-0bf6-4fb8-a37b-33b5acdab7a8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rusio_evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mvision.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mvision.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Image/qrc_resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Image/qrc_resources.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Image/resources.qrc" beforeDir="false" afterPath="$PROJECT_DIR$/src/Image/resources.qrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAInformationArea.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAInformationArea.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAMainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAMainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAToolBar/MSASessionChooseList.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAToolBar/MSASessionChooseList.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="130" column="138" lean-forward="true" selection-start-line="130" selection-start-column="138" selection-end-line="130" selection-end-column="138" />
+            <state relative-caret-position="238">
+              <caret line="125" column="8" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -188,7 +177,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
@@ -363,7 +352,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="877" extended-state="1" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49624062" visible="true" weight="0.25299507" />
@@ -608,8 +597,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="130" column="138" lean-forward="true" selection-start-line="130" selection-start-column="138" selection-end-line="130" selection-end-column="138" />
+        <state relative-caret-position="238">
+          <caret line="125" column="8" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="8" />
         </state>
       </provider>
     </entry>

@@ -123,7 +123,8 @@ class MSAWorkSpace(QFrame):
         if len(ridge_pts_calibrated) == 0:
             self.removed_sequence.append(i)
             return
-
+        
+        # TODO: should deeply develop ridge_pts_calibrated in order to recognize the exceptional senario like "huizhe"
         ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
         if ridge_pts_new is not None:
             ridge_pts_new.sort()
