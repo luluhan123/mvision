@@ -342,6 +342,15 @@ class MSAModel(QObject):
             img_path = self.workspace_path + self.current_sequence + '/icon/'
         return img_path
 
+    def get_current_taget_folder(self):
+        if sys.platform == 'darwin':
+            img_path = self.workspace_path + self.current_sequence + '/'
+        elif sys.platform == 'win32':
+            img_path = self.workspace_path + self.current_sequence + '\\'
+        else:
+            img_path = self.workspace_path + self.current_sequence + '/'
+        return img_path
+
     def do_parse_target_folder(self):
         self.files_count = len(self.files[self.current_sequence])
 

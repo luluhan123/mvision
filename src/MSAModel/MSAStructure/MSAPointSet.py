@@ -85,6 +85,13 @@ class MSAPointSet:
         list_new.append(self.pointSet[-1])
         return list_new
 
+    def interpolation2(self, number):
+        step = 1
+        list_new = list()
+        for i in range(len(self.pointSet)):
+            list_new.append(self.pointSet[i * step])
+        return list_new
+
     def fit(self, index, ref, reference, patch, radius, number):
 
         step = 1#len(self.pointSet) // (number - 1)

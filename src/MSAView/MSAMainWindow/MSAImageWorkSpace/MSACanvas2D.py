@@ -856,7 +856,7 @@ class MSACanvas2D(QFrame):
         polygonSource = vtk.vtkRegularPolygonSource()
         #polygonSource.GeneratePolygonOff()
         polygonSource.SetNumberOfSides(20)
-        polygonSource.SetRadius(2)
+        polygonSource.SetRadius(1)
         polygonSource.SetCenter((pt.get_x() - radius+centre[0])*self.magnifyFactorWidth, (pt.get_y() + centre[1]-radius)*self.magnifyFactorHeight, 0)
 
         mapper = vtk.vtkPolyDataMapper2D()
