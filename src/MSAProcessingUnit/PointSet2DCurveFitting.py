@@ -128,7 +128,7 @@ class PointSet2DCurveFitting:
                     curve_lengths.remove(curve_length)
         return pts_predicted, predicted_lines_points, curve_lengths
 
-    def use_hull_curve_fitting(self, lines_predicted_points, explore_area=20):
+    def use_hull_curve_fitting(self, lines_predicted_points, explore_area=6):
         lines_convex_hull = PointSet2DConvexHull()
         lines_convex_hull.set_lines_points_set(lines_predicted_points)
         lines_convex_hull.set_explore_area(explore_area)

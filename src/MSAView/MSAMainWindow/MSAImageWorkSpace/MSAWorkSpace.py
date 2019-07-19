@@ -113,7 +113,6 @@ class MSAWorkSpace(QFrame):
                 ridge_pts_filtered.append((pt[0], pt[1]))
 
         # eliminate points which are too far from the guidewire tip structure in last frame
-        print (len(ridge_pts_filtered))
         if len(ridge_pts_filtered) > 30:
             ridge_pts_calibrated = []
             if len(self.possiblely_guidewire_tip_structure[i]) > 3:
@@ -129,18 +128,22 @@ class MSAWorkSpace(QFrame):
         else:
             ridge_pts_calibrated = ridge_pts_filtered
 
-        # temp = []
-        # for pt in ridge_pts_calibrated:
-        #     temp.append(img[pt[0]][pt[1]])
-        # interval = max(temp) - min(temp)
-        # grayscale_threshold = min(temp) + interval * 0.1
-        # ridge_pts_sorted = []
-        # for pt in ridge_pts_calibrated:
-        #     if img[pt[0]][pt[1]] > grayscale_threshold:
-        #         ridge_pts_sorted.append(pt)
+        if len(ridge_pts_filtered) > 105:
+            print ("hehe")
+            temp = []
+            for pt in ridge_pts_calibrated:
+                temp.append(img[pt[0]][pt[1]])
+            interval = max(temp) - min(temp)
+            grayscale_threshold = min(temp) + interval * 0.1
+            ridge_pts_sorted = []
+            for pt in ridge_pts_calibrated:
+                if img[pt[0]][pt[1]] > grayscale_threshold:
+                    ridge_pts_sorted.append(pt)
+        else:
+            ridge_pts_sorted = ridge_pts_calibrated
 
         # TODO: should deeply develop ridge_pts_calibrated in order to recognize the exceptional senario like "huizhe"
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
 
         if ridge_pts_new is not None:
             ridge_pts_new.sort()
@@ -153,7 +156,7 @@ class MSAWorkSpace(QFrame):
             self.removed_sequence.append(i)
             return
 
-        self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
+        #self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
 
         color = QColor(self.color[i])
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
@@ -176,7 +179,7 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
 
         # [4]
-        #self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
+        # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
         # [5]
         if len(self.possiblely_guidewire_tip_structure[i]) > 2:
