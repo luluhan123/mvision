@@ -16,6 +16,9 @@ class MSAController(QObject):
         self.model.volumeImageLoaded.connect(self.is_volume_imageLoaded)
         self.communicationStack.newConnection.connect(self.get_local_addr_port)
 
+    def centerline_extraction(self, input):
+        return self.model.centerline_extraction(input)
+
     def get_current_taget_folder(self):
         return self.model.get_current_taget_folder()
 

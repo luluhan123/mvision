@@ -58,6 +58,9 @@ class MSAModel(QObject):
 
     # threading.Thread(None, self.do_parse_target_folder).start()
 
+    def centerline_extraction(self, input):
+        return self.processing_factory.centerline_extraction(input)
+
     def set_message_cache(self, input_message, output_message):
         self.inputMessageCache = input_message
         self.outputMessageCache = output_message

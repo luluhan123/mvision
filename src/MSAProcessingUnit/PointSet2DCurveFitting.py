@@ -10,9 +10,9 @@ last edited: January 2019
 """
 import numpy as np
 import math
-from MSAModel.MSAStructure.MSAPoint import MSAPoint
-from MSAModel.MSAStructure.MSAPointSet import MSAPointSet
-from MSAProcessingUnit.PointSet2DConvexHull import PointSet2DConvexHull
+from src.MSAModel.MSAStructure.MSAPoint import MSAPoint
+from src.MSAModel.MSAStructure.MSAPointSet import MSAPointSet
+from src.MSAProcessingUnit.PointSet2DConvexHull import PointSet2DConvexHull
 import skimage.morphology as morphology
 
 
@@ -61,7 +61,12 @@ class PointSet2DCurveFitting:
         pts_predicted = []
         predicted_lines_points = []
         curve_lengths = []
-        # print("uc_size", len(uc))
+
+        compteur = []
+        for uc_i in uc:
+            compteur.append(uc_i.get_length())
+        uc.insert(0, uc.pop(compteur.index(max(compteur))))
+
         for uc_i in uc:
             # print("uc_i_size", len(uc_i))
             pts_predicted, predicted_lines_points, curve_lengths = self.create_curve(uc_i, pts_predicted, predicted_lines_points, curve_lengths)
@@ -88,6 +93,7 @@ class PointSet2DCurveFitting:
                         msa_point = MSAPoint(index, int(data[index][0]), int(data[index][1]))
                         curve.append(msa_point)
                     predicted_lines_points.append(curve)
+
                 # compute curve length
                 curve_length = 0
                 for j in range(curve.get_length() - 1):
@@ -128,12 +134,47 @@ class PointSet2DCurveFitting:
                     curve_lengths.remove(curve_length)
         return pts_predicted, predicted_lines_points, curve_lengths
 
+    def use_hull_curve_fitting_by_image(self, input, explore_area=6):
+        lines_convex_hull = PointSet2DConvexHull()
+        lines_convex_hull.set_value_matrix(input)
+
+        hull = MSAPointSet()
+        for i in range(0, 512):
+            for j in range(0, 512):
+                if input[i][j] == 250:
+                    hull.append(MSAPoint(0, i, j))
+                if input[i][j] == 1:
+                    hull.append(MSAPoint(0, i, j))
+
+        lines_convex_hull.set_lines_points_set(hull)
+        lines_convex_hull.set_explore_area(explore_area)
+        lines_convex_hull.set_area_size(512, 512)
+        lines_convex_hull.execute()
+
+        fullhullPoints = lines_convex_hull.create_full_hull_points()
+        line = MSAPointSet()
+        mask = np.zeros((512, 512))
+        for item in fullhullPoints:
+            mask[item[0]][item[1]] = 1
+
+        # use convex hull to get the centerline
+        ske = morphology.medial_axis(mask)
+        cpt = 0
+        for i in range(ske.shape[0]):
+            for j in range(ske.shape[1]):
+                if ske[i][j]:
+                    msa_point = MSAPoint(cpt, j, i)
+                    line.append(msa_point)
+                    cpt += 1
+        return line
+
     def use_hull_curve_fitting(self, lines_predicted_points, explore_area=6):
         lines_convex_hull = PointSet2DConvexHull()
         lines_convex_hull.set_lines_points_set(lines_predicted_points)
         lines_convex_hull.set_explore_area(explore_area)
         lines_convex_hull.set_area_size(self.limit_x, self.limit_y)
         lines_convex_hull.execute()
+
         fullhullPoints = lines_convex_hull.create_full_hull_points()
         line = MSAPointSet()
         mask = np.zeros((self.limit_x, self.limit_y))

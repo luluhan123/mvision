@@ -11,6 +11,7 @@ import sys
 class MSAToolBar(QLabel):
 
     enableGuidewireTrackingAlgorithm = pyqtSignal()
+    enableEvaluationAlgorithm = pyqtSignal()
     messageCacheFetched = pyqtSignal()
     buttonMessage = pyqtSignal(str)
     systemStatusChanged = pyqtSignal(bool)
@@ -130,10 +131,10 @@ class MSAToolBar(QLabel):
         self.addPatientButton.setToolTip("Add Patient Info")
 
         self.spacerr = QLabel()
-        self.spacerr.setFixedWidth(512*self.ihm_factor - self.height * 3.6 - self.width*0.09)
+        self.spacerr.setFixedWidth(512*self.ihm_factor - self.height * 3.6 - self.width*0.16)
 
         self.currentSequenceInformationLabel = QLabel()
-        self.currentSequenceInformationLabel.setFixedSize(self.width * 0.05, self.height*0.8)
+        self.currentSequenceInformationLabel.setFixedSize(self.width * 0.06, self.height*0.8)
         self.currentSequenceInformationLabel.setStyleSheet("background-color:transparent; color:" + self.globalFontColor + "; alignment:center;")
         self.currentSequenceInformationLabel.setFont(self.globalFont)
 
@@ -142,8 +143,13 @@ class MSAToolBar(QLabel):
         self.trackingOptionCheckBox.setFont(self.globalFont)
         self.trackingOptionCheckBox.setFixedSize(self.width*0.1, self.height*0.9)
 
+        self.evaluateOptionCheckBox = QCheckBox('GT Evaluation')
+        self.evaluateOptionCheckBox.setStyleSheet("color:" + self.globalFontColor + "; alignment:center;")
+        self.evaluateOptionCheckBox.setFont(self.globalFont)
+        self.evaluateOptionCheckBox.setFixedSize(self.width * 0.1, self.height * 0.9)
+
         self.spacerrr = QLabel()
-        self.spacerrr.setFixedWidth(512*self.ihm_factor - self.width*0.3)
+        self.spacerrr.setFixedWidth(512*self.ihm_factor - self.width*0.4)
 
         self.communicationWindow = QPushButton()
         self.communicationWindow.setStyleSheet("background: " + self.globalBackgroundColor)
@@ -177,6 +183,7 @@ class MSAToolBar(QLabel):
         self.myLayout.addWidget(self.spacerr)
         self.myLayout.addWidget(self.currentSequenceInformationLabel)
         self.myLayout.addWidget(self.trackingOptionCheckBox)
+        self.myLayout.addWidget(self.evaluateOptionCheckBox)
         self.myLayout.addWidget(self.spacerrr)
         self.myLayout.addWidget(self.communicationWindow)
         self.myLayout.addWidget(self.stateChooseButton)
@@ -201,6 +208,7 @@ class MSAToolBar(QLabel):
         self.TriDimensionalVolumeAnalyseButton.clicked.connect(self.volume_rendering_window_display)
         self.stateChooseButton.stateChanged.connect(self.change_state)
         self.trackingOptionCheckBox.stateChanged.connect(self.enable_guidewire_tracking)
+        self.evaluateOptionCheckBox.stateChanged.connect(self.enable_evaluation)
         self.globalConfigurationButton.clicked.connect(self.open_window_setting)
         self.workSpaceButton.clicked.connect(self.start_window_display)
         self.addPatientButton.clicked.connect(self.add_patient_window_display)
@@ -283,6 +291,9 @@ class MSAToolBar(QLabel):
 
     def enable_guidewire_tracking(self):
         self.enableGuidewireTrackingAlgorithm.emit()
+
+    def enable_evaluation(self):
+        self.enableEvaluationAlgorithm.emit()
 
     def choose_file(self):
         file_path = QFileDialog.getOpenFileName(self.parent, 'MedSight file choosing', './')

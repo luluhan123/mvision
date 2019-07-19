@@ -24,6 +24,10 @@ class CTSAProcessingFactory:
         self.gvf = GVF()
         self.ridgePointExtraction = RidgepointExtraction()
 
+    def centerline_extraction(self, input):
+        pts_curve = PointSet2DCurveFitting()
+        return pts_curve.use_hull_curve_fitting_by_image(input)
+
     def curve_fitting(self, pts, maximum_point_num__per_cluster, x, y, tolerant_area):
         pts_clustering = PointSet2DFindCluster()
         pts_clustering.set_point_set(pts)

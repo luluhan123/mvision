@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from MSAModel.MSAStructure.MSAPointSet import MSAPointSet
+from src.MSAModel.MSAStructure.MSAPointSet import MSAPointSet
 
 
 class PointSet2DConvexHull:
@@ -25,6 +25,9 @@ class PointSet2DConvexHull:
 
     def get_value_matrix(self):
         return self.valueMatrix
+
+    def set_value_matrix(self, input):
+        self.valueMatrix = input
 
     def get_hull_edge_points(self):
         return self.hullEdgePoints
@@ -76,6 +79,17 @@ class PointSet2DConvexHull:
         for i in range(0, self.limit_x):
             for j in range(0, self.limit_y):
                 if matrix[i][j] == 2:
+                    hull.append((i, j))
+                if matrix[i][j] == 1:
+                    hull.append((i, j))
+        return hull
+
+    def create_full_hull_points_by(self, number):
+        hull = []
+        matrix = self.valueMatrix
+        for i in range(0, number):
+            for j in range(0, number):
+                if matrix[i][j] == 250:
                     hull.append((i, j))
                 if matrix[i][j] == 1:
                     hull.append((i, j))

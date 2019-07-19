@@ -247,6 +247,7 @@ class MSAMainWindow(QWidget):
         self.controller.imageSequenceLoaded.connect(self.is_image_sequence_loaded)
         self.controller.volumeImageLoaded.connect(self.is_volume_image_loaded)
         self.toolBar.enableGuidewireTrackingAlgorithm.connect(self.enable_guidewire_tracking)
+        self.toolBar.enableEvaluationAlgorithm.connect(self.enable_evaluation)
         self.toolBar.messageCacheFetched.connect(self.configure_message_cache)
         self.toolBar.buttonMessage[str].connect(self.update_button_message)
         self.workspace.buttonMessage[str].connect(self.update_button_message)
@@ -338,6 +339,9 @@ class MSAMainWindow(QWidget):
 
     def enable_guidewire_tracking(self):
         self.workspace.enable_guidewire_tracking()
+
+    def enable_evaluation(self):
+        self.workspace.enable_evaluation()
 
     def is_image_sequence_loaded(self):
         self.workspace.set_image_sequence_loaded()

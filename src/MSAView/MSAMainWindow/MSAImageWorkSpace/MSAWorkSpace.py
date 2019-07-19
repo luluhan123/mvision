@@ -13,6 +13,7 @@ from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtWidgets import QFrame, QSlider, QHBoxLayout, QPushButton, QLineEdit, QLabel, QVBoxLayout
 from PyQt5.QtCore import pyqtSignal, QSize, Qt
 
+from src.MSAModel.MSAImage.XRayImage import XRayImage
 from src.MSAModel.MSAStructure.MSAPoint import MSAPoint
 from src.MSAView.MSAMainWindow.MSAImageWorkSpace.MSACanvas2D import MSACanvas2D
 from src.MSAView.MSAMainWindow.IHMTool.MSAPlottingBoard import MSAPlottingBoard
@@ -42,49 +43,38 @@ class MSAWorkSpace(QFrame):
     vesselSegmentationWindow = pyqtSignal()
     parameterWindowSetting = pyqtSignal()
 
-    def interpolation(self, pts, resolution):
+    def save_gts_reference(self, pts, index):
 
-        points = vtk.vtkPoints()
-
-        x_spline = vtk.vtkSCurveSpline()
-        y_spline = vtk.vtkSCurveSpline()
-        z_spline = vtk.vtkSCurveSpline()
-
-        spline = vtk.vtkParametricSpline()
-        spline_source = vtk.vtkParametricFunctionSource()
-
-        number_of_points = len(pts)#.get_length()
-        for i in range(number_of_points):
-            points.InsertNextPoint(pts[i].get_x(), pts[i].get_y(), 0)
-
-        spline.SetXSpline(x_spline)
-        spline.SetYSpline(y_spline)
-        spline.SetZSpline(z_spline)
-        spline.SetPoints(points)
-        spline_source.SetParametricFunction(spline)
-        spline_source.SetUResolution(resolution)
-        spline_source.SetVResolution(resolution)
-        spline_source.SetWResolution(resolution)
-        spline_source.Update()
-
-        pts_nbr = spline_source.GetOutput().GetNumberOfPoints()
-        pts_in_polydata = spline_source.GetOutput()
-
-        ret = []
-
-        for i in range(pts_nbr):
-            pt = MSAPoint(0, pts_in_polydata.GetPoint(i)[0], pts_in_polydata.GetPoint(i)[1])
-            ret.append(pt)
-
-        return ret
-
-    def save_guidewire_tip_ground_truth(self, pts, centre, index, i):
-
-        file_name = self.controller.get_current_taget_folder() + 'result/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '_' + str(i) + '.txt'
+        file_name = self.controller.get_current_taget_folder() + 'GTS/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '.dat'
         with open(file_name, 'w') as fileobject:
             for c in range(len(pts)):
-                fileobject.write(str((pts[c].get_x() + centre[0] - 80)) + ";" + str((pts[c].get_y() + centre[1] - 80)) + "\n")
+                fileobject.write(str(pts[c].get_x()) + ";" + str(pts[c].get_y() ) + "\n")
         fileobject.close()
+
+    def change_slider_value(self, value):
+        if self.ctSequenceViewer.is_ready():
+            self.flag = False
+
+            if self.doEvaluation:
+                #self.ctSequenceViewer.draw_tuple_point_cloud_by_order(self.do_read_current_ground_truth(self.ctSequenceViewer.display_count), (0, 0), (0, 0, 0), 0)
+                img = self.do_read_current_ground_truth_image(self.ctSequenceViewer.display_count)
+                self.ctSequenceAnalyseArea.display_frangi(img)
+                gt_numpy = self.controller.set_image_to_numpyy(img)
+                pts = self.controller.centerline_extraction(gt_numpy)
+                pts.sort()
+                pts = self.interpolation(pts.interpolation2(10), 50)
+
+                self.save_gts_reference(pts, self.ctSequenceViewer.display_count)
+
+                self.ctSequenceViewer.draw_point_cloud_by_order(pts, (0, 0), QColor(0, 0, 0), 0)
+
+            if self.doGuidewireTracking:
+                self.execute()
+            else:
+                time.sleep(0.1)
+            self.current_image_index = value
+            self.processSlider.setValue(value)
+            self.processSliderIndicationLabel.setText(str(value))
 
     # [1] patch area tracking
     def do_track_guidewire(self, img, i):
@@ -128,8 +118,7 @@ class MSAWorkSpace(QFrame):
         else:
             ridge_pts_calibrated = ridge_pts_filtered
 
-        if len(ridge_pts_filtered) > 105:
-            print ("hehe")
+        if len(ridge_pts_filtered) > 100:
             temp = []
             for pt in ridge_pts_calibrated:
                 temp.append(img[pt[0]][pt[1]])
@@ -149,9 +138,9 @@ class MSAWorkSpace(QFrame):
             ridge_pts_new.sort()
             # self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.interpolation(ridge_pts_new.get_length()//3))
             if ridge_pts_new.get_length()//3 > 1:
-                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 15))
+                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 30))
             else:
-                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 15))
+                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 30))
         else:
             self.removed_sequence.append(i)
             return
@@ -176,7 +165,7 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
 
         # [3]
-        # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
+        self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
 
         # [4]
         # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
@@ -189,7 +178,7 @@ class MSAWorkSpace(QFrame):
             else:
                 # self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-2], self.possiblely_gravity_points[i], QColor(107, 227, 207), self.global_tacking_area_radius)
                 self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], QColor(239, 188, 64), self.global_tacking_area_radius)
-                # self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
+                self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
                 # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], (239, 188, 64))
 
         # mov = self.predict_movement(ridge_pts_filtered, 80)
@@ -268,6 +257,81 @@ class MSAWorkSpace(QFrame):
         self.imageVisualizationConfigurationArea.do_plot_distance_flow(self.controller.get_current_sequence_count(), self.predict_sequence_movements)
 
         self.ctSequenceAnalyseArea.update_all()
+
+    def interpolation(self, pts, resolution):
+
+        points = vtk.vtkPoints()
+
+        x_spline = vtk.vtkSCurveSpline()
+        y_spline = vtk.vtkSCurveSpline()
+        z_spline = vtk.vtkSCurveSpline()
+
+        spline = vtk.vtkParametricSpline()
+        spline_source = vtk.vtkParametricFunctionSource()
+
+        number_of_points = len(pts)#.get_length()
+        for i in range(number_of_points):
+            points.InsertNextPoint(pts[i].get_x(), pts[i].get_y(), 0)
+
+        spline.SetXSpline(x_spline)
+        spline.SetYSpline(y_spline)
+        spline.SetZSpline(z_spline)
+        spline.SetPoints(points)
+        spline_source.SetParametricFunction(spline)
+        spline_source.SetUResolution(resolution)
+        spline_source.SetVResolution(resolution)
+        spline_source.SetWResolution(resolution)
+        spline_source.Update()
+
+        pts_nbr = spline_source.GetOutput().GetNumberOfPoints()
+        pts_in_polydata = spline_source.GetOutput()
+
+        ret = []
+
+        for i in range(pts_nbr):
+            pt = MSAPoint(0, round(pts_in_polydata.GetPoint(i)[0], 2), round(pts_in_polydata.GetPoint(i)[1], 2))
+            ret.append(pt)
+
+        return ret
+
+    def do_read_current_ground_truth_image(self, index):
+        file_name = self.controller.get_current_taget_folder() + 'GT/raw/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '.raw'
+        image_reader = vtk.vtkImageReader()
+        image_reader.SetFileName(file_name)
+        image_reader.SetNumberOfScalarComponents(1)
+        image_reader.SetDataExtent(0, 511, 0, 511, 0, 0)
+        image_reader.SetDataScalarTypeToUnsignedChar()
+        image_reader.Update()
+        return image_reader.GetOutput()
+
+    def do_read_current_ground_truth(self, index):
+        file_name = self.controller.get_current_taget_folder() + 'GTS/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '.raw.txt'
+        gts = []
+        with open(file_name, 'r') as fileobject:
+            try:
+                #print (file_name)
+                text_lines = fileobject.readlines()
+                for line in text_lines:
+                    line = str(line)
+                    # line = line.translate(None, '\n')
+                    if line.__contains__(','):
+                        v = line.split(',')
+                        gts.append([int(float(v[0])), int(float(v[1]))])
+                    elif line.__contains__(';'):
+                        v = line.split(';')
+                        gts.append([int(float(v[0])), int(float(v[1]))])
+                    # print ([int(float(v[0])), int(float(v[1]))])
+            finally:
+                fileobject.close()
+        return gts
+
+    def save_guidewire_tip_ground_truth(self, pts, centre, index, i):
+
+        file_name = self.controller.get_current_taget_folder() + 'result/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '_' + str(i) + '.txt'
+        with open(file_name, 'w') as fileobject:
+            for c in range(len(pts)):
+                fileobject.write(str((pts[c].get_x() + centre[0] - 80)) + ";" + str((pts[c].get_y() + centre[1] - 80)) + "\n")
+        fileobject.close()
 
     def distance(self, pt0, pt1):
         return math.sqrt((pt1.get_x() - pt0[0]) ** 2 + (pt1.get_y() - pt0[1]) ** 2)
@@ -362,17 +426,6 @@ class MSAWorkSpace(QFrame):
     def compute_distance(self, pt0, pt1):
         return math.sqrt((pt1[0] - pt0[0]) ** 2 + (pt1[1] - pt0[1]) ** 2)
 
-    def change_slider_value(self, value):
-        if self.ctSequenceViewer.is_ready():
-            self.flag = False
-            if self.doGuidewireTracking:
-                self.execute()
-            else:
-                time.sleep(0.1)
-            self.current_image_index = value
-            self.processSlider.setValue(value)
-            self.processSliderIndicationLabel.setText(str(value))
-
     def update_current_tooltip(self, tooltip):
         self.buttonMessage.emit(tooltip)
 
@@ -462,6 +515,9 @@ class MSAWorkSpace(QFrame):
 
     def enable_guidewire_tracking(self):
         self.doGuidewireTracking = not self.doGuidewireTracking
+
+    def enable_evaluation(self):
+        self.doEvaluation = not self.doEvaluation
 
     def set_image_sequence_loaded(self):
         self.ctSequenceViewer.set_image_sequence_loaded()
@@ -959,6 +1015,7 @@ class MSAWorkSpace(QFrame):
 
         self.displayButtonClicked = False
         self.doGuidewireTracking = False
+        self.doEvaluation = False
         self.window = 1000
         self.level = 0
         self.color = ['red', 'yellow', 'blue', 'green', 'white', 'magenta']
