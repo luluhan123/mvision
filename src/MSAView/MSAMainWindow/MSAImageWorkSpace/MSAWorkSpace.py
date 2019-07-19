@@ -92,10 +92,6 @@ class MSAWorkSpace(QFrame):
         if i in self.removed_sequence:
             return
 
-        if i == 1:
-            self.removed_sequence.append(i)
-            return
-
         # get part image according to the predefined radius, if in
         self.possiblely_gravity_points[i], patch = self.controller.get_part_image_by_size(img, self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1)
         # pt, patch_for_display = self.controller.get_part_image_by_size_by_vtk(self.ctSequenceViewer.current_x_ray_image.get_values(), self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 512, 512)
@@ -133,26 +129,26 @@ class MSAWorkSpace(QFrame):
         else:
             ridge_pts_calibrated = ridge_pts_filtered
 
-        temp = []
-        for pt in ridge_pts_calibrated:
-            temp.append(img[pt[0]][pt[1]])
-        interval = max(temp) - min(temp)
-        grayscale_threshold = min(temp) + interval * 0.1
-        ridge_pts_sorted = []
-        for pt in ridge_pts_calibrated:
-            if img[pt[0]][pt[1]] > grayscale_threshold:
-                ridge_pts_sorted.append(pt)
+        # temp = []
+        # for pt in ridge_pts_calibrated:
+        #     temp.append(img[pt[0]][pt[1]])
+        # interval = max(temp) - min(temp)
+        # grayscale_threshold = min(temp) + interval * 0.1
+        # ridge_pts_sorted = []
+        # for pt in ridge_pts_calibrated:
+        #     if img[pt[0]][pt[1]] > grayscale_threshold:
+        #         ridge_pts_sorted.append(pt)
 
         # TODO: should deeply develop ridge_pts_calibrated in order to recognize the exceptional senario like "huizhe"
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
 
         if ridge_pts_new is not None:
             ridge_pts_new.sort()
-            #self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.interpolation(ridge_pts_new.get_length()//3))
+            # self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.interpolation(ridge_pts_new.get_length()//3))
             if ridge_pts_new.get_length()//3 > 1:
-                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 10))
+                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 15))
             else:
-                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 10))
+                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 15))
         else:
             self.removed_sequence.append(i)
             return
@@ -161,7 +157,7 @@ class MSAWorkSpace(QFrame):
 
         color = QColor(self.color[i])
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
-        #self.ctSequenceViewer.tuple_points_display(ridge_pts_calibrated, self.possiblely_gravity_points[i], (255, 0, 0), 80)
+        # self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
         # self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.draw_a_single_point(self.possible_sequences[i], self.possible_points[i], (color.red(),color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
@@ -177,10 +173,10 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
 
         # [3]
-        self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
+        # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
 
         # [4]
-        # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
+        #self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
         # [5]
         if len(self.possiblely_guidewire_tip_structure[i]) > 2:
@@ -190,6 +186,7 @@ class MSAWorkSpace(QFrame):
             else:
                 # self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-2], self.possiblely_gravity_points[i], QColor(107, 227, 207), self.global_tacking_area_radius)
                 self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], QColor(239, 188, 64), self.global_tacking_area_radius)
+                # self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
                 # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], (239, 188, 64))
 
         # mov = self.predict_movement(ridge_pts_filtered, 80)
@@ -259,7 +256,7 @@ class MSAWorkSpace(QFrame):
             # print(self.predict_sequence_deviation)
             for pair in self.predict_sequence_deviation:
                 deviation_seq.append(pair[0])
-            # print("maximum Deviation", max(deviation_seq), "all", deviation_seq)
+            print("maximum Deviation", max(deviation_seq), "all", deviation_seq)
             index = deviation_seq.index(max(deviation_seq))
             for i in range(len(deviation_seq)):
                 if i != index:

@@ -158,16 +158,16 @@ def trancate(input, ref, tol):
     return np.array(out)
 
 
-sequence = "sequence8"
+sequence = "sequence10"
 cpt = 0
 total_df = 0.0
 total_pcm = 0.0
 total_cl = 0.0
-total_number = 196
+total_number = 53
 for i in range(total_number):
     num_data = interpolation(sort(do_load_2d_array('/home/cheng/Documents/dat/CTSAWorkspace/'+ sequence +'/GTS/' + ''.join(["navi" + str(i).rjust(8, '0')])+'.raw.txt')), 0.3)
     # exp_data = interpolation(sort(do_load_2d_array('/Users/cheng/Documents/dat/evaluation/2/'+str(10000+i)+'_2.txt')), 0.5)
-    exp_data = interpolation(sort(do_load_2d_array('/home/cheng/Documents/dat/CTSAWorkspace/'+ sequence +'/result/'+ ''.join(["navi" + str(i).rjust(8, '0')])+'_0.txt')), 0.3)
+    exp_data = interpolation(sort(do_load_2d_array('/home/cheng/Documents/dat/CTSAWorkspace/'+ sequence +'/result/'+ ''.join(["navi" + str(i).rjust(8, '0')])+'_1.txt')), 0.3)
 
     num_data_length = compute_length(num_data)
     exp_data_length = compute_length(exp_data)
@@ -180,8 +180,8 @@ for i in range(total_number):
         exp_data = trancate(exp_data, num_data, 1.5)
         #exp_data = interpolation_by_number(exp_data, len(num_data)-1)
     #print (len(num_data), len(exp_data))
-    num_data = interpolation_by_number(num_data, 30)
-    exp_data = interpolation_by_number(exp_data, 30)
+    num_data = interpolation_by_number(num_data, 20)
+    exp_data = interpolation_by_number(exp_data, 20)
     num_data_length = compute_length(num_data)
     exp_data_length = compute_length(exp_data)
     #print("after ", num_data_length, exp_data_length)
@@ -212,7 +212,7 @@ for i in range(total_number):
     if df < 3.01:
         cpt+=1
 
-print ("rate:", cpt, "mdf:", total_df/total_number, "mpcm:", total_pcm/total_number, "mcl:", total_cl/total_number)
+    print ("rate:", cpt, "mdf:", total_df/total_number, "mpcm:", total_pcm/total_number, "mcl:", total_cl/total_number)
     #
     # print(df, dtw)
     # plt.figure()
