@@ -134,16 +134,16 @@ class PointSet2DCurveFitting:
                     curve_lengths.remove(curve_length)
         return pts_predicted, predicted_lines_points, curve_lengths
 
-    def use_hull_curve_fitting_by_image(self, input, explore_area=6):
+    def use_hull_curve_fitting_by_image(self, input, explore_area=5):
         lines_convex_hull = PointSet2DConvexHull()
         lines_convex_hull.set_value_matrix(input)
-
+        print(np.max(input))
         hull = MSAPointSet()
         for i in range(0, 512):
             for j in range(0, 512):
-                if input[i][j] == 250:
+                if input[i][j] == 255:
                     hull.append(MSAPoint(0, i, j))
-                if input[i][j] == 1:
+                if input[i][j] == 250:
                     hull.append(MSAPoint(0, i, j))
 
         lines_convex_hull.set_lines_points_set(hull)
