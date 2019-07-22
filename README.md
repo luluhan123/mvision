@@ -6,9 +6,9 @@ RuSio framework Overview
 ![Flowchar of RuSio framework](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/figure2.png)
 Prerequisites
 ----
-Test on:
-*Windows
-  *Pycharm
+Test on:\
+* Windows
+  * Pycharm
 
-*Linux
-  *Pycharm
+* Linux
+  * Pycharm
