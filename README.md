@@ -8,13 +8,23 @@ RuSio framework Overview
 Prerequisites
 ----
 Test on:
-* Windows
-  * Pycharm
+* Windows 10, 64 bits
+* Linux Ubuntu 18 LTS, 64 bits
+* MacOS
 
-* Linux
-  * Pycharm
+ Development Tool:
+* PyCharm
 
-Require libraries to excute the python code:
+ Development Language:
+* Python (3.6)
+
+ Require evironment to excute the python code:
+* Aconda
+* Opencv
+
+Environment Installation
+----
+
 
 
 
