@@ -42,7 +42,7 @@ pip install opencv-python
 pip install opencv-contrib-python
 ```
 
-Test
+Test Demo
 ----
 After run msa_main.py, you will get this window:
 ![Window](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/window.png)
@@ -52,3 +52,8 @@ After run msa_main.py, you will get this window:
 
  Drag target video sequence into correct position to run RuSio framework
 ![Software window](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/software%20.png)
+
+Test Showcase
+----
+The segmentation collection of guidewire tip from RuSio framework in 8 consecutive frames from 128 to 135.
+![Showcase](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/figure7-1.png)
