@@ -20,3 +20,6 @@ Require libraries to excute the python code:
 
 Test
 ----
+Simply check the box for Tracking or Guidewire tip Evaluation or both
+![Check boxes](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/boxes.png)
+
