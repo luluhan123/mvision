@@ -62,7 +62,7 @@ class MSAWorkSpace(QFrame):
                 pts = self.controller.centerline_extraction(gt_numpy)
                 pts.sort()
                 pts = self.interpolation(pts.interpolation2(10), 15)
-                #
+           
                 # temp = []
                 # for p in pts:
                 #     temp.append((p.get_x(), p.get_y()))
