@@ -19,14 +19,28 @@ Test on:
 * Python (3.6)
 
  Require evironment to excute the python code:
-* Aconda
+* Anaconda
 * Opencv
 
 Environment Installation
 ----
+You can simply follow with intruction on
+http://www.cs.cmu.edu/~galeotti/methods_course/assignment-itkinstall.html for installing Python and SimpleITK for Python
+ or
 
-
-
+If you already had 64-bit Anaconda installed, use the command line to enter these commands one at a time (they may prompt you with questions) to update python and install python versions of both VTK and SimpleITK:
+```Python
+conda update conda
+conda update matplotlib
+conda update scipy
+conda install vtk 
+conda install -c simpleitk simpleitk=1.2.0
+```
+ Install opencv
+```Python
+pip install opencv-python
+pip install opencv-contrib-python
+```
 
 Test
 ----
