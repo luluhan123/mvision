@@ -62,7 +62,7 @@ class MSAWorkSpace(QFrame):
                 pts = self.controller.centerline_extraction(gt_numpy)
                 pts.sort()
                 pts = self.interpolation(pts.interpolation2(10), 15)
-           
+
                 # temp = []
                 # for p in pts:
                 #     temp.append((p.get_x(), p.get_y()))
@@ -143,9 +143,9 @@ class MSAWorkSpace(QFrame):
             ridge_pts_new.sort()
             # self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.interpolation(ridge_pts_new.get_length()//3))
             if ridge_pts_new.get_length()//3 > 1:
-                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 30))
+                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 15))
             else:
-                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 30))
+                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 15))
         else:
             self.removed_sequence.append(i)
             return
@@ -170,7 +170,7 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
 
         # [3]
-        self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
+        # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
 
         # [4]
         # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
@@ -183,7 +183,7 @@ class MSAWorkSpace(QFrame):
             else:
                 # self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-2], self.possiblely_gravity_points[i], QColor(107, 227, 207), self.global_tacking_area_radius)
                 self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], QColor(239, 188, 64), self.global_tacking_area_radius)
-                self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
+                # self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
                 # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], (239, 188, 64))
 
         # mov = self.predict_movement(ridge_pts_filtered, 80)

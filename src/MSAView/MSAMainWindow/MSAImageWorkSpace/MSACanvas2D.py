@@ -854,8 +854,8 @@ class MSACanvas2D(QFrame):
 
     def draw_a_single_point(self, pt, centre, color, radius):
         polygonSource = vtk.vtkRegularPolygonSource()
-        #polygonSource.GeneratePolygonOff()
-        polygonSource.SetNumberOfSides(20)
+        polygonSource.GeneratePolygonOff()
+        polygonSource.SetNumberOfSides(12)
         polygonSource.SetRadius(1)
         polygonSource.SetCenter((pt.get_x() - radius+centre[0])*self.magnifyFactorWidth, (pt.get_y() + centre[1]-radius)*self.magnifyFactorHeight, 0)
 
@@ -866,7 +866,7 @@ class MSACanvas2D(QFrame):
         actor = vtk.vtkActor2D()
         actor.SetMapper(mapper)
         actor.GetProperty().SetColor(color[0] * 1.0 / 255, color[1] * 1.0 / 255, color[2] * 1.0 / 255)
-        actor.GetProperty().SetPointSize(1 * self.ihm_factor)
+        actor.GetProperty().SetPointSize(2 * self.ihm_factor)
         self.renderer.AddActor2D(actor)
 
     def contour_key_points_display(self, pts, centre, color, radius):

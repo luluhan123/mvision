@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9ceaeb4-0bf6-4fb8-a37b-33b5acdab7a8" name="Default Changelist" comment="" />
+    <list default="true" id="b9ceaeb4-0bf6-4fb8-a37b-33b5acdab7a8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="64" column="11" selection-start-line="64" selection-start-column="11" selection-end-line="64" selection-end-column="11" />
+            <state relative-caret-position="182">
+              <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
               <folding>
                 <element signature="e#160#197#0" expanded="true" />
               </folding>
@@ -52,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
-              <caret line="852" selection-start-line="852" selection-end-line="852" />
+            <state relative-caret-position="302">
+              <caret line="868" column="42" selection-start-line="868" selection-start-column="42" selection-end-line="868" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -167,7 +170,6 @@
         <option value="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAToolBar/MSASessionChooseList.py" />
         <option value="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAInformationArea.py" />
         <option value="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPointSet.py" />
-        <option value="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py" />
         <option value="$PROJECT_DIR$/src/rusio_evaluation.py" />
         <option value="$PROJECT_DIR$/src/MSAView/MSAMainWindow/IHMTool/MSAPlottingBoard.py" />
         <option value="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAToolBar/MSAToolBar.py" />
@@ -177,6 +179,7 @@
         <option value="$PROJECT_DIR$/src/MSAModel/MSAModel.py" />
         <option value="$PROJECT_DIR$/src/MSAProcessingUnit/PointSet2DConvexHull.py" />
         <option value="$PROJECT_DIR$/src/MSAProcessingUnit/PointSet2DCurveFitting.py" />
+        <option value="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py" />
         <option value="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" />
       </list>
     </option>
@@ -545,13 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="852" selection-start-line="852" selection-end-line="852" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPointSet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
@@ -573,10 +569,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="868" column="42" selection-start-line="868" selection-start-column="42" selection-end-line="868" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="64" column="11" selection-start-line="64" selection-start-column="11" selection-end-line="64" selection-end-column="11" />
+        <state relative-caret-position="182">
+          <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
           <folding>
             <element signature="e#160#197#0" expanded="true" />
           </folding>
