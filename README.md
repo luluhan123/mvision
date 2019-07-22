@@ -12,3 +12,5 @@ Test on:
 
 * Linux
   * Pycharm
+
+Require libraries to excute the python code:
