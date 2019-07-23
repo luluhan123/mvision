@@ -1,12 +1,12 @@
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
-from MSAModel.MSAImage.XRayImage import XRayImage
+from src.MSAModel.MSAImage.XRayImage import XRayImage
 import threading
 import os, shutil
 import getpass
 import sys
 import scipy
 from vtk.util import numpy_support as nps
-from MSADiskImageReader.MSAImageFileReader import ImageFileReader
+from src.MSADiskImageReader.MSAImageFileReader import ImageFileReader
 
 
 class MSAModel(QObject):
@@ -18,13 +18,9 @@ class MSAModel(QObject):
         super(MSAModel, self).__init__()
         self.processing_factory = processing_factory
         self.workspace_path = workspace_path
-        if sys.platform == 'darwin':
-            self.meta_file_path = "/Users/" + getpass.getuser() + "/msfr.txt"
-        elif sys.platform == 'win32':
-            self.meta_file_path = "C:\\Users\\" + getpass.getuser() + "\\Documents\\msfr.txt"
-        else:
-            self.meta_file_path = "/home/" + getpass.getuser() + "/msfr.txt"
-
+        path = os.path.dirname(os.path.realpath(__file__))
+        temp = path.split("src")
+        self.meta_file_path = temp[0] + "dat/msfr.txt"
         self.files = dict()
 
         self.target_image_width = 512

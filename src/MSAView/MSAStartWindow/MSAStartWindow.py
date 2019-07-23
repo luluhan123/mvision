@@ -74,12 +74,7 @@ class MSAStartWindow(QWidget):
         self.workspacePushButton.setFlat(True)
 
         self.workspaceLabel = QLabel()
-        if sys.platform == 'darwin':
-            self.workspaceLabel.setText("/Users/" + getpass.getuser() + "/Documents/dat/CTSAWorkspace/")
-        elif sys.platform == 'win32':
-            self.workspaceLabel.setText("C:\\Users\\" + getpass.getuser() + "\\Documents\\CTSAWorkspace\\")
-        else:
-            self.workspaceLabel.setText("/home/" + getpass.getuser() + "/Documents/dat/CTSAWorkspace/")
+        self.workspaceLabel.setText(temp[0] + "dat/CTSAWorkspace/")
 
         self.workspaceLabel.setStyleSheet("background-color:" + self.globalBackgroundColor + "; color: " + self.globalFontColor + "; border-width:0px 0px 1px 0px; border-color:" + self.globalFontColor)
         self.workspaceLabel.setFixedSize(self.appWidth * 0.6, self.appHeight * 0.1)
@@ -92,12 +87,8 @@ class MSAStartWindow(QWidget):
         self.targetSpacePushButton.setFlat(True)
 
         self.targetSpaceLabel = QLabel()
-        if sys.platform == 'darwin':
-            self.targetSpaceLabel.setText("/Users/" + getpass.getuser() + "/Documents/" + "dat/CTSAWorkspace/")
-        elif sys.platform == 'win32':
-            self.targetSpaceLabel.setText("C:\\Users\\" + getpass.getuser() + "\\Documents\\CTSAWorkspace")
-        else:
-            self.targetSpaceLabel.setText("/home/" + getpass.getuser() + "/Documents/" + "dat/CTSAWorkspace/")
+        self.targetSpaceLabel.setText(temp[0] + "dat/CTSAWorkspace/")
+
         self.targetSpaceLabel.setStyleSheet("background-color:" + self.globalBackgroundColor + "; color: " + self.globalFontColor + "; border-width:0px 0px 1px 0px; border-color:" + self.globalFontColor)
         self.targetSpaceLabel.setFixedSize(self.appWidth * 0.6, self.appHeight * 0.1)
         self.targetSpaceLabel.setAlignment(Qt.AlignCenter)
@@ -156,12 +147,12 @@ class MSAStartWindow(QWidget):
         self.close()
 
     def choose_target_workspace_path(self):
-        file_path = QFileDialog.getExistingDirectory(self, 'MedSight file choosing', "/Users/" + getpass.getuser() + "/Documents/")
+        file_path = QFileDialog.getExistingDirectory(self, 'MedSight file choosing', "dat/")
         file_path = str(file_path) + '/'
         self.targetSpaceLabel.setText(file_path)
 
     def choose_workspace_path(self):
-        file_path = QFileDialog.getExistingDirectory(self, 'MedSight file choosing', "/Users/" + getpass.getuser() + "/Documents/")
+        file_path = QFileDialog.getExistingDirectory(self, 'MedSight file choosing', "dat/")
         file_path = str(file_path) + '/'
         self.workspaceLabel.setText(file_path)
 

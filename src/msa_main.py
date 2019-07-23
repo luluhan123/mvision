@@ -14,14 +14,12 @@ import time
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QApplication, QSplashScreen
 
-from LiENa.liena import Liena
-from MSAModel.MSAModel import MSAModel
-from MSAController.MSAController import MSAController
-from MSAProcessingUnit.CTSAProcessingFactory import CTSAProcessingFactory
-from MSAView.MSAMainWindow.MSAMainWindow import MSAMainWindow
-from Image.qrc_resources import *
-
-
+from src.LiENa.liena import Liena
+from src.MSAModel.MSAModel import MSAModel
+from src.MSAController.MSAController import MSAController
+from src.MSAProcessingUnit.CTSAProcessingFactory import CTSAProcessingFactory
+from src.MSAView.MSAMainWindow.MSAMainWindow import MSAMainWindow
+from src.Image.qrc_resources import *
 # cmd for convert png files to resource code:pyrcc4.exe -o qrc_resources.py resources.qrc
 
 
@@ -33,14 +31,11 @@ def main():
     app.setOrganizationName("MedSight")
     app.setApplicationName("MedSight")
     app.setWindowIcon(QIcon(":icon.png"))
-    # app.setStyle("cleanlooks")  # important, if not, icon can't adapt the size of button
+    app.setStyle("cleanlooks")  # important, if not, icon can't adapt the size of button
 
-    # pixmap = QPixmap(":skeleton1.png")
-    # splash = QSplashScreen(pixmap)
-    # splash.show()
-    # time.sleep(1)
-
-    # workspace_path = "/Users/" + getpass.getuser() + "/Documents/dat/CTSAWorkspace/"
+    splash = QSplashScreen(QPixmap(":title.png"))
+    splash.show()
+    time.sleep(1)
 
     processing_factory = CTSAProcessingFactory()
 
@@ -54,7 +49,7 @@ def main():
 
     main_window.display()
 
-    # splash.finish(main_window)
+    splash.finish(main_window)
 
     sys.exit(app.exec_())
 
