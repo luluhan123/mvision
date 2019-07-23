@@ -47,7 +47,7 @@ class MSAWorkSpace(QFrame):
         file_name = self.controller.get_current_taget_folder() + 'GTS/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '.dat'
         with open(file_name, 'w') as fileobject:
             for c in range(len(pts)):
-                fileobject.write(str(pts[c].get_x()) + ";" + str(pts[c].get_y() ) + "\n")
+                fileobject.write(str(pts[c].get_x()) + ";" + str(pts[c].get_y()) + "\n")
         fileobject.close()
 
     def change_slider_value(self, value):
@@ -97,6 +97,7 @@ class MSAWorkSpace(QFrame):
         # ridge point extraction based on tube filter
         ridge_pts = self.controller.san_ban_fu(patch)
 
+        # signal noise ratio
         if (len(ridge_pts) / self.global_patch_size) > 0.009:
             self.removed_sequence.append(i)
             return
@@ -123,34 +124,30 @@ class MSAWorkSpace(QFrame):
         else:
             ridge_pts_calibrated = ridge_pts_filtered
 
-        if len(ridge_pts_filtered) > 100:
-            temp = []
-            for pt in ridge_pts_calibrated:
-                temp.append(img[pt[0]][pt[1]])
-            interval = max(temp) - min(temp)
-            grayscale_threshold = min(temp) + interval * 0.1
-            ridge_pts_sorted = []
-            for pt in ridge_pts_calibrated:
-                if img[pt[0]][pt[1]] > grayscale_threshold:
-                    ridge_pts_sorted.append(pt)
-        else:
-            ridge_pts_sorted = ridge_pts_calibrated
+        # if len(ridge_pts_filtered) > 115:
+        #     temp = []
+        #     for pt in ridge_pts_calibrated:
+        #         temp.append(img[pt[0]][pt[1]])
+        #     interval = max(temp) - min(temp)
+        #     grayscale_threshold = min(temp) + interval * 0.2
+        #     ridge_pts_sorted = []
+        #     for pt in ridge_pts_calibrated:
+        #         if img[pt[0]][pt[1]] > grayscale_threshold:
+        #             ridge_pts_sorted.append(pt)
+        # else:
+        #     ridge_pts_sorted = ridge_pts_calibrated
 
         # TODO: should deeply develop ridge_pts_calibrated in order to recognize the exceptional senario like "huizhe"
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_sorted, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
 
         if ridge_pts_new is not None:
             ridge_pts_new.sort()
-            # self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.interpolation(ridge_pts_new.get_length()//3))
-            if ridge_pts_new.get_length()//3 > 1:
-                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 15))
-            else:
-                self.possiblely_guidewire_tip_structure[i].append(self.interpolation(ridge_pts_new.interpolation2(10), 15))
+            self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.b_spline_interpolation(15))
         else:
             self.removed_sequence.append(i)
             return
 
-        #self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
+        # self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
 
         color = QColor(self.color[i])
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
@@ -186,9 +183,10 @@ class MSAWorkSpace(QFrame):
                 # self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
                 # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], (239, 188, 64))
 
-        # mov = self.predict_movement(ridge_pts_filtered, 80)
+        #mov = self.predict_movement_using_list(ridge_pts, 80)
         mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i][-1], self.global_tacking_area_radius)
 
+        # compute PGA
         self.maximumLikelyhoodTrackingArea[i], self.maximumLikelyhoodTrackingAreaMask[i] = self.compute_convex_hull(self.possiblely_guidewire_tip_structure[i][-1], 30, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1)
 
         self.possiblely_gravity_points[i] = (int(self.possiblely_gravity_points[i][0] + mov[0]), int(self.possiblely_gravity_points[i][1] + mov[1]))
@@ -224,8 +222,8 @@ class MSAWorkSpace(QFrame):
 
         # convert image from vtk to numpy
         total_img = self.controller.set_image_to_numpyy(self.ctSequenceViewer.current_x_ray_image.get_values())
-        #self.ctSequenceAnalyseArea.display_numpy_image(self.controller.frangi_img(total_img))
-        #matplotlib.image.imsave('/home/cheng/Desktop/hehe/' + str(self.ctSequenceViewer.display_count) + '.png', self.controller.frangi_img(total_img), cmap=matplotlib.cm.gray)
+        # self.ctSequenceAnalyseArea.display_numpy_image(self.controller.frangi_img(total_img))
+        # matplotlib.image.imsave('/home/cheng/Desktop/hehe/' + str(self.ctSequenceViewer.display_count) + '.png', self.controller.frangi_img(total_img), cmap=matplotlib.cm.gray)
 
         self.abscissa, self.ordinate = np.shape(total_img)
         if self.ctSequenceViewer.display_count == 0:
@@ -274,7 +272,7 @@ class MSAWorkSpace(QFrame):
         spline = vtk.vtkParametricSpline()
         spline_source = vtk.vtkParametricFunctionSource()
 
-        number_of_points = len(pts)#.get_length()
+        number_of_points = len(pts)  # .get_length()
         for i in range(number_of_points):
             points.InsertNextPoint(pts[i].get_x(), pts[i].get_y(), 0)
 
@@ -314,7 +312,7 @@ class MSAWorkSpace(QFrame):
         gts = []
         with open(file_name, 'r') as fileobject:
             try:
-                #print (file_name)
+                # print (file_name)
                 text_lines = fileobject.readlines()
                 for line in text_lines:
                     line = str(line)
@@ -391,6 +389,17 @@ class MSAWorkSpace(QFrame):
                 if patch[i, j] > patch[peak_point[0], peak_point[1]]:
                     peak_point = [i, j]
         return peak_point
+
+    def predict_movement_using_list(self, pts, radius):
+        point_x = list()
+        point_y = list()
+        for i in pts:
+            point_x.append(i[0])
+            point_y.append(i[1])
+        mean_point_x = round(np.mean(point_x))
+        mean_point_y = round(np.mean(point_y))
+
+        return mean_point_x - radius, mean_point_y - radius
 
     def predict_movement(self, pts, radius):
         point_x = list()
@@ -790,6 +799,7 @@ class MSAWorkSpace(QFrame):
     #
     #         self.ctSequenceAnalyseArea.frangiViewer.displayRpcaVTKImage(vtk_img_E)
     #         # self.ctSequenceAnalyseArea.localFrangiViewer.displayRpcaVTKImage(vtk_img_A)
+
     def compute_convex_hull(self, possible_sequences, exploreArea, limit_x, limit_y):
         x = []
         y = []
@@ -808,7 +818,7 @@ class MSAWorkSpace(QFrame):
                     for i in range(x1, x2):
                         for j in range(y1, y2):
                             distance = int(self.compute_distance((x[index], y[index]), (i, j)))
-                            if distance == exploreArea and value_matrix[i][j] != 1:
+                            if distance == exploreArea:  # and value_matrix[i][j] != 1:
                                 value_matrix[i][j] = 2
                             if distance < exploreArea:
                                 value_matrix[i][j] = 1

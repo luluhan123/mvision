@@ -1,5 +1,8 @@
 import numpy as np
 import math
+import vtk
+
+from src.MSAModel.MSAStructure.MSAPoint import MSAPoint
 
 
 class MSAPointSet:
@@ -76,6 +79,41 @@ class MSAPointSet:
         data = np.array(data)
         new_data = data
         return new_data
+
+    def b_spline_interpolation(self, resolution):
+
+        points = vtk.vtkPoints()
+
+        x_spline = vtk.vtkSCurveSpline()
+        y_spline = vtk.vtkSCurveSpline()
+        z_spline = vtk.vtkSCurveSpline()
+
+        spline = vtk.vtkParametricSpline()
+        spline_source = vtk.vtkParametricFunctionSource()
+
+        number_of_points = len(self.pointSet)  # .get_length()
+        for i in range(number_of_points):
+            points.InsertNextPoint(self.pointSet[i].get_x(), self.pointSet[i].get_y(), 0)
+
+        spline.SetXSpline(x_spline)
+        spline.SetYSpline(y_spline)
+        spline.SetZSpline(z_spline)
+        spline.SetPoints(points)
+        spline_source.SetParametricFunction(spline)
+        spline_source.SetUResolution(resolution)
+        spline_source.SetVResolution(resolution)
+        spline_source.SetWResolution(resolution)
+        spline_source.Update()
+
+        pts_nbr = spline_source.GetOutput().GetNumberOfPoints()
+        pts_in_vtk = spline_source.GetOutput()
+
+        ret = []
+
+        for i in range(pts_nbr):
+            pt = MSAPoint(0, round(pts_in_vtk.GetPoint(i)[0], 2), round(pts_in_vtk.GetPoint(i)[1], 2))
+            ret.append(pt)
+        return ret
 
     def interpolation(self, number):
         step = len(self.pointSet) // (number - 1)
