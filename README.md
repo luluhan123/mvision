@@ -48,7 +48,7 @@ After run msa_main.py, you will get this window:
 ![Window](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/window.png)
 
  Simply check the box for Tracking or Guidewire tip Evaluation or both
-![Check boxes](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/boxes.png) 
+![Check boxes](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/boxes.png) 
 
  Drag target video sequence into correct position to run RuSio framework
 ![Software window](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/software%20.png)
