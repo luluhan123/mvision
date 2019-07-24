@@ -51,7 +51,7 @@ After run msa_main.py, you will get this window:
 ![Check boxes](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/boxes.png) 
 
  Drag target video sequence into correct position to run RuSio framework
-![Software window](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/software%20.png)
+![Software window](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/software%20.png)
 
 Test Showcase
 ----
