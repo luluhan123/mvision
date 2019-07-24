@@ -4,7 +4,7 @@ Automatic Tracking of Guidewire Tip From Fluoroscopic Videos Using RuSio Framewo
  
 RuSio framework Overview
 ----
-![Flowchar of RuSio framework](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/figure2.png)
+![Flowchar of RuSio framework](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/flowchart.png)
 Prerequisites
 ----
 Test on:
