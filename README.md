@@ -56,4 +56,4 @@ After run msa_main.py, you will get this window:
 Test Showcase
 ----
 The segmentation collection of guidewire tip from RuSio framework in 8 consecutive frames from 128 to 135.
-![Showcase](https://github.com/wangtseng/mvision/blob/master/doc/gtt/Draft/figures/figure7-1.png)
+![Showcase](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/showcase.png)
