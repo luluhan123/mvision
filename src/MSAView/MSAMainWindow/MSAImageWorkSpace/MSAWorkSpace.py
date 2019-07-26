@@ -53,26 +53,19 @@ class MSAWorkSpace(QFrame):
     def change_slider_value(self, value):
         if self.ctSequenceViewer.is_ready():
             self.flag = False
-
+            """ 
             if self.doEvaluation:
                 # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(self.do_read_current_ground_truth(self.ctSequenceViewer.display_count), (0, 0), (0, 0, 0), 0)
                 img = self.do_read_current_ground_truth_image(self.ctSequenceViewer.display_count)
                 self.ctSequenceAnalyseArea.display_frangi(img)
-                gt_numpy = self.controller.set_image_to_numpyy(img)
-                pts = self.controller.centerline_extraction(gt_numpy)
-                pts.sort()
-                pts = self.interpolation(pts.interpolation2(10), 15)
-
-                # temp = []
-                # for p in pts:
-                #     temp.append((p.get_x(), p.get_y()))
+                # gt_numpy = self.controller.set_image_to_numpyy(img)
+                # pts = self.controller.centerline_extraction(gt_numpy)
+                # pts.sort()
+                # pts = self.interpolation(pts.interpolation2(10), 15)
+                # self.save_gts_reference(pts, self.ctSequenceViewer.display_count)
                 #
-                # ridge_pts_new = self.controller.curve_fitting(np.ndarray(temp), 5, 512, 512, 10)
-
-                self.save_gts_reference(pts, self.ctSequenceViewer.display_count)
-
-                self.ctSequenceViewer.draw_point_cloud_by_order(pts, (0, 0), QColor(0, 0, 0), 0)
-
+                # self.ctSequenceViewer.draw_point_cloud_by_order(pts, (0, 0), QColor(0, 0, 0), 0)
+            """
             if self.doGuidewireTracking:
                 self.execute()
             else:
