@@ -49,7 +49,7 @@ class MSAPlottingBoard(QFrame):
         # a figure instance to plot on
         self.figure = plt.figure()
 
-        self.figure.patch.set_facecolor('#333333')
+        self.figure.patch.set_facecolor('#000F6E')
 
         self.canvas = FigureCanvas(self.figure)
         image_processing_bar = QLabel()
@@ -129,7 +129,7 @@ class MSAPlottingBoard(QFrame):
         if self.ihm_factor == 2:
             histo_plot.patch.set_facecolor('#434343')
         elif self.ihm_factor == 1:
-            histo_plot.patch.set_facecolor('#333333')
+            histo_plot.patch.set_facecolor('#000F6E')
 
         compteur = 0
         plots = []
@@ -153,13 +153,13 @@ class MSAPlottingBoard(QFrame):
         plt.xlabel('frame index', fontdict=self.font1)
         plt.ylabel('distance', fontdict=self.font1)
         histo_plot.spines['bottom'].set_linewidth(0.5)
-        histo_plot.spines['bottom'].set_color("#0C6D56")
+        histo_plot.spines['bottom'].set_color("#78F0E0")
         histo_plot.spines['left'].set_linewidth(0.5)
-        histo_plot.spines['left'].set_color("#0C6D56")
+        histo_plot.spines['left'].set_color("#78F0E0")
         histo_plot.spines['top'].set_linewidth(0.5)
-        histo_plot.spines['top'].set_color("#0C6D56")
+        histo_plot.spines['top'].set_color("#78F0E0")
         histo_plot.spines['right'].set_linewidth(0.5)
-        histo_plot.spines['right'].set_color("#0C6D56")
+        histo_plot.spines['right'].set_color("#78F0E0")
         histo_plot.tick_params(axis='y', width=0.5, colors='#ECDEDE')
         histo_plot.tick_params(axis='x', width=0.5, colors='#ECDEDE')
 
@@ -196,7 +196,7 @@ class MSAPlottingBoard(QFrame):
         if self.ihm_factor == 2:
             histo_plot.patch.set_facecolor('#434343')
         elif self.ihm_factor == 1:
-            histo_plot.patch.set_facecolor('#2F2F2F')
+            histo_plot.patch.set_facecolor('#000F6E')
 
         histo_plot.plot(grayscale, frequency, 'green')
 
@@ -233,7 +233,7 @@ class MSAPlottingBoard(QFrame):
         if self.ihm_factor == 2:
             histo_plot.patch.set_facecolor('#434343')
         elif self.ihm_factor == 1:
-            histo_plot.patch.set_facecolor('#2F2F2F')
+            histo_plot.patch.set_facecolor('#000F6E')
 
         histo_plot.plot(grayscale, frequency, 'green')
 
@@ -281,7 +281,7 @@ class MSAPlottingBoard(QFrame):
 
         self.figure.clear()
 
-        histo_plot = self.figure.add_subplot(111, axisbg=(50.0 / 255, 50.0 / 255, 50.0 / 255))
+        histo_plot = self.figure.add_subplot(111, axisbg=(120.0 / 255, 240.0 / 255, 224.0 / 255))
         histo_plot.plot(x, y)
         # histo_plot.spines['right'].set_color('none')
         # histo_plot.spines['top'].set_color('none')

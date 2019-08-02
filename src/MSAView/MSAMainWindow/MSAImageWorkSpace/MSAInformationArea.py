@@ -316,7 +316,7 @@ class MSAInformationArea(QWidget):
 
         self.surgeryInformationArea = QLineEdit()
         self.surgeryInformationArea.setEnabled(False)
-        self.surgeryInformationArea.setStyleSheet("border: 1px solid rgb(238, 156, 54); border-width:0px 1px 1px 0px;")
+        self.surgeryInformationArea.setStyleSheet("border: 1px solid rgb(120, 240, 224); border-width:0px 1px 1px 0px;")
         self.surgeryInformationArea.setFixedSize(self.width, self.height * 0.51)
         self.surgeryInformationArea.setFont(self.globalFont)
         self.surgeryInformationAreaLayout = QVBoxLayout(self.surgeryInformationArea)
@@ -358,7 +358,7 @@ class MSAInformationArea(QWidget):
 
         self.vascularButton = QPushButton()
         self.vascularButton.setFixedSize(30*self.ihm_factor, 30*self.ihm_factor)
-        self.vascularButton.setIcon(QIcon(":/vasular.png"))
+        self.vascularButton.setIcon(QIcon(":/vascular.png"))
         self.vascularButton.setIconSize(QSize(28*self.ihm_factor, 28*self.ihm_factor))
         self.vascularButton.setFlat(True)
 

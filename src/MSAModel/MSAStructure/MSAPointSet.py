@@ -16,7 +16,6 @@ class MSAPointSet:
         t = 0
         for pt in pts:
             t += self.compute_distance(input_pt, pt)
-        t = round(t, 4)
         return t
 
     def end_point_feature(self, input_pt, pts):
@@ -29,6 +28,13 @@ class MSAPointSet:
         min_distance_index = distances.index(min(distances))
         nearest_point = pts[min_distance_index]
         # TODO start your work here.
+
+    def find_nearest_point(self, input):
+        distances = []
+        for pt in self.pointSet:
+            distances.append(self.compute_distance(input, pt))
+        min_distance_index = distances.index(min(distances))
+        return min_distance_index, self.pointSet[min_distance_index]
 
     def sort(self):
         # to find start and end point
@@ -48,14 +54,13 @@ class MSAPointSet:
             point_set_sorted.append(v[1])
             self.pointSet.pop(v[0])
 
-        self.pointSet = point_set_sorted
+        # ret = []
+        # for j in range(length):
+        #     v = self.find_nearest_point2(point_set_sorted[j], point_set_sorted)
+        #     if abs(v - j) < 3:
+        #         ret.append(point_set_sorted[j])
 
-    def find_nearest_point(self, input):
-        distances = []
-        for pt in self.pointSet:
-            distances.append(self.compute_distance(input, pt))
-        min_distance_index = distances.index(min(distances))
-        return min_distance_index, self.pointSet[min_distance_index]
+        self.pointSet = point_set_sorted
 
     def append(self, pt):
         self.pointSet.append(pt)
@@ -116,14 +121,16 @@ class MSAPointSet:
         return ret
 
     def interpolation(self, number):
-        step = len(self.pointSet) // (number - 1)
-        list_new = list()
-        for i in range(number - 1):
-            list_new.append(self.pointSet[i * step])
-        list_new.append(self.pointSet[-1])
+        if number > 1:
+            step = len(self.pointSet) // (number - 1)
+            list_new = list()
+            for i in range(number - 1):
+                list_new.append(self.pointSet[i * step])
+            list_new.append(self.pointSet[-1])
+            self.pointSet = list_new
         return list_new
 
-    def interpolation2(self, number):
+    def interpolation2(self):
         step = 1
         list_new = list()
         for i in range(len(self.pointSet)):

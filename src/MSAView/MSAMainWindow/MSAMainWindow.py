@@ -11,20 +11,20 @@ last edited: February 2015
 
 import os.path
 import sys
-from PyQt5.QtGui import QPixmap, QFont, QIcon
+from PyQt5.QtGui import QPixmap, QFont, QIcon, QFontDatabase
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QHBoxLayout, QLineEdit, QProgressBar, QLabel, QVBoxLayout
 from PyQt5.QtCore import pyqtSignal, Qt, QSize
-from MSAView.MSAMainWindow.MSAImageWorkSpace.MSAWorkSpace import MSAWorkSpace
-from MSAView.MSAMainWindow.MSAToolBar.MSAToolBar import MSAToolBar
-from MSAView.MSAMainWindow.IHMTool.MSAScreen import MSAScreen
-from MSAView.MSAStartWindow.MSAStartWindow import MSAStartWindow
-from MSAView.MSAVolumeWindow.MSAFourPaneViewer import FourPanelViewer
-from MSAView.MSAMainWindow.IHMTool.MSAVesselSegmentation import MSAVesselSegmentation
-from MSAView.MSAMainWindow.IHMTool.MSAParameterSetting import MSAParameterSetting
-from MSAView.MSAMainWindow.IHMTool.MSAPreferenceSettingWindow import MSAPreferenceSettingWindow
-from MSAView.MSAMainWindow.IHMTool.AddPatientWindow import AddPatientWindow
-from MSAView.MSAMainWindow.IHMTool.MSANetworkConfigurationWindow import MSANetworkConfigurationWindow
-from MSAView.MSAMainWindow.IHMTool.ObjectEvent import ObjectEvent
+from src.MSAView.MSAMainWindow.MSAImageWorkSpace.MSAWorkSpace import MSAWorkSpace
+from src.MSAView.MSAMainWindow.MSAToolBar.MSAToolBar import MSAToolBar
+from src.MSAView.MSAMainWindow.IHMTool.MSAScreen import MSAScreen
+from src.MSAView.MSAStartWindow.MSAStartWindow import MSAStartWindow
+from src.MSAView.MSAVolumeWindow.MSAFourPaneViewer import FourPanelViewer
+from src.MSAView.MSAMainWindow.IHMTool.MSAVesselSegmentation import MSAVesselSegmentation
+from src.MSAView.MSAMainWindow.IHMTool.MSAParameterSetting import MSAParameterSetting
+from src.MSAView.MSAMainWindow.IHMTool.MSAPreferenceSettingWindow import MSAPreferenceSettingWindow
+from src.MSAView.MSAMainWindow.IHMTool.AddPatientWindow import AddPatientWindow
+from src.MSAView.MSAMainWindow.IHMTool.MSANetworkConfigurationWindow import MSANetworkConfigurationWindow
+from src.MSAView.MSAMainWindow.IHMTool.ObjectEvent import ObjectEvent
 
 
 class MSAMainWindow(QWidget):
@@ -58,14 +58,9 @@ class MSAMainWindow(QWidget):
         self.appY = 0
         self.ihm_factor = 1
 
-        self.globalBackgroundColor = "rgb(67, 67, 67)"
+        self.globalBackgroundColor = "rgb(0, 15, 110)"
         self.globalFontColor = "rgb(211, 211, 211)"
-
-        if sys.platform == 'darwin':
-            self.globalFont = QFont("System", 11, QFont.Light, True)
-        else:
-            self.globalFont = QFont("Monospace", 9, QFont.AnyStyle, True)
-
+        self.globalFont = QFont("Helvetica", 11, QFont.Light, False)
         self.current_sequence = None
         self.target_image_width = 512
         self.target_image_height = 512
@@ -90,7 +85,6 @@ class MSAMainWindow(QWidget):
 
             if width <= 2000:
                 self.ihm_factor = 1
-                self.globalBackgroundColor = "rgb(51, 51, 51)"
             else:
                 self.ihm_factor = 2
 

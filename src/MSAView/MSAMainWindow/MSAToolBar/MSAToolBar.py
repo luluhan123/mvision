@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import QLabel, QPushButton, QCheckBox, QHBoxLayout, QVBoxLa
 from PyQt5.QtGui import QPixmap, QIcon, QFont, QPalette, QBrush
 from PyQt5.QtCore import pyqtSignal, QSize, Qt
 
-from MSAView.MSAMainWindow.MSAToolBar.MSALogoLabel import LittleSIATLabel
-from MSAView.MSAMainWindow.IHMTool.ObjectEvent import ObjectEvent
+from src.MSAView.MSAMainWindow.MSAToolBar.MSALogoLabel import LittleSIATLabel
+from src.MSAView.MSAMainWindow.IHMTool.ObjectEvent import ObjectEvent
 import os
 import sys
 
@@ -65,26 +65,30 @@ class MSAToolBar(QLabel):
         # ------------------------------------------------------------------------------------------
         self.setFixedSize(self.width, self.height)
         self.setMouseTracking(True)
+        self.setStyleSheet("background-color:" + self.globalBackgroundColor)
 
-        if sys.platform == 'win32':
-            if self.ihm_factor == 1:
-                self.setPixmap(QPixmap(temp[0] + "img\\title-bar.png"))
-            elif self.ihm_factor == 2:
-                self.setPixmap(QPixmap(temp[0] + "img\\title-bar-2560.png"))
-        else:
-            if self.ihm_factor == 1:
-                self.setPixmap(QPixmap(temp[0] + "img/title-bar.png"))
-            elif self.ihm_factor == 2:
-                self.setPixmap(QPixmap(temp[0] + "img/title-bar-2560.png"))
+        # if sys.platform == 'win32':
+        #     if self.ihm_factor == 1:
+        #         self.setPixmap(QPixmap(temp[0] + "img\\title-bar.png"))
+        #     elif self.ihm_factor == 2:
+        #         self.setPixmap(QPixmap(temp[0] + "img\\title-bar-2560.png"))
+        # else:
+        #     if self.ihm_factor == 1:
+        #         self.setPixmap(QPixmap(temp[0] + "img/title-bar.png"))
+        #     elif self.ihm_factor == 2:
+        #         self.setPixmap(QPixmap(temp[0] + "img/title-bar-2560.png"))
 
         # ------------------------------------------------------------------------------------------
         # components of the title bar
         # ------------------------------------------------------------------------------------------
-        self.spacer = QLabel()
-        self.spacer.setFixedSize(240 * self.ihm_factor, 32)
+        self.spacer = QLabel("MicroQ")
+        self.spacer.setStyleSheet("background-color: transparent; color:rgb(210, 62, 90);")
+        self.spacer.setAlignment(Qt.AlignCenter)
+        self.spacer.setFont(QFont("Helvetica", 18, QFont.DemiBold, True))
+        self.spacer.setFixedSize(220 * self.ihm_factor, self.height*0.95)
 
         self.loadSequenceButton = QPushButton()
-        self.loadSequenceButton.setStyleSheet("background: transparent;")
+        self.loadSequenceButton.setStyleSheet("background-color: transparent;")
         self.loadSequenceButton.setIcon(QIcon(":/1file.png"))
         self.loadSequenceButton.setMouseTracking(True)
         self.loadSequenceButton.setFixedSize(QSize(self.height * 0.9, self.height * 0.9))
@@ -139,14 +143,14 @@ class MSAToolBar(QLabel):
         self.currentSequenceInformationLabel.setFont(self.globalFont)
 
         self.trackingOptionCheckBox = QCheckBox('Tracking Enable')
-        self.trackingOptionCheckBox.setStyleSheet("color:" + self.globalFontColor + "; alignment:center;")
+        self.trackingOptionCheckBox.setStyleSheet("background-color:transparent; color:" + self.globalFontColor + "; alignment:center;")
         self.trackingOptionCheckBox.setFont(self.globalFont)
-        self.trackingOptionCheckBox.setFixedSize(self.width*0.1, self.height*0.9)
+        self.trackingOptionCheckBox.setFixedSize(self.width*0.08, self.height*0.7)
 
         self.evaluateOptionCheckBox = QCheckBox('GT Evaluation')
-        self.evaluateOptionCheckBox.setStyleSheet("color:" + self.globalFontColor + "; alignment:center;")
+        self.evaluateOptionCheckBox.setStyleSheet("background-color:transparent; color:" + self.globalFontColor + "; alignment:center;")
         self.evaluateOptionCheckBox.setFont(self.globalFont)
-        self.evaluateOptionCheckBox.setFixedSize(self.width * 0.1, self.height * 0.9)
+        self.evaluateOptionCheckBox.setFixedSize(self.width * 0.08, self.height * 0.7)
 
         self.spacerrr = QLabel()
         self.spacerrr.setFixedWidth(512*self.ihm_factor - self.width*0.4)
@@ -167,12 +171,12 @@ class MSAToolBar(QLabel):
                                              "QCheckBox::indicator:checked {image: url(:/intra_operation.png);}"
                                              "QCheckBox::indicator:unchecked {image: url(:/not_in_operation.png);}")
         self.stateChooseButton.setFont(self.globalFont)
-        self.stateChooseButton.setFixedSize(self.width*0.08, self.height*0.98)
+        self.stateChooseButton.setFixedSize(self.width*0.08, self.height*0.9)
 
         self.orgLabel = LittleSIATLabel(self, self.width*0.065, self.height*0.7)
 
         self.main_window = QFrame()
-        self.main_window.setFixedSize(self.width, self.height*0.98)
+        self.main_window.setFixedSize(self.width, self.height*0.95)
         self.myLayout = QHBoxLayout(self.main_window)
         self.myLayout.addWidget(self.spacer)
         self.myLayout.addWidget(self.loadSequenceButton)
@@ -191,13 +195,24 @@ class MSAToolBar(QLabel):
         self.myLayout.setSpacing(0)
         self.myLayout.setContentsMargins(0, 0, 0, 0)
 
+        self.leftUnderBar = QLabel()
+        self.leftUnderBar.setFixedSize(213, self.height*0.05)
+
         self.underBar = QLabel()
-        self.underBar.setFixedSize(self.width, self.height*0.02)
-        self.underBar.setStyleSheet("background-color:rgb(238, 156, 54);")
+        self.underBar.setFixedSize(self.width-213, self.height*0.05)
+        self.underBar.setStyleSheet("background-color:rgb(120, 240, 224);")
+
+        self.totalUnderBar = QLabel()
+        self.totalUnderBar.setFixedSize(self.width, self.height * 0.05)
+        self.totalUnderBarLayout = QHBoxLayout(self.totalUnderBar)
+        self.totalUnderBarLayout.addWidget(self.leftUnderBar)
+        self.totalUnderBarLayout.addWidget(self.underBar)
+        self.totalUnderBarLayout.setSpacing(0)
+        self.totalUnderBarLayout.setContentsMargins(0, 0, 0, 0)
 
         self.monLayout = QVBoxLayout(self)
         self.monLayout.addWidget(self.main_window)
-        self.monLayout.addWidget(self.underBar)
+        self.monLayout.addWidget(self.totalUnderBar)
         self.monLayout.setSpacing(0)
         self.monLayout.setContentsMargins(0, 0, 0, 0)
 

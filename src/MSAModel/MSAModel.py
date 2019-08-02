@@ -20,6 +20,7 @@ class MSAModel(QObject):
         self.workspace_path = workspace_path
         path = os.path.dirname(os.path.realpath(__file__))
         temp = path.split("src")
+
         self.meta_file_path = temp[0] + "dat/msfr.txt"
         self.files = dict()
 
