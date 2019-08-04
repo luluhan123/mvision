@@ -34,7 +34,7 @@ class MSAPointSet:
         for pt in self.pointSet:
             distances.append(self.compute_distance(input, pt))
         min_distance_index = distances.index(min(distances))
-        return min_distance_index, self.pointSet[min_distance_index]
+        return [min_distance_index, self.pointSet[min_distance_index], min(distances)]
 
     def sort(self):
         # to find start and end point
@@ -49,16 +49,13 @@ class MSAPointSet:
         self.pointSet.pop(start_point_index)
 
         length = len(self.pointSet) - 1
+        cpt = 0
         for i in range(length):
-            v = self.find_nearest_point(point_set_sorted[i])
-            point_set_sorted.append(v[1])
+            v = self.find_nearest_point(point_set_sorted[cpt])
+            if v[2] < 30:
+                point_set_sorted.append(v[1])
+                cpt+=1
             self.pointSet.pop(v[0])
-
-        # ret = []
-        # for j in range(length):
-        #     v = self.find_nearest_point2(point_set_sorted[j], point_set_sorted)
-        #     if abs(v - j) < 3:
-        #         ret.append(point_set_sorted[j])
 
         self.pointSet = point_set_sorted
 
@@ -89,9 +86,9 @@ class MSAPointSet:
 
         points = vtk.vtkPoints()
 
-        x_spline = vtk.vtkSCurveSpline()
-        y_spline = vtk.vtkSCurveSpline()
-        z_spline = vtk.vtkSCurveSpline()
+        # x_spline = vtk.vtkSCurveSpline()
+        # y_spline = vtk.vtkSCurveSpline()
+        # z_spline = vtk.vtkSCurveSpline()
 
         spline = vtk.vtkParametricSpline()
         spline_source = vtk.vtkParametricFunctionSource()
@@ -99,10 +96,10 @@ class MSAPointSet:
         number_of_points = len(self.pointSet)  # .get_length()
         for i in range(number_of_points):
             points.InsertNextPoint(self.pointSet[i].get_x(), self.pointSet[i].get_y(), 0)
-
-        spline.SetXSpline(x_spline)
-        spline.SetYSpline(y_spline)
-        spline.SetZSpline(z_spline)
+        #
+        # spline.SetXSpline(x_spline)
+        # spline.SetYSpline(y_spline)
+        # spline.SetZSpline(z_spline)
         spline.SetPoints(points)
         spline_source.SetParametricFunction(spline)
         spline_source.SetUResolution(resolution)
@@ -118,6 +115,9 @@ class MSAPointSet:
         for i in range(pts_nbr):
             pt = MSAPoint(0, round(pts_in_vtk.GetPoint(i)[0], 2), round(pts_in_vtk.GetPoint(i)[1], 2))
             ret.append(pt)
+
+        self.pointSet = ret
+
         return ret
 
     def interpolation(self, number):

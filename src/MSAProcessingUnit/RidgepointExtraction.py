@@ -1,7 +1,5 @@
 import numpy as np
-import cv2
-from MSAProcessingUnit.GVF import GVF
-from scipy import signal
+import math
 
 
 class RidgepointExtraction:
@@ -201,10 +199,9 @@ class RidgepointExtraction:
 
         for l in range(matrix_l):
             for h in range(matrix_h):
-                matrix_or[l][h] = fx_ridge_point[l][h] or fy_ridge_point[l][h] or frd_ridge_point[l][h]\
-                                  or fld_ridge_point[l][h]
+                matrix_or[l][h] = fx_ridge_point[l][h] or fy_ridge_point[l][h] or frd_ridge_point[l][h] or fld_ridge_point[l][h]
 
-        #test num of matrix or
+        # test num of matrix or
         count = 0
         for l in range(matrix_l):
             for h in range(matrix_h):

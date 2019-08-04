@@ -46,25 +46,28 @@ class MSAWorkSpace(QFrame):
         file_name = self.controller.get_current_taget_folder() + 'GTS/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '.dat'
         with open(file_name, 'w') as fileobject:
             for c in range(len(pts)):
-                fileobject.write(str(pts[c].get_x()) + ";" + str(pts[c].get_y()) + "\n")
+                fileobject.write(str(round(pts[c].get_x(), 2)) + ";" + str(round(pts[c].get_y(), 2)) + "\n")
         fileobject.close()
 
     def change_slider_value(self, value):
         if self.ctSequenceViewer.is_ready():
             self.flag = False
-            """ 
+
             if self.doEvaluation:
-                # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(self.do_read_current_ground_truth(self.ctSequenceViewer.display_count), (0, 0), (0, 0, 0), 0)
+                # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(self.do_read_current_ground_truth(self.ctSequenceViewer.display_count), (0, 0), (0, 255, 0), 0)
                 img = self.do_read_current_ground_truth_image(self.ctSequenceViewer.display_count)
                 self.ctSequenceAnalyseArea.display_frangi(img)
-                # gt_numpy = self.controller.set_image_to_numpyy(img)
-                # pts = self.controller.centerline_extraction(gt_numpy)
+                gt_numpy = self.controller.set_image_to_numpyy(img)
+                pts = self.controller.centerline_extraction(gt_numpy)
                 # pts.sort()
-                # pts = self.interpolation(pts.interpolation2(10), 15)
-                # self.save_gts_reference(pts, self.ctSequenceViewer.display_count)
-                #
-                # self.ctSequenceViewer.draw_point_cloud_by_order(pts, (0, 0), QColor(0, 0, 0), 0)
-            """
+                # pts.b_spline_interpolation(120)
+                # gts = pts.interpolation(60)
+
+                gts = pts.get_point_set()
+
+                self.save_gts_reference(gts, self.ctSequenceViewer.display_count)
+                self.ctSequenceViewer.draw_point_cloud_by_order(gts, (0, 0), QColor(0, 0, 0), 0, 2)
+
             if self.doGuidewireTracking:
                 self.execute()
             else:
@@ -116,6 +119,7 @@ class MSAWorkSpace(QFrame):
         else:
             ridge_pts_calibrated = ridge_pts_filtered
 
+        #  threshold
         # if len(ridge_pts_filtered) > 115:
         #     temp = []
         #     for pt in ridge_pts_calibrated:
@@ -129,15 +133,17 @@ class MSAWorkSpace(QFrame):
         # else:
         #     ridge_pts_sorted = ridge_pts_calibrated
 
-        # TODO: should deeply develop ridge_pts_calibrated in order to recognize the exceptional senario like "huizhe"
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 3, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
+        # !  TODO: should deeply develop ridge_pts_calibrated in order to recognize the exceptional senario like curls up
+        # !  previous curvilinear structure should be used to eliminate the noise a second time
+        # !  linear_regression to compute the main direction
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 4, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 8)
 
         if ridge_pts_new is not None:
-            if ridge_pts_new.get_length() > 5:
-                ridge_pts_new.interpolation(ridge_pts_new.get_length()//2)
-                ridge_pts_new.sort()
-                self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.b_spline_interpolation(15))
-                # self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.interpolation(10))
+            if ridge_pts_new.get_length() > 10:
+                # ridge_pts_new.interpolation(70)
+                # ridge_pts_new.sort()
+                # self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.b_spline_interpolation(70))
+                self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.get_point_set())
             else:
                 self.removed_sequence.append(i)
                 return
@@ -301,7 +307,7 @@ class MSAWorkSpace(QFrame):
         return image_reader.GetOutput()
 
     def do_read_current_ground_truth(self, index):
-        file_name = self.controller.get_current_taget_folder() + 'GTS/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '.raw.txt'
+        file_name = self.controller.get_current_taget_folder() + 'GTS/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '.dat'
         gts = []
         with open(file_name, 'r') as fileobject:
             try:
@@ -312,10 +318,10 @@ class MSAWorkSpace(QFrame):
                     # line = line.translate(None, '\n')
                     if line.__contains__(','):
                         v = line.split(',')
-                        gts.append([int(float(v[0])), int(float(v[1]))])
+                        gts.append([(float(v[0])), (float(v[1]))])
                     elif line.__contains__(';'):
                         v = line.split(';')
-                        gts.append([int(float(v[0])), int(float(v[1]))])
+                        gts.append([(float(v[0])), (float(v[1]))])
                     # print ([int(float(v[0])), int(float(v[1]))])
             finally:
                 fileobject.close()
@@ -326,7 +332,7 @@ class MSAWorkSpace(QFrame):
         file_name = self.controller.get_current_taget_folder() + 'result/' + ''.join(["navi" + str(index).rjust(8, '0')]) + '_' + str(i) + '.dat'
         with open(file_name, 'w') as fileobject:
             for c in range(len(pts)):
-                fileobject.write(str((pts[c].get_x() + centre[0] - 80)) + ";" + str((pts[c].get_y() + centre[1] - 80)) + "\n")
+                fileobject.write(str(round(pts[c].get_x() + centre[0] - 80, 2)) + ";" + str(round(pts[c].get_y() + centre[1] - 80, 2)) + "\n")
         fileobject.close()
 
     def distance(self, pt0, pt1):

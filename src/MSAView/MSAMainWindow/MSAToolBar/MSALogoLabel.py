@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import QPushButton
 class LittleSIATLabel(QPushButton):
     def __init__(self, parent=None, width=0, height=0):
         super(LittleSIATLabel, self).__init__(parent)
-        self.setStyleSheet('QPushButton{background-color:transparent; margin-right:6px; border-image: url(:/siat.png);}; border:0px;')
+        #self.setStyleSheet('QPushButton{background-color:transparent; margin-right:6px; border-image: url(:/siat.png);}; border:0px;')
         self.setFixedSize(QSize(width, height))
         self.setAcceptDrops(True)
         self.setFlat(True)
