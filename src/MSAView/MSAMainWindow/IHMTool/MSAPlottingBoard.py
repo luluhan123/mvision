@@ -30,12 +30,12 @@ class MSAPlottingBoard(QFrame):
         self.windowLevel = [0, 0, 1, 1]
         self.setAcceptDrops(True)
 
-        self.font1 = {'family': 'Times New Roman',
+        self.font1 = {'family': 'Helvetica',
                       'color': 'red',
                       'weight': 'normal',
                       'size': 6, }
 
-        self.font2 = {'family': 'Times New Roman',
+        self.font2 = {'family': 'Helvetica',
                       'weight': 'normal',
                       'size': 4, }
 

@@ -52,9 +52,11 @@ class MSAPointSet:
         cpt = 0
         for i in range(length):
             v = self.find_nearest_point(point_set_sorted[cpt])
-            if v[2] < 30:
-                point_set_sorted.append(v[1])
-                cpt+=1
+            # if v[2] > 35 and v[0] > int(len(self.pointSet)*0.8):
+            #     self.pointSet.pop(v[0])
+            #     continue
+            point_set_sorted.append(self.pointSet[v[0]])
+            cpt += 1
             self.pointSet.pop(v[0])
 
         self.pointSet = point_set_sorted

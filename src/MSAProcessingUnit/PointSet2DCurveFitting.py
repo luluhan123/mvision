@@ -134,7 +134,7 @@ class PointSet2DCurveFitting:
                     curve_lengths.remove(curve_length)
         return pts_predicted, predicted_lines_points, curve_lengths
 
-    def use_hull_curve_fitting_by_image(self, input, explore_area=8):
+    def use_hull_curve_fitting_by_image(self, input, explore_area=6):
         lines_convex_hull = PointSet2DConvexHull()
         lines_convex_hull.set_value_matrix(input)
         hull = MSAPointSet()

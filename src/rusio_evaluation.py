@@ -164,45 +164,45 @@ total_pcm = 0.0
 total_cl = 0.0
 total_number = 150
 for i in range(total_number):
-    num_data = interpolation(sort(do_load_2d_array('/Users/cheng/Dev/pydev/mvision/dat/CTSAWorkspace/'+ sequence +'/GTS/' + ''.join(["navi" + str(i).rjust(8, '0')])+'.dat')), 0.2)
+    ref_data = interpolation(sort(do_load_2d_array('/home/cheng/Documents/dev/mvision/dat/CTSAWorkspace/' + sequence + '/GTS/' + ''.join(["navi" + str(i).rjust(8, '0')]) + '.dat')), 0.2)
     # exp_data = interpolation(sort(do_load_2d_array('/Users/cheng/Documents/dat/evaluation/2/'+str(10000+i)+'_2.txt')), 0.5)
-    exp_data = interpolation(sort(do_load_2d_array('/Users/cheng/Dev/pydev/mvision/dat/CTSAWorkspace/'+ sequence +'/result/'+ ''.join(["navi" + str(i).rjust(8, '0')])+'_1.dat')), 0.2)
+    exp_data = do_load_2d_array('/home/cheng/Documents/dev/mvision/dat/CTSAWorkspace/'+ sequence +'/result/'+ ''.join(["navi" + str(i).rjust(8, '0')])+'_1.dat')
 
-    num_data_length = compute_length(num_data)
+    ref_data_length = compute_length(ref_data)
     exp_data_length = compute_length(exp_data)
     # print("before ", num_data_length, exp_data_length)
 
-    if num_data_length > exp_data_length :
-        num_data = trancate(num_data, exp_data, 1)
+    #if ref_data_length > exp_data_length :
+    ref_data = trancate(ref_data, exp_data, 1)
         # num_data = interpolation_by_number(num_data, len(exp_data)-1)
-    else:
-        exp_data = trancate(exp_data, num_data, 1)
+    #else:
+    exp_data = trancate(exp_data, ref_data, 1)
         #exp_data = interpolation_by_number(exp_data, len(num_data)-1)
 
-    num_data = interpolation_by_number(num_data, 50)
+    ref_data = interpolation_by_number(ref_data, 50)
     exp_data = interpolation_by_number(exp_data, 50)
-    num_data_length = compute_length(num_data)
+    ref_data_length = compute_length(ref_data)
     exp_data_length = compute_length(exp_data)
     #print("after ", num_data_length, exp_data_length)
 
     # quantify the difference between the two curves using PCM
-    pcm = similaritymeasures.pcm(exp_data, num_data)
+    pcm = similaritymeasures.pcm(exp_data, ref_data)
 
     # quantify the difference between the two curves using
     # Discrete Frechet distance
-    df = similaritymeasures.frechet_dist(exp_data, num_data)
+    df = similaritymeasures.frechet_dist(exp_data, ref_data)
 
     # quantify the difference between the two curves using
     # area between two curves
-    area = similaritymeasures.area_between_two_curves(exp_data, num_data)
+    area = similaritymeasures.area_between_two_curves(exp_data, ref_data)
 
     # quantify the difference between the two curves using
     # Curve Length based similarity measure
-    cl = similaritymeasures.curve_length_measure(exp_data, num_data)
+    cl = similaritymeasures.curve_length_measure(exp_data, ref_data)
 
     # quantify the difference between the two curves using
     # Dynamic Time Warping distance
-    dtw, d = similaritymeasures.dtw(exp_data, num_data)
+    dtw, d = similaritymeasures.dtw(exp_data, ref_data)
     total_df += df
     total_pcm += pcm
     total_cl += cl

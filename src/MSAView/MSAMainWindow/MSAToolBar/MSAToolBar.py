@@ -84,7 +84,7 @@ class MSAToolBar(QLabel):
         self.spacer = QLabel("MicroQ")
         self.spacer.setStyleSheet("background-color: transparent; color:rgb(210, 62, 90);")
         self.spacer.setAlignment(Qt.AlignCenter)
-        self.spacer.setFont(QFont("Helvetica", 18, QFont.DemiBold, True))
+        self.spacer.setFont(QFont("Helvetica", 16, QFont.DemiBold, True))
         self.spacer.setFixedSize(220 * self.ihm_factor, self.height*0.95)
 
         self.loadSequenceButton = QPushButton()
@@ -142,18 +142,18 @@ class MSAToolBar(QLabel):
         self.currentSequenceInformationLabel.setStyleSheet("background-color:transparent; color:" + self.globalFontColor + "; alignment:center;")
         self.currentSequenceInformationLabel.setFont(self.globalFont)
 
-        self.trackingOptionCheckBox = QCheckBox('Tracking Enable')
-        self.trackingOptionCheckBox.setStyleSheet("background-color:transparent; color:" + self.globalFontColor + "; alignment:center;")
+        self.trackingOptionCheckBox = QCheckBox('Tracking')
+        self.trackingOptionCheckBox.setStyleSheet("background-color:transparent; color:" + self.globalFontColor + "; alignment:center; border: 1px solid cyan;")
         self.trackingOptionCheckBox.setFont(self.globalFont)
-        self.trackingOptionCheckBox.setFixedSize(self.width*0.08, self.height*0.7)
+        self.trackingOptionCheckBox.setFixedSize(self.width*0.06, self.height*0.7)
 
-        self.evaluateOptionCheckBox = QCheckBox('GT Evaluation')
-        self.evaluateOptionCheckBox.setStyleSheet("background-color:transparent; color:" + self.globalFontColor + "; alignment:center;")
+        self.evaluateOptionCheckBox = QCheckBox('Evaluation')
+        self.evaluateOptionCheckBox.setStyleSheet("background-color:transparent; color:" + self.globalFontColor + "; alignment:center; border: 1px solid cyan;")
         self.evaluateOptionCheckBox.setFont(self.globalFont)
-        self.evaluateOptionCheckBox.setFixedSize(self.width * 0.08, self.height * 0.7)
+        self.evaluateOptionCheckBox.setFixedSize(self.width * 0.07, self.height * 0.7)
 
         self.spacerrr = QLabel()
-        self.spacerrr.setFixedWidth(512*self.ihm_factor - self.width*0.4)
+        self.spacerrr.setFixedWidth(512*self.ihm_factor - self.width*0.38)
 
         self.communicationWindow = QPushButton()
         self.communicationWindow.setStyleSheet("background: " + self.globalBackgroundColor)

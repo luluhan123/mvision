@@ -136,13 +136,13 @@ class MSAWorkSpace(QFrame):
         # !  TODO: should deeply develop ridge_pts_calibrated in order to recognize the exceptional senario like curls up
         # !  previous curvilinear structure should be used to eliminate the noise a second time
         # !  linear_regression to compute the main direction
-        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 4, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 8)
+        ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
 
         if ridge_pts_new is not None:
-            if ridge_pts_new.get_length() > 10:
-                # ridge_pts_new.interpolation(70)
-                # ridge_pts_new.sort()
-                # self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.b_spline_interpolation(70))
+            if ridge_pts_new.get_length() > 5:
+                ridge_pts_new.interpolation(ridge_pts_new.get_length()//3)
+                ridge_pts_new.sort()
+                ridge_pts_new.b_spline_interpolation(15)
                 self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.get_point_set())
             else:
                 self.removed_sequence.append(i)
@@ -170,17 +170,17 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
 
         # [3]
-        # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
+        self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
 
         # [4]
         # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
         # [5]
-        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][0], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 4)
-        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][-1], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 4)
+        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][0], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 2)
+        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][-1], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 2)
 
         # self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-2], self.possiblely_gravity_points[i], QColor(153, 255, 255), self.global_tacking_area_radius)
-        self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius, 2)
+        self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius, 1)
 
         # mov = self.predict_movement_using_list(ridge_pts, 80)
         mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i][-1], self.global_tacking_area_radius)

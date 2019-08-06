@@ -60,7 +60,7 @@ class MSAMainWindow(QWidget):
 
         self.globalBackgroundColor = "rgb(0, 15, 110)"
         self.globalFontColor = "rgb(211, 211, 211)"
-        self.globalFont = QFont("Helvetica", 11, QFont.Light, False)
+        self.globalFont = QFont("Helvetica", 10, QFont.Light, False)
         self.current_sequence = None
         self.target_image_width = 512
         self.target_image_height = 512
