@@ -157,16 +157,17 @@ def trancate(input, ref, tol):
     return np.array(out)
 
 
-sequence = "sequence9"
+sequence = "sequence11"
+path = "/Users/cheng/Dev/pydev/"
+possibility = 0
 cpt = 0
 total_df = 0.0
 total_pcm = 0.0
 total_cl = 0.0
-total_number = 150
+total_number = 66
 for i in range(total_number):
-    ref_data = interpolation(sort(do_load_2d_array('/home/cheng/Documents/dev/mvision/dat/CTSAWorkspace/' + sequence + '/GTS/' + ''.join(["navi" + str(i).rjust(8, '0')]) + '.dat')), 0.2)
-    # exp_data = interpolation(sort(do_load_2d_array('/Users/cheng/Documents/dat/evaluation/2/'+str(10000+i)+'_2.txt')), 0.5)
-    exp_data = do_load_2d_array('/home/cheng/Documents/dev/mvision/dat/CTSAWorkspace/'+ sequence +'/result/'+ ''.join(["navi" + str(i).rjust(8, '0')])+'_1.dat')
+    ref_data = interpolation(sort(do_load_2d_array(path + 'mvision/dat/CTSAWorkspace/' + sequence + '/GTS/' + ''.join(["navi" + str(i).rjust(8, '0')]) + '.dat')), 0.2)
+    exp_data = do_load_2d_array(path + 'mvision/dat/CTSAWorkspace/'+ sequence +'/result/'+ ''.join(["navi" + str(i).rjust(8, '0')])+'_'+str(possibility)+'.dat')
 
     ref_data_length = compute_length(ref_data)
     exp_data_length = compute_length(exp_data)
@@ -174,10 +175,8 @@ for i in range(total_number):
 
     #if ref_data_length > exp_data_length :
     ref_data = trancate(ref_data, exp_data, 1)
-        # num_data = interpolation_by_number(num_data, len(exp_data)-1)
     #else:
     exp_data = trancate(exp_data, ref_data, 1)
-        #exp_data = interpolation_by_number(exp_data, len(num_data)-1)
 
     ref_data = interpolation_by_number(ref_data, 50)
     exp_data = interpolation_by_number(exp_data, 50)

@@ -82,6 +82,10 @@ class MSAWorkSpace(QFrame):
         if i in self.removed_sequence:
             return
 
+        # if i == 1:
+        #     self.removed_sequence.append(i)
+        #     return
+
         # get part image according to the predefined radius, if in
         self.possiblely_gravity_points[i], patch = self.controller.get_part_image_by_size(img, self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1)
         # pt, patch_for_display = self.controller.get_part_image_by_size_by_vtk(self.ctSequenceViewer.current_x_ray_image.get_values(), self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 512, 512)
@@ -142,8 +146,8 @@ class MSAWorkSpace(QFrame):
             if ridge_pts_new.get_length() > 5:
                 ridge_pts_new.interpolation(ridge_pts_new.get_length()//3)
                 ridge_pts_new.sort()
-                ridge_pts_new.b_spline_interpolation(15)
-                self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.get_point_set())
+                pga_sequence = ridge_pts_new.b_spline_interpolation(15)
+                self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.b_spline_interpolation(50))
             else:
                 self.removed_sequence.append(i)
                 return
@@ -170,7 +174,7 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
 
         # [3]
-        self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
+        # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
 
         # [4]
         # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
@@ -183,10 +187,12 @@ class MSAWorkSpace(QFrame):
         self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius, 1)
 
         # mov = self.predict_movement_using_list(ridge_pts, 80)
-        mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i][-1], self.global_tacking_area_radius)
+        # mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i][-1], self.global_tacking_area_radius)
+        mov = self.predict_movement(pga_sequence, self.global_tacking_area_radius)
 
         # compute PGA
-        self.maximumLikelyhoodTrackingArea[i], self.maximumLikelyhoodTrackingAreaMask[i] = self.compute_convex_hull(self.possiblely_guidewire_tip_structure[i][-1], 30, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1)
+        #self.maximumLikelyhoodTrackingArea[i], self.maximumLikelyhoodTrackingAreaMask[i] = self.compute_convex_hull(self.possiblely_guidewire_tip_structure[i][-1], 30, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1)
+        self.maximumLikelyhoodTrackingArea[i], self.maximumLikelyhoodTrackingAreaMask[i] = self.compute_convex_hull(pga_sequence, 30, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1)
 
         self.possiblely_gravity_points[i] = (int(self.possiblely_gravity_points[i][0] + mov[0]), int(self.possiblely_gravity_points[i][1] + mov[1]))
 
@@ -817,7 +823,7 @@ class MSAWorkSpace(QFrame):
                     for i in range(x1, x2):
                         for j in range(y1, y2):
                             distance = int(self.compute_distance((x[index], y[index]), (i, j)))
-                            if distance == exploreArea:  # and value_matrix[i][j] != 1:
+                            if distance == exploreArea: # and value_matrix[i][j] != 1:
                                 value_matrix[i][j] = 2
                             if distance < exploreArea:
                                 value_matrix[i][j] = 1

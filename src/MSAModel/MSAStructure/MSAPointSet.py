@@ -118,7 +118,7 @@ class MSAPointSet:
             pt = MSAPoint(0, round(pts_in_vtk.GetPoint(i)[0], 2), round(pts_in_vtk.GetPoint(i)[1], 2))
             ret.append(pt)
 
-        self.pointSet = ret
+        #self.pointSet = ret
 
         return ret
 
