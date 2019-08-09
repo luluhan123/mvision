@@ -849,10 +849,10 @@ class MSACanvas2D(QFrame):
 
     def draw_point_cloud_by_order(self, pts, centre, color, radius, size):
         l = len(pts)
-        step = color.green()//l
+        step = color.red()//l
         cpt = 0
         for h in pts:
-            self.draw_a_single_point(h, centre, (color.red(), color.green()-cpt*step , color.blue()), radius, size)
+            self.draw_a_single_point(h, centre, (color.red() -cpt*step, color.green(), color.blue()), radius, size)
             cpt+=1
 
     def draw_a_single_point(self, pt, centre, color, radius, size):

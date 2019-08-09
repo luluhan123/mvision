@@ -44,7 +44,7 @@ class MSAPointSet:
 
     def lle_sort(self):
         pts_in_np = self.to_numpy()
-        lle = LocallyLinearEmbedding(n_components=1, n_neighbors=10)
+        lle = LocallyLinearEmbedding(n_components=1, n_neighbors=5)
         pts_reduced = lle.fit_transform(pts_in_np)
         temp = []
         for i in range(len(self.pointSet)):

@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import QFrame, QSlider, QHBoxLayout, QPushButton, QLineEdit
 from PyQt5.QtCore import pyqtSignal, QSize, Qt
 
 from src.MSAModel.MSAStructure.MSAPoint import MSAPoint
+from src.MSAModel.MSAStructure.MSAPointSet import MSAPointSet
 from src.MSAView.MSAMainWindow.MSAImageWorkSpace.MSACanvas2D import MSACanvas2D
 from src.MSAView.MSAMainWindow.IHMTool.MSAPlottingBoard import MSAPlottingBoard
 from src.MSAView.MSAMainWindow.MSAImageWorkSpace.ResultViewer import ResultViewer
@@ -145,11 +146,12 @@ class MSAWorkSpace(QFrame):
         ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
 
         if ridge_pts_new is not None:
-            if ridge_pts_new.get_length() > 5:
+            if ridge_pts_new.get_length() > 10:
                 ridge_pts_new.interpolation(ridge_pts_new.get_length()//3)
-                ridge_pts_new.sort()
+                ridge_pts_new.sort() # lle_sort()
                 pga_sequence = ridge_pts_new.b_spline_interpolation(15)
-                self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.b_spline_interpolation(50))
+                self.possiblely_guidewire_tip_structure[i].append(pga_sequence)
+                #self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.b_spline_interpolation(50))
             else:
                 self.removed_sequence.append(i)
                 return
@@ -157,12 +159,11 @@ class MSAWorkSpace(QFrame):
             self.removed_sequence.append(i)
             return
 
-        #self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
-
+        # self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
 
         color = QColor(self.color[i])
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
-        self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
+        # self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
         # self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
         # print (i, time.time())
@@ -182,11 +183,9 @@ class MSAWorkSpace(QFrame):
         # [4]
         # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
-        # [5]
-        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][0], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 2)
-        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][-1], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 2)
-
-        # self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-2], self.possiblely_gravity_points[i], QColor(153, 255, 255), self.global_tacking_area_radius)
+        # GTS
+        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][0], self.possiblely_gravity_points[i], (200, 100, 100), self.global_tacking_area_radius, 3)
+        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][-1], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 3)
         self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius, 1)
 
         # mov = self.predict_movement_using_list(ridge_pts, 80)
