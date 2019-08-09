@@ -1,7 +1,7 @@
 import numpy as np
 import math
 import vtk
-
+from sklearn.manifold import LocallyLinearEmbedding
 from src.MSAModel.MSAStructure.MSAPoint import MSAPoint
 
 
@@ -35,6 +35,35 @@ class MSAPointSet:
             distances.append(self.compute_distance(input, pt))
         min_distance_index = distances.index(min(distances))
         return [min_distance_index, self.pointSet[min_distance_index], min(distances)]
+
+    def to_numpy(self):
+        pts = []
+        for pt in self.pointSet:
+            pts.append([pt.get_x(), pt.get_y()])
+        return np.array(pts)
+
+    def lle_sort(self):
+        pts_in_np = self.to_numpy()
+        lle = LocallyLinearEmbedding(n_components=1, n_neighbors=10)
+        pts_reduced = lle.fit_transform(pts_in_np)
+        temp = []
+        for i in range(len(self.pointSet)):
+            self.pointSet[i].set_lle_weight(pts_reduced[i][0])
+            temp.append(pts_reduced[i][0])
+        temp.sort()
+        new_list = []
+        for t in temp:
+            for pt in self.pointSet:
+                if t == pt.get_weight():
+                    new_list.append(pt)
+                    self.pointSet.remove(pt)
+        self.pointSet = new_list
+
+        # temp = []
+        # for pt in self.pointSet[i]:
+        #     if
+
+
 
     def sort(self):
         # to find start and end point

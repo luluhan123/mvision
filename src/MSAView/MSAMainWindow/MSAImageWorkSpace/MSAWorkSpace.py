@@ -59,14 +59,16 @@ class MSAWorkSpace(QFrame):
                 self.ctSequenceAnalyseArea.display_frangi(img)
                 gt_numpy = self.controller.set_image_to_numpyy(img)
                 pts = self.controller.centerline_extraction(gt_numpy)
-                # pts.sort()
+
+                pts.lle_sort()
+
                 # pts.b_spline_interpolation(120)
                 # gts = pts.interpolation(60)
 
                 gts = pts.get_point_set()
 
-                self.save_gts_reference(gts, self.ctSequenceViewer.display_count)
-                self.ctSequenceViewer.draw_point_cloud_by_order(gts, (0, 0), QColor(0, 0, 0), 0, 2)
+                #self.save_gts_reference(gts, self.ctSequenceViewer.display_count)
+                self.ctSequenceViewer.draw_point_cloud_by_order(gts, (0, 0), QColor(255, 255, 0), 0, 1)
 
             if self.doGuidewireTracking:
                 self.execute()
@@ -155,11 +157,12 @@ class MSAWorkSpace(QFrame):
             self.removed_sequence.append(i)
             return
 
-        self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
+        #self.save_guidewire_tip_ground_truth(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], self.ctSequenceViewer.display_count, i)
+
 
         color = QColor(self.color[i])
         # self.ctSequenceViewer.key_points_display(self.guidewire_tip_sequence[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
-        # self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
+        self.ctSequenceViewer.tuple_points_display(ridge_pts_sorted, self.possiblely_gravity_points[i], (255, 0, 0), 80)
         # self.ctSequenceViewer.key_points_display(self.possible_sequences[i], self.possible_points[i], (color.red(), color.green(), color.blue()), self.global_tacking_area_radius)
         # self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i], self.possible_points[i], (color.red(), color.green(), color.blue()))
         # print (i, time.time())

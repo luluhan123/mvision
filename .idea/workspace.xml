@@ -2,37 +2,177 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9ceaeb4-0bf6-4fb8-a37b-33b5acdab7a8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/rusio_f1_evaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mvision.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mvision.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rusio_evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/rusio_evaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000000_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000000_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000000_2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000000_2.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000001_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000001_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000001_2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000001_2.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000002_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000002_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000002_2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000002_2.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000003_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000003_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000003_2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000003_2.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000004_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000004_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000004_2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000004_2.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000005_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000005_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000005_2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000005_2.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000006_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000006_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000006_2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000006_2.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000007_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000007_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000008_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000008_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000009_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000009_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000010_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000010_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000011_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000011_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000012_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000012_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000013_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000013_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000014_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000014_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000015_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000015_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000016_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000016_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000017_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000017_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000018_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000018_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000019_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000019_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000020_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000020_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000021_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000021_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000022_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000022_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000023_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000023_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000024_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000024_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000025_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000025_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000026_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000026_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000027_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000027_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000028_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000028_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000029_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000029_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000030_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000030_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000031_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000031_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000032_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000032_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000033_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000033_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000034_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000034_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000035_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000035_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000036_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000036_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000037_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000037_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000038_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000038_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000039_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000039_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000040_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000040_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000041_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000041_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000042_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000042_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000043_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000043_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000044_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000044_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000045_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000045_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000046_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000046_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000047_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000047_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000048_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000048_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000049_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000049_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000050_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000050_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000051_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000051_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000052_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000052_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000053_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000053_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000054_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000054_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000055_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000055_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000056_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000056_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000057_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000057_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000058_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000058_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000059_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000059_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000060_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000060_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000061_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000061_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000062_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000062_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000063_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000063_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000064_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000064_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000065_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000065_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000066_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000066_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000067_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000067_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000068_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000068_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000069_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000069_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000070_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000070_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000071_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000071_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000072_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000072_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000073_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000073_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000074_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000074_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000075_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000075_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000076_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000076_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000077_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000077_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000078_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000078_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000079_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000079_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000080_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000080_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000081_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000081_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000082_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000082_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000083_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000083_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000084_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000084_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000085_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000085_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000086_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000086_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000087_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000087_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000088_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000088_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000089_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000089_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000090_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000090_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000091_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000091_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000092_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000092_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000093_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000093_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000094_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000094_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000095_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000095_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000096_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000096_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000097_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000097_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000098_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000098_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000099_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000099_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000100_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000100_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000101_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000101_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000102_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000102_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000103_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000103_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000104_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000104_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000105_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000105_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000106_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000106_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000107_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000107_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000108_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000108_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000109_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000109_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000110_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000110_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000111_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000111_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000112_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000112_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000113_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000113_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000114_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000114_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000115_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000115_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000116_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000116_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000117_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000117_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000118_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000118_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000119_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000119_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000120_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000120_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000121_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000121_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000122_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000122_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000123_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000123_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000124_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000124_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000125_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000125_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000126_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000126_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000127_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000127_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000128_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000128_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000129_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000129_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000130_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000130_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000131_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000131_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000132_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000132_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000133_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000133_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000134_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000134_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000135_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000135_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000136_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000136_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000137_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000137_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000138_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000138_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000139_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000139_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000140_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000140_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000141_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000141_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000142_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000142_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000143_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000143_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000144_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000144_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000145_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000145_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000146_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000146_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000147_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000147_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000148_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000148_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000149_1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/dat/CTSAWorkspace/sequence9/result/navi00000149_1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/msfr.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPoint.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPoint.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPointSet.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPointSet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSACanvas2D.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPointSet.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="120" column="9" selection-start-line="120" selection-start-column="9" selection-end-line="120" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -84,77 +224,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPointSet.py" />
-        <option value="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" />
-        <option value="$PROJECT_DIR$/src/rusio_evaluation.py" />
-        <option value="$PROJECT_DIR$/src/rusio_f1_evaluation.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="36" />
-    <option name="y" value="24" />
-    <option name="width" value="1440" />
-    <option name="height" value="877" />
-  </component>
   <component name="ProjectId" id="1P2SQI01RGFIMGdSBxs7pOi6bTt" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="mvision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mvision" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mvision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mvision" type="462c0819:PsiDirectoryNode" />
-              <item name="dat" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mvision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mvision" type="462c0819:PsiDirectoryNode" />
-              <item name="dat" type="462c0819:PsiDirectoryNode" />
-              <item name="CTSAWorkspace" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mvision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mvision" type="462c0819:PsiDirectoryNode" />
-              <item name="dat" type="462c0819:PsiDirectoryNode" />
-              <item name="CTSAWorkspace" type="462c0819:PsiDirectoryNode" />
-              <item name="sequence11" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mvision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mvision" type="462c0819:PsiDirectoryNode" />
-              <item name="dat" type="462c0819:PsiDirectoryNode" />
-              <item name="CTSAWorkspace" type="462c0819:PsiDirectoryNode" />
-              <item name="sequence11" type="462c0819:PsiDirectoryNode" />
-              <item name="result" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mvision" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mvision" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -174,7 +248,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.rusio_f1_evaluation">
+  <component name="RunManager" selected="Python.msa_main">
     <configuration name="msa_main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="mvision" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -267,9 +341,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.msa_main" />
         <item itemvalue="Python.rusio_f1_evaluation" />
         <item itemvalue="Python.rusio_evaluation" />
-        <item itemvalue="Python.msa_main" />
         <item itemvalue="Python.prog_lines_counter" />
       </list>
     </recent_temporary>
@@ -296,41 +370,12 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="36" y="24" width="1440" height="877" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4990758" visible="true" weight="0.18181819" />
-      <window_info id="Structure" order="1" sideWeight="0.5009242" side_tool="true" weight="0.18181819" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32884097" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31082803" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -351,64 +396,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/prog_lines_counter.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dat/CTSAWorkspace/sequence26/icon/navi00000000.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dat/CTSAWorkspace/sequence1/icon/navi00000001.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dat/msfr.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dat/CTSAWorkspace/sequence11/GTS/navi00000000.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-552" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/rusio_evaluation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-262">
-          <caret line="143" selection-start-line="143" selection-end-line="143" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dat/CTSAWorkspace/sequence2/result/navi00000000_1.dat">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dat/CTSAWorkspace/sequence11/result/navi00000000_0.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-342" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/rusio_f1_evaluation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPointSet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="120" column="9" selection-start-line="120" selection-start-column="9" selection-end-line="120" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
   </component>
   <component name="masterDetails">
     <states>
