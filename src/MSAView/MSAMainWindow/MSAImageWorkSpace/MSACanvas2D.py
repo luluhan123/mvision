@@ -711,19 +711,39 @@ class MSACanvas2D(QFrame):
         spline.SetZSpline(z_spline)
         spline.SetPoints(points)
         spline_source.SetParametricFunction(spline)
-        spline_source.SetUResolution(200)
-        spline_source.SetVResolution(200)
-        spline_source.SetWResolution(200)
+        spline_source.SetUResolution(100)
+        spline_source.SetVResolution(100)
+        spline_source.SetWResolution(100)
         spline_source.Update()
 
         spline_mapper.SetInputConnection(spline_source.GetOutputPort())
         actor.SetMapper(spline_mapper)
         actor.GetProperty().SetColor(color[0]/255, color[1]/255, color[2]/255)
-        #actor.GetProperty().SetOpacity(0.6)
+        actor.GetProperty().SetLineWidth(4)
+        actor.GetProperty().SetOpacity(0.3)
+        #print(actor.GetProperty().GetLineStipplePattern())
         # self.pts_actors.append(actor)
         #
         # for act in self.pts_actors:
         #     self.renderer.AddActor2D(act)
+        self.renderer.AddActor2D(actor)
+
+    def curve_display2(self, curve, color):
+        points = vtk.vtkPoints()
+        x_spline = vtk.vtkSCurveSpline()
+        y_spline = vtk.vtkSCurveSpline()
+        z_spline = vtk.vtkSCurveSpline()
+        spline = vtk.vtkParametricSpline()
+        spline_source = vtk.vtkParametricFunctionSource()
+        spline_mapper = vtk.vtkPolyDataMapper2D()
+        actor = vtk.vtkActor2D()
+
+        spline_mapper.SetInputData(curve)
+        actor.SetMapper(spline_mapper)
+        actor.GetProperty().SetColor(color[0]/255, color[1]/255, color[2]/255)
+        actor.GetProperty().SetLineWidth(4)
+        actor.GetProperty().SetOpacity(0.3)
+        print(actor.GetProperty().GetLineStipplePattern())
         self.renderer.AddActor2D(actor)
 
     def points_display(self, pts, color, pts_size):

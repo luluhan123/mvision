@@ -150,8 +150,10 @@ class MSAWorkSpace(QFrame):
                 ridge_pts_new.interpolation(ridge_pts_new.get_length()//3)
                 ridge_pts_new.sort() # lle_sort()
                 pga_sequence = ridge_pts_new.b_spline_interpolation(15)
-                self.possiblely_guidewire_tip_structure[i].append(pga_sequence)
-                #self.possiblely_guidewire_tip_structure[i].append(ridge_pts_new.b_spline_interpolation(50))
+                #self.possiblely_guidewire_tip_structure[i].append(pga_sequence)
+                gts = ridge_pts_new.b_spline_interpolation(30)
+
+                self.possiblely_guidewire_tip_structure[i].append(gts)
             else:
                 self.removed_sequence.append(i)
                 return
@@ -184,9 +186,10 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
         # GTS
-        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][0], self.possiblely_gravity_points[i], (200, 100, 100), self.global_tacking_area_radius, 3)
-        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][-1], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 3)
-        self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius, 1)
+        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][0], self.possiblely_gravity_points[i], (200, 100, 100), self.global_tacking_area_radius, 4)
+        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][-1], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 4)
+        #self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius, 2)
+        self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()))
 
         # mov = self.predict_movement_using_list(ridge_pts, 80)
         # mov = self.predict_movement(self.possiblely_guidewire_tip_structure[i][-1], self.global_tacking_area_radius)

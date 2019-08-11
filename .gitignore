@@ -3,4 +3,5 @@
 *.pyc
 liena_main.py
 .idea/
+.idea/workspace.xml
 __pycache__/
