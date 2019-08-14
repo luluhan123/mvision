@@ -4,7 +4,13 @@ class MSAPoint:
         self.x = x
         self.y = y
 
+        self.v = [0.0, 0.0]
+
         self.weight = 0
+
+    def set_curvature(self, a, b):
+        self.v[0] = a
+        self.v[1] = b
 
     def set_lle_weight(self, w):
         self.weight = w

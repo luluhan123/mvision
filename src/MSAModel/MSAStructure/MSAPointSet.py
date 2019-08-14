@@ -96,6 +96,15 @@ class MSAPointSet:
     def get_length(self):
         return len(self.pointSet)
 
+    def get_curvilinear_structure_length(self, gts):
+        curve_length = 0
+        for j in range(len(gts) - 1):
+            curve_length += self.compute_distance(gts[j], gts[j + 1])
+        return curve_length
+
+    def compute_distance(self, pt0, pt1):
+        return math.sqrt((pt1.get_x() - pt0.get_x()) ** 2 + (pt1.get_y() - pt0.get_y()) ** 2)
+
     def get_msapoint(self, i):
         return self.pointSet[i]
 

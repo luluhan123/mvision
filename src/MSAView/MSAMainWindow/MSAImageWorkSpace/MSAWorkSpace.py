@@ -150,8 +150,22 @@ class MSAWorkSpace(QFrame):
                 ridge_pts_new.interpolation(ridge_pts_new.get_length()//3)
                 ridge_pts_new.sort() # lle_sort()
                 pga_sequence = ridge_pts_new.b_spline_interpolation(15)
-                #self.possiblely_guidewire_tip_structure[i].append(pga_sequence)
                 gts = ridge_pts_new.b_spline_interpolation(30)
+
+                # gts total length unreasonable
+                if ridge_pts_new.get_curvilinear_structure_length(gts) > 150:
+                    self.removed_sequence.append(i)
+                    return
+
+                # ---------------------------------------------------------------------------------
+                #   TODO : Build a graph in order to:
+                #           1: detect closed contour: whether it is in the middle part or in final side
+                #           2: detect convex angle: wheter it is the noise or just the curvilnear structure curls up
+                #
+                for compteur in range(len(gts) - 1):
+                    gts[compteur].set_curvature(gts[compteur + 1].get_x() - gts[compteur].get_x(),
+                                                gts[compteur + 1].get_y() - gts[compteur].get_y())
+
 
                 self.possiblely_guidewire_tip_structure[i].append(gts)
             else:
