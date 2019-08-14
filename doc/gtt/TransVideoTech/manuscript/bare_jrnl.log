@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  23 JUL 2019 16:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  9 AUG 2019 00:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -955,19 +955,20 @@ Overfull \hbox (0.94499pt too wide) in paragraph at lines 323--324
  [][] 
  []
 
-[5 <./figures/figure5.pdf>] [6 <./figures/figure6.pdf> <./figures/figure8.pdf>]
+[5 <./figures/figure5.pdf>] (../../../Downloads/math.log) [6 <./figures/figure6
+.pdf> <./figures/figure8.pdf>]
 <figures/figure7.pdf, id=116, 376.15633pt x 222.94994pt>
 File: figures/figure7.pdf Graphic file (type pdf)
 <use figures/figure7.pdf>
-Package pdftex.def Info: figures/figure7.pdf  used on input line 387.
+Package pdftex.def Info: figures/figure7.pdf  used on input line 389.
 (pdftex.def)             Requested size: 513.11743pt x 304.15022pt.
 <figures/figure9.pdf, id=117, 573.00273pt x 373.69713pt>
 File: figures/figure9.pdf Graphic file (type pdf)
 <use figures/figure9.pdf>
-Package pdftex.def Info: figures/figure9.pdf  used on input line 394.
+Package pdftex.def Info: figures/figure9.pdf  used on input line 396.
 (pdftex.def)             Requested size: 252.94499pt x 164.96324pt.
 
-Overfull \hbox (0.94499pt too wide) in paragraph at lines 394--395
+Overfull \hbox (0.94499pt too wide) in paragraph at lines 396--397
  [][] 
  []
 
@@ -978,9 +979,9 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 25554 strings out of 492616
- 638561 string characters out of 6129482
- 853498 words of memory out of 5000000
+ 25557 strings out of 492616
+ 638634 string characters out of 6129482
+ 854496 words of memory out of 5000000
  29023 multiletter control sequences out of 15000+600000
  47042 words of font info for 92 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
@@ -1001,7 +1002,7 @@ mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1
 /urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on bare_jrnl.pdf (8 pages, 8041334 bytes).
+Output written on bare_jrnl.pdf (8 pages, 8042673 bytes).
 PDF statistics:
  195 PDF objects out of 1000 (max. 8388607)
  132 compressed objects within 2 object streams

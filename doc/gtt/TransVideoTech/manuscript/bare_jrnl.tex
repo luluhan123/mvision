@@ -336,7 +336,7 @@ The tracking accuracy of 9 video sequences is recorded in table I.
 In \cite{Jekel2018Similarity}, author clarified couple conceptions of methods which can measure the similarity between two curves, and also compared their performances. In order to show the RuSio framework’s segmentation accuracy more intuitively, Discrete Fr$\acute{e}$chet distance(DF) is used to show the similarity between tracking guidewire tip and the ground truth.\par
 Fr$\acute{e}$chet distance measures the similarity between two curves which also considered the effection of location and ordering of the points along the curve \cite{Eiter1994Computing}. We will use discrete Fr$\acute{e}$chat distance here. In\cite{Eiter1994Computing} the discrete Fr$\acute{e}$chat distance defines a curve as a continuous mapping $f:[a,b] \rightarrow V$ where $a,b  \in  \mathbb{R}$ and a $\leq$ b. Also, (V,d) is a metric space. Given two curves, the discrete Fr$\acute{e}$chat distance is defined as 
 \begin{equation}
-\delta_F(f,g) =  infmaxd(f(\alpha(t)),g(\beta(t)))
+\delta_F(f,g) =  inf_{\alpha,\beta}max_{t \in [0,1] }d(f(\alpha(t)),g(\beta(t)))\\
 \end{equation}
 where $\alpha, \beta$ are arbitrary continuous non-decreasing function from [0,1] to [a,b].\par
 
@@ -357,24 +357,26 @@ precision = \frac{100-false\%}{100}
 \end{equation}
 
 \begin{table}[!htb]
-	\centering
+	\centering\input{../../../Downloads/math.log}
+
 	\caption{Guidewire Tip Recognition Performance}
+	\scalebox{0.9}{
 	\begin{tabular}{cccccccc}
 	\hline
-	\multirow{1}{*}{Sequence}&\cr
-	Total frames& MTR& FTR& F1score& MDF& SA & TA\\
+	Sequence(\#)& MTR(\%)& FTR(\%)& F1score& MDF& SA & TA\\
 	\hline
-	2(137)&0&0&0&2.92&77.4\%&96.35\% \\
-	3(96)&0&0&0&5.27&66.7\%&93.75\%\\
-	4(108)&0&0&0&2.23&87\%&90.74\%\\
-	5(110)&0&0&0&1,75&91.8\%&94.55\%\\
-	6(73)&0&0&0&2.50&75.3\%&94.52\%\\
-	7(67)&0&0&0&1.58&95.5\%&98.51\%\\
-	8(196)&0&0&0&2.03&90.8\%&98.98\%\\
-	9(150)&0&0&0&1.36&97.3\%&97.33\%\\
-	11(66)&0&0&0&2.71&83.3\%&92.42\%\\
+	2(137)&6.08&9.33&0.9227&1.98&89.78\%&96.35\%\\
+	3(96)&9.42&14.7&0.8786&2.60&77.08\%&93.75\%\\
+	4(108)&4.5&9.98&0.9268&1.75&97.22\%&90.74\%\\
+	5(110)&7.74&5.87&0.9319&1.76&97.27\%&94.55\%\\
+	6(73)&5.45&3.37&0.9558&1.92&95.89\%&94.52\%\\
+	7(67)&2.06&6.95&0.9543&1.84&94.03\%&98.51\%\\
+	8(196)&3.35&5.98&0.9562&1.87&93.37\%&98.98\%\\
+	9(150)&0.85&2.23&0.9846&1.39&98\%&97.33\%\\
+	10(53)&7.11&5.52&0.9368&1.81&92.45\%&96.31\%\\
+	11(66)&8.07&3.73&0.9405&1.80&96.96\%&92.42\%\\
 	\hline
-	\end{tabular}
+	\end{tabular}}
 \end{table}
 
 \subsection{Case Exceptional Validation}
