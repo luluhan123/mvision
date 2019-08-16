@@ -1,0 +1,428 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{cite}
+\usepackage[pdftex]{graphicx}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e} 
+\setlength{\textfloatsep}{5pt}
+\usepackage{stfloats}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\captionsetup[figure]{name={Fig.},labelsep=period} 
+\captionsetup[table]{name={Tab.},labelsep=period}
+\usepackage{microtype}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts                              % This command is only needed if 
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+%In case you encounter the following error:
+%Error 1010 The PDF file may be corrupt (unable to open PDF file) OR
+%Error 1000 An error occurred while parsing a contents stream. Unable to analyze the PDF file.
+%This is a known problem with pdfLaTeX conversion filter. The file cannot be opened with acrobat reader
+%Please use one of the alternatives below to circumvent this error by uncommenting one or the other
+%\pdfobjcompresslevel=0
+%\pdfminorversion=4
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+
+\title{\LARGE \bf
+Automatic Tracking of Guidewire Tip From Fluoroscopic Videos Using RuSio Framework
+}
+
+
+\author{Cheng Wang$^{1}$ and Biwen Wang$^{2}$ and Chichi Li$^{3}$% <-this % stops a space
+\thanks{*This work was not supported by any organization}% <-this % stops a space
+\thanks{$^{1}$Cheng Wang is with Shenzhen Institutes of Advanced Technology Chinese Academy of Sciences ,China
+        {\tt\small cheng.wang@siat.ac.cn}}%
+\thanks{$^{2}$Biwen Wang is with Fordham University, NY, xxxxx USA
+        {\tt\small b.d.researcher@ieee.org}}%
+\thanks{$^{3}$Chichi Li is with Shenzhen Institutes of Advanced Technology Chinese Academy of Sciences ,China
+        {\tt\small cc.li1@siat.ac.cn}}%
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+In modern cardiovascular intervention surgery, guidewire serves as a trailblazer to guide the movement of the micro-catheter or catheter. The distal of the guidewire can be considered as a random curvilinear structure, and the tip of the guidewire can measure some required parameters. Computer-assisted intervention could enhance the system's automation level and reduce interventionists' fatigue caused by tracking the guidewire tip on the fluoroscopic screen. Therefore, the development of detecting and analyzing the guidewire tip in real-time practice becomes imperative. The purpose of this paper is to propose RuSio, a random curvilinear structure's morphological feature-based motion tracking framework, which provides real-time and accurate information of the guidewire tip. Compared to prior works, our framework contains a set of approaches to eliminate non-guidewire tip objects and depict the shape of guidewire tip during the tracking process while no previously model built up or pre-operative vascular morphology references needed. RuSio framework achieves on average above 90\% accuracy for tracking the curvilinear structure with latency less than 700ms among 8 experiments conducted. Also, RuSio could distinguish the guidewire tip from other curvilinear structures under low doses X-ray circumstance. This algorithm has been implemented into the software.
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
+
+Compare to conventional surgery, endovascular intervention surgery minimize invasiveness and reduce patients' recovery time. Guidewire, a tool that could insert into the vessel through a catheter, plays an important role for monitoring and assisting intervention procedure. A great application is that during cardiovascular intervention process, the guidewire is inside of the catheter, and they move alternatively towards the lesion inside the coronary branches. in the meantime, interventionist steering at the screen which display the real-time x-ray image to track the distal part of the guidewire to measure the instant guidewire status and also to decide where to go for next. With the rapid development of the computer-assisted intervention, increasing numbers of algorithms have been applied to make the clinical process more intelligent. Therefore, it is crucial to have a robust tracking system that provides reliable guidewire, also guidewire tip's locations and shapes in the form of consecutive images. Moreover, the movement of the guidewire tip offers some important information such as can be used to evaluate a doctor's intervention technique. Two sequences are superimposed for the following time series(Fig.1) using the stack composition technology of Photoshop. Additional consensus is reach by collecting data from all recorded videos that the motion of guidewire tip is affected by factors such as breathing and heartbeats.
+
+\begin{figure}[thpb]
+	\centering
+	\includegraphics[width=3.5in]{figure1.eps}
+		\caption{1.The relative position of catheter and its containing guidewire tip changes irregularly, which increases the tracking difficulty. 2.The motion direction of the guidewire tip is approximately overlap with the rib. } 
+	\label{fig.mcmthesis-logo} 
+\end{figure}
+
+Currently, lots of traditional tracking algorithms have been proposed. KCF(Kernelized Correlation Filters) \cite{c1} which combined ridge regression with cyclically shifted to achieve 73.8\% precision and 172 FPS in 50 videos. GOTURN(Generic Object Tracking Using Regression Networks)\cite{c2} is a novel method that uses Neural Network and trained offline, which can track a novel object at 100FPS. Most traditional tracking algorithms can reach a satisfying level of tracking moving objects. However, objects tracked by traditional tracking method have high Singal-Noise ratio compared to guidewire tip in fluoroscopy videos which imposes problems. Therefore, several algorithms have been proposed for tracking or segmenting of the guidewire. To this state, most guidewire tracking algorithms are based on Bayesian framework that uses sequential data to predict unknown states \cite{c3}.
+In \cite{c4}, it suggests the centerline of vessel and ECG information can be served as references during tracking of the guidewire tip. 
+In \cite{c5}, Hierarchical guidewire tracking has been proposed using the rigid motion of guidewire between two frames with each frame less than 1s, and the guidewire body tracking precision is less than 0.18mm, but in fluoroscopic videos the guidewire tip is non-rigid. Wang et al. \cite{c6} presented an approach based on edge detection and open active contours with 95.3\% accuracy. However, the method focuses on a single frame, and it takes about 3.79s to process each frame. Recently Ma et al. \cite{c7} proposed a framework which can detect multiple catheters or guidewires at the same time; however, the process of eliminating other curvilinear objects is not satisfiable during the tracking. To solve the problem that targets will be lost if large movement occurs between two consecutive frames, segment-like features(SEGlets) is introduced to deal with the problem in\cite{c8}.
+
+Different from related works, our tracking approach uses the information from original X-ray fluoroscopic videos to provide reliable information of guidewire tip without using external references. Moreover, the framework can distinguish the guidewire tip from candidates based on their motion information in time series without parameter configuration in advance. The main contribution of our work is to propose RuSio(Random Curvilinear Structure's Morphological Feature-Based Motion Tracking) framework which includes a novel single non-rigid curvilinear structure target tracking strategy and a sophisticated procedure to achieve automatic recognition of the guidewire tip in fluoroscopic video. The framework has been designed and implemented by our research team, using python, in the open source software which is available on https://github.com/\footnote{The detailed url can be provided after review process}. 9 fluoroscopic videos under the scenarios of cardiovascular intervention, provided by Zhong Da Hospital Southeast University and Peking Union Medical College Hospital, have been validated and shown promising performance. 
+
+\section{METHODS}
+
+Real-time guidewire tip tracking process is a crucial element in cardiovascular intervention procedure. Furthermore, It's hard to distinguish the guidewire tip and other curvilinear structures in some exceptional circumstances. Clinical data presented information from many perspectives gives insight for solving the problems mentioned above. The guidewire is a curvilinear structure which is distinguishable compared with other guidewire-like structures since the movement of guidewire-like structures is dissimilar. For example, the movement of the rib is static while as the movement of catheters in blood vessels is periodic. Therefore, non-guidewire tip structures could be eliminated based on these features. Additionally, a sophisticate multi-guidewire-like feature points extracting and tracking algorithm has been proposed. The algorithm will mark and track all potential curvilinear structures. Furthermore, non-guidewire tip area will be rapidly eliminated in a tolerant time interval which is usually less than 36 frames(3 seconds). This framework has been validated on 9 fluoroscopic videos under the scenarios of cardiovascular intervention. Two novel ideas have been proposed in the algorithm: (a) A restricted area which called predicted guidewire tip area(PGA) has been used during tracking to enhance tracking efficiency and accuracy. (b) The framework solved segments disconnection and eliminated noises during extraction and segmentation of the guidewire tip.
+\par
+Each component of RuSio framework will be described in details in the following sections. The detection of guidewire tip feature is shown in Sec A, guidewire tip prediction is described in Sec.B, detailed explanation of tracking a single target region is in Sec.C. Finally, the decision making principle which builds in RuSio framework is shown in Sec.D. The complete pseudo code of RuSio framework is shown at the end of Method.
+
+\subsection{Guidewire Tip Feature Detection(GTFD)}
+
+As it is mentioned above, detecting the locations of underlying guidewire tips plays a fundamental role in the tracking process. Frangi's multi-scale vessel enhancement\cite{c9} combined with Gradient Vector Flow(GVF), introduced by Bauer et al. \cite{c10}, which detects tubular structures are used during guidewire tip feature detection. This detection method is mainly divided into two parts: curvilinear structure enhancement and feature points extraction.
+\subsubsection{Enhancement} 
+A curvilinear structure enhancement procedure is used to improve intensity projection display, which will enhance the tubular structure's delineation. After enhancement, the guidewire tip can be highlighted from the cardiovascular image since the guidewire tip is a curvilinear structure which also has tubular features.
+In 1998, Frangi et al. \cite{c9} implemented vessel enhancement filter based on multiple scales. However, the characteristic of guidewire tip such as length, width is fixed. Therefore, a single scale can be used here to reduce the computational workload and to extract guidewire tip among multiple scales of tubular objects.
+Let $I(x,y)$ be an image, the Hessian matrix of the image $H(x,y)$ is:
+\begin{equation}
+H(x,y)= 
+\left[\begin{array}{ccc}
+I_{xx}(x,y) & I_{xy}(x,y)\\
+I_{xy}(x,y) & I_{xy}(x,y)
+\end{array}
+\right]
+\end{equation}
+In this paper, $\lambda1$ and $\lambda2$ are two smallest eigenvalues of Hessian matrix and $|\lambda_1|$ $<$ $|\lambda_2|$. The guidewire tip structure enhancement function is defined as:
+\begin{equation}
+F=\left\{
+\begin{array}{ccc}
+0 & &  {if \  lambda_2 > 0}\\
+e^{\frac{-R^{2}_B}{2 \beta}}(1-e^{\frac{-S^{2}}{2\gamma^{2}}}) & & {otherwise}
+\end{array} \right.
+\end{equation}
+
+$\beta$ and $\gamma$ are thresholds that control the sensitivity of the filter. For 2D image, $R_B$ is used to distinguish curvilinear structure:
+\begin{equation}{
+R_B = \frac{\lambda_1}{\lambda_2}}
+\end{equation}
+and 
+\begin{equation}{ 
+S = \sqrt{\lambda_1^{2}+ \lambda_2^{2}}}
+\end{equation}
+is used to eliminate the regions that the image intensity variations are small.
+\subsubsection{Feature Points Extraction}
+Gradient Vector Flow(GVF) field is defined as a new class of external force field $F_{ext} = V(x,y)$. With a suitable scale, the gradient information points to the center of the tubular object, which means guidewire tip and other tubular structures can be extracted.
+By spreading out the gradient vector on the image, GVF field can enlarge the capture range and progress into boundary concavities. Let $f(x,y)$ be the edge map and $\nabla$$f(x,y)$ be the gradient edge map of image $I(x,y)$. The edge of guidewire tip has the highest value. Vector field $V(x,y)$ = [$u(x,y),v(x,y)$] is generated by iteratively diffusing the edge of image. The GVF field is defined as vector field $V(x,y)$ that minimizes:
+\begin{equation}{
+\epsilon = \iint \mu\nabla^{2}V+|\nabla f|^{2}|V-\nabla f|^{2} \,dx \,dy}
+\end{equation}
+where $\mu$ is positive regulatory factor. The value of $\mu$ depends on the quality of image. $\mu$ will be increased if the amount of noise increase. 
+Let $\nabla^{2}$ be Laplacian operator. According to variational principle, GVF field can be founded by dealing with Euler equation
+\begin{equation}{
+\mu\nabla^{2}V+|\nabla f|^{2}|V-\nabla f|^{2}=0}
+\end{equation}
+Based on the direction of gradient vector on GVF field, the target points will be recorded.
+
+\subsection{Underlying Guidewire Tip Areas Prediction(UGTAP)}
+
+Guidewire tip structure detection provides a set of feature points which are scattered on the image. They can be separated into several clusters, but the number of clusters is unknown in advance. The underlying guidewire tips must appear in the area that the clusters are occupied. Neighbor Growing Algorithm(NGA) is used to deliver the points to corresponding clusters. The Moore Neighborhood(MN) is defined as the neighbor points which surround the central cell. With a given range $r (r \geq  1)$, the Extended Moore Neighborhood(EMN) has $(2r+1)^2-1$ cells including central cell. MN is the simplest form of EMN.
+Clusters collect feature points based on searching neighborhood. If a feature point is the neighbor of any point in a cluster, it is considered that it belongs to the same cluster. On the contrary, the point pertains to a new cluster. After clustering feature points by using NGA, the gravity points of clusters are used to locate the possible guidewire tips in the first frame of the sequence. Based on the set of clusters, the image can be segmented into several parts, which is defined as target regions. The region is defined as a $m*m$ area of 2D image with gravity point as the center. From the second frame, the framework only focuses on the target region instead of the whole image. In order to get the precise location and shape of the guidewire tip, the target region needs further processing.
+
+\begin{algorithm}[!htbp]
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{-3pt}
+	\caption{NGA}
+		\KwIn{The set of feature points $pts$\\
+		The range of EMN $r$}\
+		\KwOut{Cluster sets $C_n$}\
+		\For{each point $pt$ in $pts$}{
+			\If {pt is not included in any cluster}{
+			\textbf{Put $pt$ into a new cluster $c$ and a new stack $s$}\;
+			\While{$s$ is not empty}{
+			\textbf{Pop point $pt'$ from $s$\;
+			Construct $an$ EMN M with r around its central $pt'$}\;
+				\For {each position $p$ in M}{
+					\If{$p$ exits in feature points set and is not included in any cluster}{
+					\textbf{Put $p$ into $c$ and $s$}\;
+			
+			}
+				
+		}
+	}
+}
+}
+\end{algorithm}
+
+\subsection{Single Target Region Tracking Pipeline(STRT)} 
+
+\subsubsection{Tracking Analysis}
+It is challenging to track guidewire tip due to the characteristic of guidewire tip is non-rigid. However, based on a large number of clinical data observation, the range of movement and morphological change of the guidewire tip are limited between two frames in consecutive x-ray fluoroscopic images. Although the length of the guidewire tip varies as the angle of X-ray machine projection changes, the actual visible maximum length $L_{max}$ of guidewire tip will remain the same. Therefore, the tracking strategy will initiate a square patch that contains the whole configuration of the guidewire tip structure in tracking target region. 
+\subsubsection{Tracking Strategy} 
+Our tracking target, guidewire tip, has different Signal-Noise ratio compared to traditional tracking object such as human face which takes up a larger proportion of pixels than guidewire tip. As the morphology of guidewire tip is extracted in a current frame, the result will be used to calculate factors such as centroid, optimal square patch(OSP) that can be used to predict possible appearance region of guidewire tip in next frame. It is proven experimentally that only using OSP patch is not sufficient in tracking guidewire tip. Besides the guidewire tip, other guidewire-like structures such as ribs also lie inside of the patch, which will influence tracking accuracy and disturb curve fitting process. Therefore, an improved tracking model combined with OSP has been proposed, which called Predicted Guidewire tip Area(PGA, Fig.2), to enhance tracking accuracy and computational efficiency. Considering during intervention surgery, the manual intervention speed of surgeon is limited. Besides, the image acquisition frame rate of the X-ray machine is 7-12 FPS. Thus the movement of guidewire tip in consecutive frames will not have significant movement tendency toward the blood vessel. Therefore, the maximum move back distance(MBD) and maximum move forward distance(MFD) can be extracted. Additionally, the max amplitude affected by heartbeat and respiration is defined as MAmp. These factors(MBD, MFD and MAmp also shown in Fig.2) can be used to predict the location of guidewire in the next frame using the formula: $$PGA_{n+1} = f(GTS_{n}, \delta_{MFD}, \delta_{MBD}, Am)$$ (GTS, Guidewire Tip Structure will be described shortly.)
+Benefited from our original design, PGA eliminates noise that outside the target region to make guidewire tip morphology segmentation process more focused compared with traditional tracking algorithm which only uses the bounding box.
+\begin{figure}[hb]
+	\centering
+	\vspace{-0.2in}
+	\includegraphics[width=3.5in]{figures/figure4}
+	\caption{Description of Predicted Guidewire Tip Area} 
+	\label{fig.mcmthesis-logo} 
+\end{figure}
+
+
+\begin{figure}[ht]
+	\centering
+	%\vspace{-0.15in}
+	\includegraphics[width=3.5in]{figures/figure3}
+		\caption{Target Region Tracking and Segmentation Pipeline Showcase where (F)GTFP is (Filtered)Guidewire Tip Feature Points} 
+	\label{fig.mcmthesis-logo} 
+\end{figure}
+
+\subsubsection{Target Structure Segmentation}
+As the guidewire tip feature detection procedure being applied, the feature points of guidewire tip which inside optimal square patch can be calculated. Feature points are used to calculate PGA, which already mentioned before to further eliminate noise during guidewire tip segmentation. Due to the discontinuity of some feature points, the NGA is applied in region processing with a smaller range of neighborhood, which eliminates the outliers. It may obtain several curves in one target region after filtering and extracting centerline in each cluster. However, the lengths of centerlines do not reach the minimal prediction length $l_l$ of guidewire tip in some cases. Thus, two curves are considered to be connected if both of the two conditions are satisfied: a)  The distance $d$ between the closest end points of two curves is less than a constant $D_{max}$. b) The angle $\alpha$ of two lines, which are linear regression curves based on last five adjacent points of each curve, is less than $\theta$. Based on criteria a and b, a potential guidewire tip point set is obtained. c) If the distance of those points is too far from previous frame, those points will be eliminated. Moreover, other clusters will also be eliminated in addition to satisfying above criteria. (Fig.4) Therefore, Guidewire Tip Structures(GTS) has been extracted. 
+
+
+\begin{figure}[!hbtp]
+	\centering 
+	\includegraphics[width=3.5in]{figures/figure5}
+		\caption{Conditions of calibration} 
+	\label{fig.mcmthesis-logo} 
+\end{figure}
+
+\subsection{Decision-making Principle(DM)}
+In the fluoroscopic video, plenty of moving objects have a curvilinear structure. The guidewire tip recognition procedure is a task which aims to classify different moving curvilinear objects. Under a large amount of movement tracking analysis, those curvilinear structure objects can be classified into three major categories. Firstly, static curvilinear like objects which usually occur around bones such as rib and spine. Secondly, periodic curvilinear like objects which influenced by breathing and heartbeat rate of the patients such as catheter in standby or the edge of the heart. Lastly, non-periodic curvilinear like objects which move forward or backward following with the direction of the vascular intervention can be considered as guidewire tip. 
+
+Based on these three types of motions, it is possible to determine the guidewire tip among p candidates by using Mean Square Error(MSE). MSE calculates the average square distance differences between the gravity point(centroid) of each frame i for each candidate j and the gravity point of initial frame 0. The final decision is forced to be made in the first k sequences(k=36) using the formula: 
+
+$$ V_{max} = \max\limits_{1<j<p} {\sum_{i=1} ^k \frac{1}{k} (d_{i,j}-d_{0,j})^2} $$
+where $d_{0,j}$ is the initial frame of jth candidate and 
+$$ d_{i,j} \leftarrow Edistance\Big\{gravity(GTS_{i,j}),gravity(GTS_{0,j}) \Big\}$$
+$Edistance$ is Euclidean Distance.
+
+\begin{algorithm*}[!htbp]
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{-3pt}
+	\caption{RuSio Framework}
+		\KwIn{$Img(i)$: Fluoroscopic Image i with N frames\\
+		$\delta$: Final decision time = 36 }
+		\KwOut{$GTS(i)$}
+		Initialise List type variable: $GPT_{i,j}$ as Gravity Points\; 
+		Initialise List type variable: $PGA_{i,j}$  as Predicted Guidewire tip Area\; 
+		Initialise List type variable: $GTS_{i,j}$ as Guidewire Tip Structures\; 
+		Initialise List type variable: $GPD_{i,j}$ as Gravity Points Distance\; 
+		Initialise List type variable: $RmList$  as Eliminated guidewire tip candidates\; 
+		\For{$i$ = 0 $\rightarrow N-1$}{
+			\If {i = 1}{
+			\textbf{$pts \leftarrow$ GTFD($Img(i)$)}. // extract the guidewire tip feature point set from the input x-ray image\; 
+			\textbf{$GPT_i \leftarrow$ UGTAP($pts$)} // do predict the underlying guidewire tip areas\;
+			\textbf{$N \leftarrow$ len($GPT_i$)}\;
+			Allocate $RmList$, $PGA_i$, $GTS_i$ with length M
+			}
+		\For{$j$ = 0 $\rightarrow$ M-1}{
+			//if current guidewire tip candidate hasn't been eliminated\\
+			\If{$RmList[j]$ != 1}{
+		   	\textbf{$Success$,$GPT_{i,j}$,$PGA{i,j}$,$GTS{i,j}$ $\leftarrow$ STRT($Img(i)$, $GPT_{i-1,j}$,$PGA(i-1.j)$,$GTS(i-1,j)$)}\; 
+ 			\textbf{$GPD_{i,j} \leftarrow$  EDistance($GPT(i,j)$,$GPT(0,j)$)}\; 
+			\textbf{$OSP \leftarrow$  BondingBox($GPT(i,j)$,$80$)}\; 
+		   	\If{not success}{
+		   		\textbf{$RemoveList[j] \leftarrow 1$}\; 
+		   	}
+		   	}
+		 }
+		 \If{i == $\delta$}{
+		 	//Return the index of most possible candidate\\
+		 	\textbf{$k \leftarrow$ DM($GPD$)}\;
+		 	\For{$x$ = 0 $\rightarrow$ N-1}{
+		 		\If{x != k}{
+		 			\textbf{$RemoveList[x]\leftarrow 1$)}\;
+		 			}
+		 		}
+		 	}
+		
+		}
+\end{algorithm*}
+
+
+
+\section{EXPERIMENTAL VALIDATION}
+
+In traditional tracking algorithm, bounding box over lap \cite{c1} or precision curve \cite{c11} are used to show the performance of proposed tracking algorithm. However, due to the characteristic of guidewire tip is different from traditional tracking object. We used different way to evaluate the performance of RuSio framework.The performances of RuSio framework has been recorded in both Fig.6 and Table.2. The evaluation of RuSio framework considered three parts: Recognition, Segmentation and Tracking. For segmentation accuracy evaluation, the distance between the chosen tip and ground truth is measured. If the mean distance is more than 3 pixels, the segmentation of corresponding guidewire tip is considered as failure. Also, the total frames, miss tracking rate(MTR), false tracking rate(FTR), mean discrete Frechet distance(MDF), segmentation accuracy(SA), tracking accuracy(TA) in each sequence are recorded(Table 1).
+\par
+Sec A recorded general information about RuSio framework implementation and dataset. The details of guidewire tip recognition and tracking performance are shown in Sec.B and Sec.C, respectively. In Section D, we shown some exceptional cases that caused low segmentation accuracy of RuSio. 
+
+
+\subsection{Framework Implementation}
+The evaluation of RuSio framework is conducted on 9 fluoroscopic videos from different cardiovascular intervention surgery. The use of this dataset has been approved by Peking Union Medical College Hospital and ZhongDa Hospital Southeast University. Video sequence has 1100 frames in total with a frame rate of 7FPS. The frame size of each sequence is 512*512 which pixel size is around 0.2343 mm. Our research team also designed a graphical tool to annotate the ground truth of the guidewire tip in each frame and the framework has also been implemented. 
+
+\begin{figure}[!htb]
+	\centering  
+	\includegraphics[width=3.5in]{figures/figure6}
+		\caption{Guidewire Tip Recognition. The last case shows three candidates in the first frame however RuSio framework successfully recognized guidewire tip in second frame} 
+	\label{fig.mcmthesis-logo} 
+\end{figure}
+
+\subsection{Guidewire Tip Recognition Procedure}
+As we mentioned in the previous section, the first 36 frames are used to make the final decision of the guidewire tip from the underlying possibilities. In 9 x-ray videos experiment, the results have been shown a promising result of our guidewire tip recognition process which has a 100\% success rate. Also, in most cases the decision is making before the 36 frame.
+\par
+Four representative sequences are chosen to be shown the robust of the RuSio framework in guidewire tip recognition. The left section of Fig.5 showed all possible candidates(circle) and their gravity points(blue box) in each case when RuSio framework was initiated. Since there are always more than one candidates, RuSio framework will process parallel tracking that follows with a single target tracking strategy in order to distinguish guidewire tip through their motions. The right section of Fig.5 is Gravity Point Distance curve which records MSE for all candidates in each case. Also, X-axis represents the number of frames while Y-axis represents the distance of the gravity point between the current frame and first frame. After a short period tracking, RuSio framework successfully eliminates non-guidewire tip candidates. 
+
+\subsection{Guidewire Tip Tracking Performance}
+Failure tracking frame defined as if any points in guidewire tip in current frame is beyond PGA. The tracking accuracy can be written as: 
+\begin{equation}
+TA= \frac{\#frames - \#failure}{\#frames}
+\end{equation} 
+The tracking accuracy of 9 video sequences is recorded in table I. 
+
+In \cite{c12}, author clarified couple conceptions of methods which can measure the similarity between two curves, and also compared their performances. In order to show the RuSio framework’s segmentation accuracy more intuitively, Discrete Fr$\acute{e}$chet distance(DF) is used to show the similarity between tracking guidewire tip and the ground truth.\par
+Fr$\acute{e}$chet distance measures the similarity between two curves which also considered the effection of location and ordering of the points along the curve \cite{c13}. We will use discrete Fr$\acute{e}$chat distance here. In\cite{c13} the discrete Fr$\acute{e}$chat distance defines a curve as a continuous mapping $f:[a,b] \rightarrow V$ where $a,b  \in  \mathbb{R}$ and a $\leq$ b. Also, (V,d) is a metric space. Given two curves, the discrete Fr$\acute{e}$chat distance is defined as 
+\begin{equation}
+\delta_F(f,g) =  inf_{\alpha,\beta}max_{t \in [0,1] }d(f(\alpha(t)),g(\beta(t)))\\
+\end{equation}
+where $\alpha, \beta$ are arbitrary continuous non-decreasing function from [0,1] to [a,b].\par
+
+$F_{1}$ score is popular using for evaluation of tracking performance \cite{c8}\cite{c14}\cite{c15} .There are two factors which called missing and false tracking rate.
+Missing tracking rate is the shortest distance from ground truth to tracked guidewire tip is greater than 3 pixels. 
+False tracking rate is the shortest distance from tracked guidewire tip to the ground truth is greater than 3 pixels.
+The $F_{1}$score combines two factors as in \cite{c8}\cite{c15}
+\begin{equation}
+F_{1} = 2*\frac{recall*precision}{recall+precision}
+\end{equation}
+where as 
+\begin{equation}
+recall = \frac{100-missing\%}{100}
+\end{equation}
+and
+\begin{equation}
+precision = \frac{100-false\%}{100}
+\end{equation}
+
+%\renewcommand\arraystretch{1.5}
+
+\renewcommand\arraystretch{1.5}
+\begin{table*}[h]
+	\centering
+	\input{../../../Downloads/math.log}
+
+	\caption{Guidewire Tip Recognition Performance}
+	\setlength{\tabcolsep}{5.5mm}{
+	%\scalebox{1.0}{。 \cline{3-8} 
+	\begin{tabular}{ccrrrrrrrrrr}
+	\hline
+	\multirow{2}{*}{Sequence}& \multirow{2}{*}{frames(\#)}& \multicolumn{3}{c}{Curvilinear Structure Similarity} & \multicolumn{3}{c}{Tracking Performance} \\  \cline{3-8}
+	 & &MOF(\%)& SA(\%)& TA(\%) & MTR(\%) &  FTR(\%)& F1score(0-1)\\ 
+	\hline
+	1&137&1.98&89.78&96.35&6.08&9.33&0.9227\\
+	%\hline
+	2&96&2.60&77.08&93.75&9.42&14.7&0.8786\\
+	%\hline
+	3&108&1.75&97.22&90.74&4.5&9.98&0.9268\\
+	%\hline
+	4&110&1.76&97.27&94.55&7.74&5.87&0.9319\\
+	%\hline
+	5&73&1.92&95.89&94.52&5.45&3.37&0.9558\\
+	%\hline
+	6&67&1.84&94.03&98.51&2.06&6.95&0.9543\\
+	%\hline
+	7&196&1.87&93.37&98.98&3.35&5.98&0.9562\\
+	%\hline
+	8&150&1.39&98&97.33&0.85&2.23&0.9846\\
+	%\hline
+	9&53&1.81&92.45&96.31&7.11&5.52&0.9368\\
+	%\hline
+	10&66&1.80&96.96&92.42&8.07&3.73&0.9405\\
+	\hline
+	\end{tabular}}
+\end{table*}
+
+
+\subsection{Case Exceptional Validation}
+Even though the tracking algorithm operates with high stability in most cases, plenty of factors still could influence segmentation process such as the noise of background, the location of guidewire tip and varies angles of the X-ray machine or the guidewire tip hides in a set of guidewire-like objects and passes in front of catheters due to the non-rigid characteristic of the guidewire and the flexibility of the vessel. Segmenting the target structure turns out to be very difficult in special cases. 1).The guidewire tip instantly disappear due to low quality of video sequence.
+2).The guidewire tip structure over-crossed or overlapped with the false curvilinear structure.
+3).The guidewire tip curls up which make our framework extremely hard to define.
+
+\begin{figure*}[thpb]
+	\centering  
+	\includegraphics[scale=1.0]{figures/figure7}
+		\caption{The tracking and segmentation of the guidewire tip by proposed framework in 8 consecutive frames from 128 to 135. The total guidewire tip tracking  performance in 150 frame is shown in the left bottom side.}  
+	\label{fig.mcmthesis-logo} 
+\end{figure*}
+
+\begin{figure}[thpb]
+	\centering  
+	\includegraphics[width=3.5in]{figures/figure9}
+		\caption{Exceptional cases} 
+	\label{fig.mcmthesis-logo} 
+\end{figure}
+
+
+Overall, the proposed framework recognizes  the location of guidewire tip with 100\% accuracy and shows above 90\% in tracking the guidewire tip in most cases. In  \cite{c8} the author mentioned the processing time of  SEGlets algorithm is 1-2 frames in 1 FPS without recognition of the guidewire tip. The processing time of RuSio framework in each frame included recognition and tracking is 1-2 frames in 1 FPS on average using Intel Core i7 (2.7GHz). Even though RuSio framework shows satisfying results in 10 fluoroscopic videos, the segmentation accuracy still can be improved.
+
+
+\section{DISSCUSSION AND CONCLUSION}
+
+Guidewire tip's motion in X-ray fluoroscopic video during the cardiovascular intervention surgery is affected by many factors. For instance, moving curvilinear structures need to be separated to track the correct target. Guidewire tip, moreover, experiences abnormal elastic deformation because of its non-rigid feature. These factors make it more challenging to track the guidewire tip in 2D X-ray fluoroscopic video. This paper introduces a fully autonomous and robust tracking framework based on customized tracking strategy that is proven experimentally for its accuracy. As our framework is implemented in python with an average tracking performance of 0.6s per frame, Our team will move towards tracking performance acceleration to improve the integration into the PC Software of the C-arm X-Ray Machine where we can test our tracking framework in the clinical environment. 
+
+As we have discussed earlier that the tracking of the guidewire tip in the fluoroscopic video is an important step to assist interventionist in making the correct decision during vascular intervention surgery. However, segmentation and shape of the guidewire tip are not sufficient in making the surgical procedure smarter for interventionists, since it only provides two-dimensional information which cannot be relied on for decision making. Deep logical development of artificial intelligent for interventional surgery is required. Our research team aims to improve the guidewire tip framework to provide more parameters such as heart rate and body temperature in the future. Besides, we should focus on the research problem on real-time co-registration between preoperative intervention planning and real-time fluoroscopic image to better understand where the guidewire is in a three-dimensional blood vessel. More importantly, with further research on the vascular interventional robot area, our tracking framework has a better application scenario to make the interventional robotic system more intelligent. In conclusion, our tracking framework improves the automation level of the computer-assisted vascular intervention.
+
+
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{thebibliography}{99}
+
+\bibitem{c1} J. F. Henriques, R. Caseiro, P. Martins, and J. Batista, “High-speed tracking with kernelized correlation filters,” \emph{IEEE Transactions on Pattern Analysis & Machine Intelligence,} vol. 37, no. 3, pp. 583–596, 2014.
+\bibitem{c2} D. Held, S. Thrun, and S. Savarese, “Learning to track at 100 fps with deep regression networks,” \emph{in European Conference Computer Vision (ECCV),} 2016.
+\bibitem{c3} A. Isard, Michaeland Blake, “Condensation—conditional density propagation for visual tracking,” \emph{International Journal of Computer Vision,} vol. 29, no. 1, pp. 5–28, Aug 1998. 
+\bibitem{c4} K. Bacchuwar, J. Cousty, R. Vaillant, and L. Najman, “Voidd: auto-matic vessel-of-intervention dynamic detection in pci procedures,”  \emph{in Intravascular Imaging and Computer Assisted Stenting, and Large-Scale Annotation of Biomedical Data and Expert Label Synthesis.}  Springer, 2017, pp. 47–56.
+\bibitem{c5} W. Peng, Z. Ying, Z. Wei, T. Chen, P. Durlak, U. Bill, and D. Comaniciu, “Hierarchical guidewire tracking in fluoroscopic sequences,”  \emph{In Medical Imaging 2009: Image Processing, } International Society for Optics and Photonics, vol. 7259, pp. 72591L , 2009.
+\bibitem{c6} L. Wang, X. L. Xie, G. B. Bian, Z. G. Hou, X. R. Cheng, and P. Prasong, “Guide-wire detection using region proposal network for x-ray image-guided navigation,”  \emph{International Joint Conference on Neural Networks (IJCNN). } IEEE, 2017, pp. 3169–3175, 2017.
+\bibitem{c7} Y. Ma, M. Alhrishy, S. A. Narayan, P. Mountney, and K. S. Rhode, “A novel real-time computational framework for detecting catheters and rigid guidewires in cardiac catheterization procedures,” \emph{ Medical physics }, vol. 45, no. 11, pp. 5066–5079, 2018.
+\bibitem{c8} A. Vandini, B. Glocker, M. Hamady,and G. Z. Yang,“Robust guidewire tracking under large deformations combining segment-like features (seglets),” \emph{Medical image analysis. } vol. 38, pp. 150–164, 2017.
+\bibitem{c9} A. F. Frangi, W. J. Niessen, K. L. Vincken, and M. A. Viergever, “Multiscale vessel enhancement filtering,” \emph{International conference on medical image computing and computer-assisted intervention.} Springer,  pp. 130–137, 1998.
+\bibitem{c10} C. Bauer and H. Bischof, “A novel approach for detection of tubular objects and its application to medical image analysis,”  J\emph{oint Pattern Recognition Symposium.}  Springer,  pp. 163–172, 2008.
+\bibitem{c11} B. Babenko, M. H. Yang, and S. Belongie, “Robust object tracking with online multiple instance learning,”  \emph{ IEEE Transactions on Pattern Analysis & Machine Intelligence. } IEEE, vol. 33, no. 8, pp. 1619–32, 2011.
+\bibitem{c12}  C. F. Jekel, V. Gerhard, V. M. P., S. Nielen, and H. R. T., “Similarity measures for identifying material parameters from hysteresis loops using inverse analysis,”  \emph{ International Journal of Material Forming. } pp. 1–24, 2018.
+\bibitem{c13} T. Eiter and H. Mannila, “Computing discrete frechet distance,”  Report CD-TR 94/64, Information Systems Department, Technical University of Vienna. vol. 64, pp. 636–637, 1994.
+\bibitem{c14} W. Peng, T. Chen, Z. Ying, Z. Wei, S. K. Zhou, and D. Comaniciu, “Robust guidewire tracking in fluoroscopy(Book style),”  \emph{ IEEE Conference on Computer Vision & Pattern Recognition.} IEEE, pp. 691-698, 2009.
+\bibitem{c15} A. W. M. Smeulders, D. M. Chu, R. Cucchiara, S. Calderara, A. Dehghan, and M. Shah, “Visual tracking: An experimental survey,”  \emph{ IEEE Transactions on Pattern Analysis and Machine Intelligence.} IEEE, vol. 36, no.7, pp. 1442–1468, July 2014.
+
+\end{thebibliography}
+
+\end{document}

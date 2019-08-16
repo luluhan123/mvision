@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b9ceaeb4-0bf6-4fb8-a37b-33b5acdab7a8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPoint.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPoint.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPointSet.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAModel/MSAStructure/MSAPointSet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="152" column="62" lean-forward="true" selection-start-line="152" selection-start-column="62" selection-end-line="152" selection-end-column="62" />
+            <state relative-caret-position="118">
+              <caret line="147" column="37" selection-start-line="147" selection-start-column="37" selection-end-line="147" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -157,7 +154,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
@@ -417,8 +414,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="152" column="62" lean-forward="true" selection-start-line="152" selection-start-column="62" selection-end-line="152" selection-end-column="62" />
+        <state relative-caret-position="118">
+          <caret line="147" column="37" selection-start-line="147" selection-start-column="37" selection-end-line="147" selection-end-column="37" />
         </state>
       </provider>
     </entry>
