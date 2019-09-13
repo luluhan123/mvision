@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b9ceaeb4-0bf6-4fb8-a37b-33b5acdab7a8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,11 +13,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="147" column="37" selection-start-line="147" selection-start-column="37" selection-end-line="147" selection-end-column="37" />
+            <state relative-caret-position="41">
+              <caret line="203" column="10" selection-start-line="203" selection-start-column="10" selection-end-line="203" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAInformationArea.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="426">
+              <caret line="91" column="156" selection-start-line="91" selection-start-column="91" selection-end-line="91" selection-end-column="156" />
             </state>
           </provider>
         </entry>
@@ -165,6 +175,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -181,13 +192,27 @@
               <item name="mvision" type="b2602c69:ProjectViewProjectNode" />
               <item name="mvision" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="MSAProcessingUnit" type="462c0819:PsiDirectoryNode" />
+              <item name="MSAView" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mvision" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mvision" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="MSAView" type="462c0819:PsiDirectoryNode" />
+              <item name="MSAMainWindow" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mvision" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mvision" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="MSAView" type="462c0819:PsiDirectoryNode" />
+              <item name="MSAMainWindow" type="462c0819:PsiDirectoryNode" />
+              <item name="MSAImageWorkSpace" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -414,8 +439,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAWorkSpace.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="147" column="37" selection-start-line="147" selection-start-column="37" selection-end-line="147" selection-end-column="37" />
+        <state relative-caret-position="41">
+          <caret line="203" column="10" selection-start-line="203" selection-start-column="10" selection-end-line="203" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -472,6 +497,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10665">
           <caret line="723" column="9" selection-start-line="723" selection-start-column="9" selection-end-line="723" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/MSAInformationArea.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="91" column="156" selection-start-line="91" selection-start-column="91" selection-end-line="91" selection-end-column="156" />
         </state>
       </provider>
     </entry>

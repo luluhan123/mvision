@@ -4,7 +4,7 @@ Automatic Tracking of Guidewire Tip From Fluoroscopic Videos Using RuSio Framewo
  
 RuSio framework Overview
 ----
-![Flowchar of RuSio framework](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/flowchart.png)
+![Flowchar of RuSio framework](https://github.com/wangtseng/mvision/blob/master/doc/figures/flowchart.png)
 
 Prerequisites
 ----
@@ -46,15 +46,15 @@ pip install opencv-contrib-python
 Test Demo
 ----
 After run msa_main.py, you will get this window:
-![Window](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/window.png)
+![Window](https://github.com/wangtseng/mvision/blob/master/doc/figures/window.png)
 
  Simply check the box for Tracking or Guidewire tip Evaluation or both
-![Check boxes](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/boxes.png) 
+![Check boxes](https://github.com/wangtseng/mvision/blob/master/doc/figures/boxes.png) 
 
  Drag target video sequence into correct position to run RuSio framework
-![Software window](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/software%20.png)
+![Software window](https://github.com/wangtseng/mvision/blob/master/doc/figures/software%20.png)
 
 Test Showcase
 ----
 The segmentation collection of guidewire tip from RuSio framework in 8 consecutive frames from 128 to 135.
-![Showcase](https://github.com/wangtseng/mvision/blob/master/doc/gtt/manuscript/figures/showcase.png)
+![Showcase](https://github.com/wangtseng/mvision/blob/master/doc/figures/showcase.png)
