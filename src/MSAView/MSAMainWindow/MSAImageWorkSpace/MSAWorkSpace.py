@@ -121,6 +121,7 @@ class MSAWorkSpace(QFrame):
                 ridge_pts_calibrated = ridge_pts_filtered
 
             if len(ridge_pts_calibrated) == 0:
+                print("eliminate points which are too far from the guidewire tip structure in last frame")
                 self.removed_sequence.append(i)
                 return
         else:
@@ -146,16 +147,17 @@ class MSAWorkSpace(QFrame):
         ridge_pts_new = self.controller.curve_fitting(ridge_pts_calibrated, 5, self.global_tacking_area_radius * 2 + 1, self.global_tacking_area_radius * 2 + 1, 10)
 
         if ridge_pts_new is not None:
-            if ridge_pts_new.get_length() > 10:
+            if ridge_pts_new.get_length() > 5:
                 ridge_pts_new.interpolation(ridge_pts_new.get_length()//3)
                 ridge_pts_new.sort()  # lle_sort()
                 pga_sequence = ridge_pts_new.b_spline_interpolation(15)
                 gts = ridge_pts_new.b_spline_interpolation(30)
 
                 # gts total length unreasonable
-                if ridge_pts_new.get_curvilinear_structure_length(gts) > 150:
-                    self.removed_sequence.append(i)
-                    return
+                # if ridge_pts_new.get_curvilinear_structure_length(gts) > 180:
+                #     print ("too long, eliminate!")
+                #     self.removed_sequence.append(i)
+                #     return
 
                 # ---------------------------------------------------------------------------------
                 #   TODO : Build a graph in order to:
@@ -171,6 +173,7 @@ class MSAWorkSpace(QFrame):
                 self.removed_sequence.append(i)
                 return
         else:
+            print ("is none...")
             self.removed_sequence.append(i)
             return
 
@@ -190,7 +193,7 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts, self.possiblely_gravity_points[i], (255, 165, 0), 80)
 
         # [2]
-        # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_filtered, self.possiblely_gravity_points[i], (255, 250, 250), 80)
+        # self.ctSequenceViewer.draw_tuple_point_cloud_by_order(ridge_pts_calibrated, self.possiblely_gravity_points[i], (255, 250, 250), 80)
 
         # [3]
         # self.ctSequenceViewer.contour_key_points_display(self.maximumLikelyhoodTrackingAreaMask[i], self.possiblely_gravity_points[i], (107, 227, 207), self.global_tacking_area_radius)
@@ -199,8 +202,8 @@ class MSAWorkSpace(QFrame):
         # self.ctSequenceViewer.generate_box_and_display(self.possiblely_gravity_points[i], self.global_tacking_area_radius * 2, self.global_tacking_area_radius * 2, (color.red(), color.green(), color.blue()))
 
         # GTS
-        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][0], self.possiblely_gravity_points[i], (200, 100, 100), self.global_tacking_area_radius, 4)
-        self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][-1], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 4)
+        # self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][0], self.possiblely_gravity_points[i], (200, 100, 100), self.global_tacking_area_radius, 4)
+        # self.ctSequenceViewer.draw_a_single_point(self.possiblely_guidewire_tip_structure[i][-1][-1], self.possiblely_gravity_points[i], (0, 0, 0), self.global_tacking_area_radius, 4)
         # self.ctSequenceViewer.draw_point_cloud_by_order(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], color, self.global_tacking_area_radius, 2)
         self.ctSequenceViewer.curve_display(self.possiblely_guidewire_tip_structure[i][-1], self.possiblely_gravity_points[i], (color.red(), color.green(), color.blue()))
 

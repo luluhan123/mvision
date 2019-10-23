@@ -720,7 +720,7 @@ class MSACanvas2D(QFrame):
         actor.SetMapper(spline_mapper)
         actor.GetProperty().SetColor(color[0]/255, color[1]/255, color[2]/255)
         actor.GetProperty().SetLineWidth(4)
-        actor.GetProperty().SetOpacity(0.3)
+        actor.GetProperty().SetOpacity(0.8)
         #print(actor.GetProperty().GetLineStipplePattern())
         # self.pts_actors.append(actor)
         #
@@ -854,7 +854,7 @@ class MSACanvas2D(QFrame):
         polygonSource = vtk.vtkRegularPolygonSource()
         # polygonSource.GeneratePolygonOff()
         polygonSource.SetNumberOfSides(50)
-        polygonSource.SetRadius(2)
+        polygonSource.SetRadius(1)
         polygonSource.SetCenter((pt[0] - radius + centre[0]) * self.magnifyFactorWidth, (pt[1] + centre[1] - radius) * self.magnifyFactorHeight, 0)
 
         mapper = vtk.vtkPolyDataMapper2D()

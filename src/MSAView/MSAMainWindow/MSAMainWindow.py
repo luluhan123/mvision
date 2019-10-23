@@ -83,7 +83,7 @@ class MSAMainWindow(QWidget):
             width = self.desktop.width()
             height = self.desktop.height()
 
-            if width <= 2000:
+            if width <= 3000:
                 self.ihm_factor = 1
             else:
                 self.ihm_factor = 2
