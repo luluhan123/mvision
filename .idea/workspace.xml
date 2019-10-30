@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9ceaeb4-0bf6-4fb8-a37b-33b5acdab7a8" name="Default Changelist" comment="" />
+    <list default="true" id="b9ceaeb4-0bf6-4fb8-a37b-33b5acdab7a8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mvision.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mvision.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/msfr.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/ResultViewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/MSAView/MSAMainWindow/MSAImageWorkSpace/ResultViewer.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,46 +20,6 @@
         <option value="Python Script" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>QFont</find>
-      <find>dtw</find>
-      <find>normalizeTwoCurves</find>
-      <find>get_arc_length</find>
-      <find>poly_area</find>
-      <find>self.pointSet</find>
-      <find>curve_length</find>
-      <find>appe</find>
-      <find>newImageSequenceDropped</find>
-      <find>draw_tuple_point_cloud_by_order</find>
-      <find>drop</find>
-      <find>save_guidewire_tip_ground_truth</find>
-      <find>centerline_extraction</find>
-      <find>execute</find>
-      <find>home</find>
-      <find>set_global_workspace_by_meta_file</find>
-      <find>adjust_image_to_window</find>
-      <find>globalBackgroundColor</find>
-      <find>mainInformationArea</find>
-      <find>tracking</find>
-      <find>interpolation</find>
-      <find>find_nearest_point</find>
-      <find>print</find>
-      <find>get_msa</find>
-      <find>Users</find>
-      <find>Times New Roman</find>
-      <find>ref_data_length</find>
-      <find>pga_sequence</find>
-      <find>b_spline_interpolation</find>
-      <find>length</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>pts</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>$PROJECT_DIR$</dir>
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

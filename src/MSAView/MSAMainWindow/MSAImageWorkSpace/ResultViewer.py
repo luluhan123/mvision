@@ -195,6 +195,7 @@ class ResultViewer(QWidget):
         self.dataVisualizationArea = QListWidget()
         self.dataVisualizationArea.setFixedSize(self.target_image_width*self.ihm_factor-62, 256*self.ihm_factor)
         self.dataVisualizationArea.setStyleSheet("background-color:transparent; color:" + self.globalFontColor)
+        self.dataVisualizationArea.setFont(self.globalFont)
         self.dataVisualizationArea.setViewMode(QListWidget.IconMode)
 
         self.dataVisualizationAreaControlArea = QLabel()
