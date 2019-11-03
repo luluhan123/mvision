@@ -49,7 +49,7 @@ class MSAPlottingBoard(QFrame):
         # a figure instance to plot on
         self.figure = plt.figure()
 
-        self.figure.patch.set_facecolor('#000F6E')
+        self.figure.patch.set_facecolor('#323232')
 
         self.canvas = FigureCanvas(self.figure)
         image_processing_bar = QLabel()
@@ -129,7 +129,7 @@ class MSAPlottingBoard(QFrame):
         if self.ihm_factor == 2:
             histo_plot.patch.set_facecolor('#434343')
         elif self.ihm_factor == 1:
-            histo_plot.patch.set_facecolor('#000F6E')
+            histo_plot.patch.set_facecolor('#323232')
 
         compteur = 0
         plots = []
@@ -196,7 +196,7 @@ class MSAPlottingBoard(QFrame):
         if self.ihm_factor == 2:
             histo_plot.patch.set_facecolor('#434343')
         elif self.ihm_factor == 1:
-            histo_plot.patch.set_facecolor('#000F6E')
+            histo_plot.patch.set_facecolor('#323232')
 
         histo_plot.plot(grayscale, frequency, 'green')
 
@@ -233,7 +233,7 @@ class MSAPlottingBoard(QFrame):
         if self.ihm_factor == 2:
             histo_plot.patch.set_facecolor('#434343')
         elif self.ihm_factor == 1:
-            histo_plot.patch.set_facecolor('#000F6E')
+            histo_plot.patch.set_facecolor('#323232')
 
         histo_plot.plot(grayscale, frequency, 'green')
 

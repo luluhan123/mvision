@@ -21,7 +21,7 @@ def main():
     communication_stack = Liena()
     communication_stack.register_device(SIAT_COCKPIT_VERSION_1, [SIAT_COCKPIT_VERSION_1, SIEMENS_CBCT_ARCADIS_ORBIC_VERSION_1, MEDSIGHT_INTERVENTIONAL_VASCULAR_ROBOT_VERSION_1])
     communication_stack.launch()
-    # communication_stack.open_session_request(SIAT_COCKPIT_VERSION_1, "192.168.1.102", 10704)
+    communication_stack.open_session_request(SIAT_COCKPIT_VERSION_1, "192.168.1.102", 10704)
 
     sys.exit(app.exec_())
 

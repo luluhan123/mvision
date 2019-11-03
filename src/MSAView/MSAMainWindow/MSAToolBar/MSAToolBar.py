@@ -83,7 +83,7 @@ class MSAToolBar(QLabel):
         # ------------------------------------------------------------------------------------------
         self.spacer = QLabel("MicroQ")
         self.spacer.setStyleSheet("background-color: transparent; color:rgb(210, 62, 90);")
-        self.spacer.setAlignment(Qt.AlignCenter)
+        self.spacer.setAlignment(Qt.AlignLeft)
         self.spacer.setFont(QFont("Helvetica", 16, QFont.DemiBold, True))
         self.spacer.setFixedSize(220 * self.ihm_factor, self.height*0.95)
 

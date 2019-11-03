@@ -58,7 +58,7 @@ class MSAMainWindow(QWidget):
         self.appY = 0
         self.ihm_factor = 1
 
-        self.globalBackgroundColor = "rgb(0, 15, 110)"
+        self.globalBackgroundColor = "rgb(50, 50, 50)"
         self.globalFontColor = "rgb(211, 211, 211)"
         self.globalFont = QFont("Helvetica", 10, QFont.Light, False)
         self.current_sequence = None
